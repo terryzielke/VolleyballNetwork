@@ -1,0 +1,15 @@
+/*
+    GLOBALLY REMOVE THINGS FROM ADMIN
+*/
+#toplevel_page_wpseo_workouts,
+#wp-admin-bar-wpseo-menu,
+.postbox.yoast,
+#dashboard_right_now .comment-count,
+ul.subsubsub,
+ul#adminmenu li.wp-has-submenu ul.wp-submenu,
+ul#adminmenu li.wp-has-submenu ul.wp-submenu li:not(.wp-first-item){
+    display: none !important;
+}
+#wp-admin-bar-logout-link{
+    float: right;
+}

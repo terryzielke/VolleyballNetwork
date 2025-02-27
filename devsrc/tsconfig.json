@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "../wp-content/themes/volleyballnetwork/js",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["es2017", "dom"],
+    "types": ["@vue/runtime-dom"],
+    "jsx": "preserve",
+    "allowJs": true,
+    "declaration": true, 
+    "emitDeclarationOnly": false,  // <== Change this to false
+    "noEmit": false  // <== Ensure this is false
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

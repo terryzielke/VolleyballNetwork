@@ -1,0 +1,545 @@
+header#header{
+	position: relative;
+	z-index: 100;
+	box-shadow: 0 0 20px hsla(0,0%,0%,.1);
+	background: $white;
+	.utility-row{
+		height: 30px;
+		background: $blue;
+		color: $white;
+		font-size: 12px;
+		padding: 0 10px;
+		.col{
+			&:nth-child(2){
+				text-align: right;
+			}
+			a{
+				position: relative;
+				display: inline-block;
+				padding: 0 10px;
+				line-height: 30px;
+				text-transform: uppercase;
+				cursor: pointer;
+				text-shadow: 0 0 0 hsl(0,0%,50%);
+				transition: .2s all linear;
+				&:hover{
+					color: $orange;
+				}
+				&#utility-find-program{
+					padding-right: 15px;
+					&::before{
+						content: '';
+						position: absolute;
+						top: 0;
+						right: 0;
+						width: 0;
+						height: 100%;
+						border-right: 1px solid $white;
+						transform: rotate(-20deg);
+					}
+				}
+				&#utility-login{
+					padding-right: 15px;
+					&::before{
+						content: '';
+						position: absolute;
+						top: 0;
+						right: 0;
+						width: 0;
+						height: 100%;
+						border-right: 1px solid $white;
+						transform: rotate(20deg);
+					}
+				}
+				&#utility-signup{
+					
+				}
+			}
+		}
+		@media(max-width: $lg){
+			.col{
+				a{
+					font-size: clamp(10px,.6vw,12px);
+					font-weight: 500;
+				}
+			}
+		}
+		@media(max-width: $sm){
+			.col{
+				a{
+					span{
+						display: none;
+					}
+				}
+			}
+		}
+	}
+	.header-row{
+		padding: 0 20px !important;
+		.col{
+			position: relative;
+			z-index: 1;
+			/*
+				Start Left
+			*/
+			&.left{
+				#header-logo{
+					display: inline-block;
+					padding: 8px 0;
+					img{
+						height: 80px;
+						padding: 10px 0;
+					}
+				}
+				@media(max-width:$lg){
+					#header-logo{
+						img{
+							height: 60px;
+						}
+					}
+				}
+			}
+			/*
+				End Left
+				Start Center
+			*/
+			&.center{
+				@media(min-width:$md){
+					/* Primary Menu */
+					.menu-primary-container{
+						#primary-menu{
+							text-align: center;
+							font-size: 0;
+							li{
+								position: relative;
+								display: inline-block;
+								&:not(:nth-last-child(1)){
+									border-right: 1px solid hsla(0,0%,0%,.1);
+								}
+								a{
+									display: inline-block;
+									height: 100px;
+									line-height: 100px;
+									padding: 0 20px;
+									font-size: clamp(12px, .8vw, 20px);
+									color: $grey;
+									text-transform: uppercase;
+									cursor: pointer;
+								}
+								&.dropdown{
+									.menu-toggle{
+										position: absolute;
+										top: 0;
+										left: 0;
+										width: 100%;
+										height: 100%;
+										padding: 0 !important;
+										background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/down-carrot.svg);
+										background-repeat: no-repeat;
+										background-size: 15px;
+										background-position: center bottom 20%;
+										opacity: .1;
+										transition: .3s all ease-out;
+										cursor: pointer;
+										&.on{
+											opacity: .5;
+											background-position: center bottom 13% !important;
+										}
+									}
+									.sub-menu{
+										li{
+											.menu-toggle{
+												display: none !important;
+											}
+										}
+									}
+								}
+								&:hover{
+									.menu-toggle{
+										background-position: center bottom 13%;
+									}
+								}
+								/* Sub Menus */
+								ul.sub-menu{
+									position: absolute;
+									top: 104px;
+									left: 0px;
+									display: flex;
+									flex-direction: row;
+									width: 70vw;
+									padding-bottom: 20px;
+									background: $blue;
+									border-left: 1px solid hsla(0,0%,100%,.1);
+									font-size: 0;
+									opacity: 0;
+									pointer-events: none;
+									transition: top .2s linear, opacity .2s linear ;
+									&.active{
+										top: 98px;
+										opacity: 1;
+										pointer-events: all;
+										ul.sub-menu{
+											top: 98px;
+											opacity: 1;
+											pointer-events: all;
+										}
+									}
+									&::before{
+										content: '';
+										position:absolute;
+										z-index: -1;
+										top: 0;
+										left: -100vw;
+										width: 200vw;
+										height: 100%;
+										background: $blue;
+									}
+									&::after{
+										content: '';
+										position:absolute;
+										z-index: -1;
+										top: 0;
+										right: 100%;
+										width: 100vw;
+										height: 100%;
+										background: $blue;
+										background-image: url(/wp-content/themes/volleyballnetwork/assets/img/geometry-blue-2.png);
+										background-size: 20%;
+									}
+									li{
+										position: relative;
+										display: inline-block;
+										padding: 0;
+										border: none !important;
+										a{
+											display: block;
+											height: $font-size;
+											margin: .7em 0;
+											padding: 2em 20px;
+											font-family: $impact;
+											font-weight: 200;;
+											font-size: clamp(12px, .8vw, 20px);
+											line-height: clamp(12px, .8vw, 20px);
+											color: $white !important;
+											text-transform: uppercase;
+											text-align: left;
+											transition: .2s all linear;
+										}
+										
+										ul.sub-menu{
+											position: relative !important;
+											top: auto !important;
+											display: block !important;
+											border: none !important;
+											width: 100%;
+											padding-bottom: 0;
+											&::before,
+											&::after{
+												content: none;
+												display: none;
+											}
+											li{
+												display: block;
+												padding: 0;
+												a{
+													height: auto;
+													margin: .7em 0;
+													padding: 0 20px;
+													font-family: $text;
+													font-weight: 400;
+													font-size: clamp(10px, .7vw, 16px);
+													line-height: 1em;
+													&:hover{
+														color: $orange !important;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					@media(max-width:$lg){
+						.menu-primary-container{
+							#primary-menu{
+								li{
+									a{
+										padding-left: 1vw !important;
+										padding-right: 1vw !important;
+										height: 80px;
+										line-height: 80px;
+									}
+									.menu-toggle{
+										background-size: 10px !important;
+										background-position: center bottom 15%;
+										&.on{
+											background-position: center bottom 10% !important;
+										}
+									}
+									&:hover{
+										.menu-toggle{
+											background-position: center bottom 10%;
+										}
+									}
+									ul.sub-menu{
+										top: 84px;
+										li{
+											a{
+												margin: 5px 0;
+											}
+											ul.sub-menu{
+												li{
+													a{
+														font-weight: 500;
+													}
+												}
+											}
+										}
+										&.active{
+											top: 80px;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				@media(max-width: $md){
+					position: absolute;
+					top: 100px;
+					left: 0;
+					padding: 0;
+					width: 100vw;
+					height: 0;
+					background-color: $white;
+					.menu-primary-container{
+						text-align: left;
+						ul#primary-menu{
+							display: none;
+							text-align: left !important;
+							background-color: $white;
+							border-bottom: 70px solid $blue;
+							height: calc(100vh - 100px);
+							overflow-y: scroll;
+							&.open{
+								display: block;
+							}
+							li{
+								position: relative;
+								display: block;
+								&:not(:nth-last-child(1)){
+									a{
+										border-bottom: 1px solid hsla(0,0%,0%,.1);
+									}
+								}
+								a{
+									display: block;
+									padding: 0 10px;
+									width: calc(100% - 30px);
+									height: 30px;
+									line-height: 30px;
+									background: hsla(0,0%,0%,0);
+									&:hover{
+										background: hsla(0,0%,0%,.1);
+									}
+								}
+								.menu-toggle{
+									position: absolute;
+									z-index: 10;
+									right: 0;
+									top: 0 !important;
+									width: 30px;
+									height: 30px;
+									background-color: hsla(0,0%,0%,0);
+									background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/down-carrot.svg);
+									background-repeat: no-repeat;
+									background-size: 35%;
+									background-position: center;
+									cursor: pointer;
+									&:not(.on){
+										border-bottom: 1px solid hsla(0,0%,0%,.1);
+									}
+									&.on{
+										transform: rotate(180deg);
+										//border-top: 1px solid hsla(0,0%,0%,.1);
+									}
+									&:hover{
+										background-color: hsla(0,0%,0%,.1);
+									}
+								}
+								ul.sub-menu{
+									display: none;
+									&.active{
+										display: block;
+									}
+									li{
+										padding-left: 20px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			/*
+				End Center
+				Start Right
+			*/
+			&.right{
+				z-index: 10;
+				text-align: right;
+				form.search-form{
+					position: absolute;
+					top: 0;
+					right: 0;
+					float: right;
+					width: 110px;
+					padding: 34px 0;
+					background: $white;
+					transition: width 0.3s ease-out, box-shadow 0.3s ease-out;
+					&::after{
+						content: '';
+						position: absolute;
+						z-index: 2;
+						top: 0;
+						right: 0;
+						display: inline-block;
+						width: 20px;
+						height: 100%;
+						background: linear-gradient(to right, hsla(0,0%,100%,.0), hsla(0,0%,100%,1));
+						opacity: 1;
+					}
+					label{
+						position: relative;
+						width: 100%;
+						.screen-reader-text{
+							display: none !important;
+						}
+						&::before{
+							content: '';
+							position: relative;
+							top: 1px;
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/search.svg);
+							background-repeat: no-repeat;
+							background-size: contain;
+							background-position: center;
+						}
+						input.search-field{
+							-webkit-appearance: none;
+							background: none;
+							border: none;
+							height: 30px;
+							width: calc(100% - 30px);
+							font-size: 20px;
+							font-family: $impact;
+							color: $grey;
+							text-transform: uppercase;
+							outline: none !important;
+							border: none !important;
+							box-shadow: none !important;
+							transition: width 0.3s ease-out;
+							&::placeholder {
+								color: $orange;
+							}
+							&:focus{
+								&::placeholder {
+									color: hsla(0,0%,0%,.1);
+								}
+							}
+						}
+						input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-results-decoration{
+							display: none !important;
+						}
+					}
+					input.search-submit{
+						display: none !important;
+					}
+				}
+				#menu-button{
+					display: none;
+					position: absolute;
+					top: 24px;
+					right: 0;
+					background: none;
+					height: 30px;
+					width: 30px;
+					line-height: 80px;
+					padding: 0;
+					text-align: center;
+					cursor: pointer;
+					color: $grey;
+					border: none;
+					.bar{
+						position: absolute;
+						display: block;
+						width: 80%;
+						height: 2.5px;
+						left: 10%;
+						background: $grey;
+						border-radius: 100px;
+						transition: all 0.3s ease-out;
+						&.bar1{
+							top: 20%;
+							width: 70%;
+							left: 15%;
+						}
+						&.bar2{
+							top: calc(50% - 1px);
+						}
+						&.bar3{
+							bottom: 18%;
+							width: 70%;
+							left: 15%;
+						}
+					}
+					// Menu Button Animation
+					&.active{
+						.bar1 {
+							transform: rotate(-45deg) translate(-7px, 5px);
+						}
+						.bar2 {
+							opacity: 0;
+							left: 100px;
+						}
+						.bar3 {
+							transform: rotate(45deg) translate(-6px, -4px);
+						}
+					}
+				}
+				@media(max-width:$lg){
+					form.search-form{
+						width: 90px;
+						padding: 27px 0;
+						label{
+							&::before{
+								width: 15px;
+								height: 15px;
+							}
+							input.search-field{
+								height: 25px;
+								width: calc(100% - 25px);
+								font-size: 16px;
+							}
+						}
+					}
+				}
+				@media(max-width:$md){
+					form.search-form{
+						right: 40px;
+						padding: 26px 0;
+					}
+					#menu-button{
+						display: block;
+					}
+				}
+			}
+			/*
+				End Right
+			*/
+		}
+	}
+}

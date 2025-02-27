@@ -1,0 +1,73 @@
+.frame{
+    margin-top: 12px;
+}
+.frame label{
+    display: block;
+    margin: 20px 5px 10px;
+    font-weight: 600;
+}
+.frame select,
+.frame input[type="text"],
+.frame textarea{
+    width: 100%;
+}
+.frame .button.blue {
+    color: #fff !important;
+    background: #0099ff;
+    border-color: #0099ff;
+    cursor: pointer;
+    transition: .2s all linear;
+}
+.frame .button.pink {
+    margin-top: 10px;
+    color: #fff !important;
+    background: #ff0099;
+    border-color: #ff0099;
+    cursor: pointer;
+    transition: .2s all linear;
+}
+
+
+/*
+    ADMIN EDIT PROGRAM POST TYPE
+*/
+.season-group {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+.season-header {
+    background: #f7f7f7;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.season-header .season-title{
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.season-content {
+    display: none;
+    padding: 10px;
+}
+.season-content.active {
+    display: block;
+}
+
+
+/*
+    VENUE
+*/
+#country-adder,
+#state-adder,
+#city-adder{
+    display: none !important;
+}
+
+/*
+    GLOBALLY REMOVE THINGS FROM ADMIN
+*/
+.inline-edit-wrapper .inline-edit-categories{
+    display: none !important;
+}

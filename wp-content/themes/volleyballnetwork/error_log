@@ -1,0 +1,8 @@
+[04-May-2021 10:30:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/aty8kzgpd3tn/public_html/wp-content/themes/sdk/index.php:2
+Stack trace:
+#0 {main}
+  thrown in /home/aty8kzgpd3tn/public_html/wp-content/themes/sdk/index.php on line 2
+[07-Nov-2024 13:06:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/alberta9/public_html/wp-content/themes/ALBERTACRAFTALLIANCE/404.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/alberta9/public_html/wp-content/themes/ALBERTACRAFTALLIANCE/404.php on line 1

@@ -1,0 +1,89 @@
+{
+	outline: none !important;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+	-moz-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+	-ms-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+	tap-highlight-color: rgba(255, 255, 255, 0) !important;
+}
+body.login{
+	background: white;
+}
+#login{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	width: 100%;
+	max-width: 300px;
+	padding: 100px 0 0;
+}
+#login h1{
+	display: none !important;
+}
+#login form{
+  background: none !important;
+  border: none !important;
+  padding: 20px;
+}
+#login form label{
+	color: #404040 !important;
+}
+#login form input#wp-submit{
+	background: #264898 !important;
+	border: none !important;
+	border-radius: 1000px !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+}
+#login input#wp-submit:hover,
+#login input#wp-submit:focus{
+	background: #FFA736 !important;
+}
+
+#login a{
+	color: #FFA736 !important;
+}
+#login a:visited{
+	color: #FFA736 !important;
+}
+#login a:hover,
+#login a:focus{
+	color: #264898 !important;
+}
+
+#login #backtoblog{
+	position: absolute;
+	top: -40px;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	padding: 0 !important;
+	background: url(/wp-content/themes/volleyballnetwork/assets/img/volleyball-network-logo.svg) no-repeat center;
+	background-size: contain;
+}
+#login #backtoblog a{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+/*
+	RESET PASSWORD FORM
+*/
+#nav{
+	text-align: center;
+}
+#login form#resetpassform .password-input-wrapper{
+	width: 100%;
+}
+.wp-core-ui .button-secondary span.dashicons::before{
+	font-family: dashicons !important;
+}
+.privacy-policy-link{
+  display: none !important;
+}

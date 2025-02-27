@@ -1,0 +1,28 @@
+form.forminator-custom-form{
+	label,
+	.forminator-description{
+		display: none !important;
+	}
+	input,
+	textarea{
+		border: none !important;
+		border-radius: 5px !important;
+	}
+	.forminator-button-submit{
+		display: inline-block;
+		-webkit-appearance: none;
+		background-color: $blue !important;
+		border: 2px solid $blue !important;
+		color: $grey !important;
+		padding: .3em 1em !important;
+		border-radius: 1000px !important;
+		font-size: $font-size !important;
+		font-weight: 800 !important;
+		transition: .2s all linear !important;
+		&:hover{
+			background-color: $orange !important;
+			border-color: $orange !important;
+			color: $black !important;
+		}
+	}
+}

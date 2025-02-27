@@ -1,0 +1,60 @@
+button,
+.button,
+.btn,
+input[type=submit]{
+	display: inline-block;
+	-webkit-appearance: none;
+	background-color: $blue;
+	border-color: $blue;
+	color: $white;
+	padding: .3em 1em;
+	border-radius: 1000px;
+	font-family: $impact;
+	font-size: $font-size;
+	font-weight: 100;
+	text-transform: uppercase;
+	transition: .2s all linear;
+	&:hover{
+		background-color: color.adjust($blue, $lightness: 10%);
+		border-color: color.adjust($blue, $lightness: 10%);
+		color: color.adjust($blue, $lightness: 10%);
+	}
+	&.blue{
+		background-color: $blue;
+		border-color: $blue;
+		color: $white;
+		&:hover{
+			background-color: color.adjust($blue, $lightness: 10%);
+			border-color: color.adjust($blue, $lightness: 10%);
+			
+			color: $white;
+		}
+	}
+	&.orange{
+		background-color: $orange;
+		border-color: $orange;
+		color: $white;
+		&:hover{
+			background-color: color.adjust($orange, $lightness: 10%);
+			border-color: color.adjust($orange, $lightness: 10%);
+			color: $white;
+		}
+	}
+	&.white{
+		background-color: $white;
+		border-color: $white;
+		color: $blue;
+		&:hover{
+			background-color: color.adjust($white, $lightness: -10%);
+			border-color: color.adjust($white, $lightness: -10%);
+			color: $blue;
+		}
+	}
+}
+
+.button-wrapper{
+	padding: 50px 0 0;
+	@media(max-width:$md){
+		padding: 5vh 0 0;
+	}
+}

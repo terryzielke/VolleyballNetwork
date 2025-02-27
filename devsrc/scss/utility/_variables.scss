@@ -1,0 +1,66 @@
+/* FONTS */
+@font-face {
+    font-family: 'impact';
+    src: url('../assets/font/impact-webfont.woff2') format('woff2'),
+         url('../assets/font/impact-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'rajdhani';
+    src: url('../assets/font/rajdhani-light-webfont.woff2') format('woff2'),
+         url('../assets/font/rajdhani-light-webfont.woff') format('woff');
+    font-weight: 200;
+    font-style: light;
+}
+@font-face {
+    font-family: 'rajdhani';
+    src: url('../assets/font/rajdhani-medium-webfont.woff2') format('woff2'),
+         url('../assets/font/rajdhani-medium-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'rajdhani';
+    src: url('../assets/font/rajdhani-semibold-webfont.woff2') format('woff2'),
+         url('../assets/font/rajdhani-semibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: bold;
+}
+
+/* VARIABLES START */
+$black: #000000;
+$white: #ffffff;
+$blue: #264898;
+$orange: #FFA736;
+$grey: #404040;
+.black{color: $black;}
+.white{color: $white;}
+.blue{color: $blue;}
+.orange{color: $orange;}
+.grey{color: $grey;}
+.black-bg{background-color: $black;}
+.white-bg{background-color: $white;}
+.blue-bg{background-color: $blue;}
+.orange-bg{background-color: $orange;}
+.grey-bg{background-color: $grey;}
+
+$xs: 0;
+$sm: 576px;
+$md: 767px; // 768px
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
+$page-width: 1640px;
+
+
+/* STANDARD FONTS */
+$fontawesome:	'Font Awesome 5 Free' !important;	// DO NOT EDIT
+$icon:			$fontawesome; 						// DO NOT EDIT
+$social:		$fontawesome;						// DO NOT EDIT
+
+// BRAND FONTS
+$impact:		'impact', sans-serif;
+$rajdhani:		'rajdhani', sans-serif;
+$text:			'Open Sans', sans-serif;
+$font-size:		clamp(14px, 1.2vw, 20px);

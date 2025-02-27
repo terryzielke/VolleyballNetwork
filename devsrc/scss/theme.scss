@@ -1,0 +1,25 @@
+@use "sass:color";
+//Setup
+@import 'vendor/bootstrap';
+@import 'utility/mixins';
+@import 'utility/reset';
+@import 'utility/variables';
+
+//Components
+@import 'components/admin';
+@import 'components/text';
+@import 'components/buttons';
+@import 'components/header';
+@import 'components/footer';
+@import 'components/body';
+
+//Pages and Posts
+@import 'pages/posts';
+@import 'pages/frontpage';
+@import 'pages/city_template';
+@import 'pages/program_search';
+
+//Modules
+@import 'modules/forminator';
+@import 'modules/city';
+@import 'modules/bootstrap';
