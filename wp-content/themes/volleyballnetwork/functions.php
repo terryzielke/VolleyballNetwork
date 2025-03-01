@@ -52,7 +52,7 @@ add_action('admin_enqueue_scripts', function(){
     wp_enqueue_script('jquery');
  	wp_enqueue_script( 'jquery-ui-datepicker' );
     wp_enqueue_script( 'jquery-ui-sortable' );
-    //wp_enqueue_script('custom-admin-script', get_template_directory_uri() . '/js/admin/admin-script.js', array('jquery'), null, true);
+    wp_enqueue_script('ajax-script', get_template_directory_uri() . '/php/functions/ajax-scripts.js', array('jquery'), null, true);
     //wp_localize_script('custom-admin-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 });
 
@@ -82,7 +82,7 @@ function volleyball_post_type_templates($postType){
 	global $post;
 	
 	if($post->post_type == 'program'){
-  		$postType = dirname( __FILE__ ) . '/admin/post-types/city/templates/single-program.php';
+  		$postType = dirname( __FILE__ ) . '/admin/post-types/program/templates/single-program.php';
 	}
     if($post->post_type == 'venue'){
   		$postType = dirname( __FILE__ ) . '/admin/post-types/venue/templates/single-venue.php';
@@ -416,6 +416,7 @@ function admin_footer_javascript_scripts() {
                     $(this).attr("type", "radio");
                 });
             });
+
 
             jQuery(document).ready(function($) {
                 var allowedTaxonomies = ["state", "country", "city"];

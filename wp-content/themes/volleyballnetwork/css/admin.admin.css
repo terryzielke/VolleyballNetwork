@@ -7,7 +7,10 @@
 #dashboard_right_now .comment-count,
 ul.subsubsub,
 ul#adminmenu li.wp-has-submenu ul.wp-submenu,
-ul#adminmenu li.wp-has-submenu ul.wp-submenu li:not(.wp-first-item){
+ul#adminmenu li.wp-has-submenu ul.wp-submenu li:not(.wp-first-item),
+#user-country-taxonomy-wrapper,
+#user-state-taxonomy-wrapper,
+#user-city-taxonomy-wrapper{
     display: none !important;
 }
 #wp-admin-bar-logout-link{

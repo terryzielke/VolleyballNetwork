@@ -48,7 +48,7 @@ function volleyball_program_post_type_int() {
 		'hierarchical'       => true,
 		'menu_position'      => 10,
 		'menu_icon'          => 'dashicons-clipboard',
-		'supports'           => array( 'title', 'editor', 'page-attributes' ),
+		'supports'           => array( 'title', 'page-attributes' ),
         'show_in_rest'       => true,
 	);
 	register_post_type( 'program', $program_args );
@@ -218,13 +218,7 @@ function volleyball_program_orderby( $query ) {
 
     $orderby = $query->get( 'orderby' );
 
-    if ( 'age' == $orderby ) {
-        $query->set( 'meta_key', 'program_age' );
-        $query->set( 'orderby', 'meta_value' );
-    } elseif ( 'gender' == $orderby ) {
-        $query->set( 'meta_key', 'program_gender' );
-        $query->set( 'orderby', 'meta_value' );
-    } elseif ( 'venue' == $orderby ) {
+    if ( 'venue' == $orderby ) {
         $query->set( 'meta_key', 'program_venue' );
         $query->set( 'orderby', 'meta_value' );
     } elseif ( 'league' == $orderby ) {

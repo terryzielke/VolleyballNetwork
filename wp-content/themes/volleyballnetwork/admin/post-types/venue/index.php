@@ -48,7 +48,7 @@ function volleyball_venue_post_type_int() {
 		'hierarchical'       => true,
 		'menu_position'      => 10,
 		'menu_icon'          => 'dashicons-location',
-		'supports'           => array( 'title', 'editor', 'page-attributes' ),
+		'supports'           => array( 'title', 'page-attributes' ),
         'show_in_rest'       => true,
 	);
 	register_post_type( 'venue', $venue_args );
@@ -66,7 +66,7 @@ function volleyball_venue_add_meta_boxes() {
 		'Address',
 		'venue_address',
 		'Venue',
-		'side'
+		'normal'
 	);
 }
 add_action( 'add_meta_boxes', 'volleyball_venue_add_meta_boxes' );
@@ -150,13 +150,113 @@ function volleyball_venue_custom_column( $column, $post_id ) {
 }
 add_action( 'manage_venue_posts_custom_column', 'volleyball_venue_custom_column', 10, 2 );
 
-// sortable columns
+// Make the custom columns sortable
 function volleyball_venue_sortable_columns( $columns ) {
-	$columns['city'] = 'city';
-	$columns['state'] = 'state';
-	return $columns;
+    $columns['city'] = 'city';
+    $columns['state'] = 'state';
+    return $columns;
 }
 add_filter( 'manage_edit-venue_sortable_columns', 'volleyball_venue_sortable_columns' );
+
+// Handle the sorting logic
+function volleyball_venue_orderby( $query ) {
+    if ( ! is_admin() ) {
+        return;
+    }
+
+    $orderby = $query->get( 'orderby' );
+}
+add_action( 'pre_get_posts', 'volleyball_venue_orderby' );
+
+// taxonomy filters
+function volleyball_venue_city_filter() {
+    global $typenow;
+
+    if ( 'venue' !== $typenow ) {
+        return;
+    }
+
+    $taxonomy_slug = 'city';
+    $taxonomy = get_taxonomy( $taxonomy_slug );
+
+    if ( ! $taxonomy ) {
+        return;
+    }
+
+    wp_dropdown_categories( array(
+        'show_option_all' => sprintf( __( 'Show all %s', 'textdomain' ), $taxonomy->labels->name ),
+        'taxonomy'        => $taxonomy_slug,
+        'name'            => $taxonomy_slug,
+        'orderby'         => 'name',
+        'selected'        => isset( $_GET[ $taxonomy_slug ] ) ? $_GET[ $taxonomy_slug ] : 0,
+        'show_count'      => true,
+        'hide_empty'      => false,
+    ) );
+}
+add_action( 'restrict_manage_posts', 'volleyball_venue_city_filter' );
+
+
+function volleyball_venue_city_filter_query( $query ) {
+    global $pagenow, $typenow;
+
+    if ( 'edit.php' !== $pagenow || 'venue' !== $typenow ) {
+        return;
+    }
+
+    $taxonomy_slug = 'city';
+
+    if ( isset( $_GET[ $taxonomy_slug ] ) && $_GET[ $taxonomy_slug ] !== '0' ) {
+        $term_id = intval( $_GET[ $taxonomy_slug ] );
+
+        echo '<pre>$_GET[city] inside if: ' . $_GET['city'] . '</pre>';
+        echo '<pre>term_id inside if: ' . $term_id . '</pre>';
+        echo '<pre>taxonomy_slug: ' . $taxonomy_slug . '</pre>';
+        echo '<pre>term_id type: '. gettype($term_id) .'</pre>';
+
+        // Initialize tax_query if it doesn't exist
+        if ( ! isset( $query->query_vars['tax_query'] ) ) {
+            $query->query_vars['tax_query'] = array();
+        }
+
+        $query->query_vars['tax_query'][] = array(
+            'taxonomy' => $taxonomy_slug,
+            'field'    => 'term_id',
+            'terms'    => $term_id,
+        );
+
+        echo '<pre>tax_query: ';
+        print_r( $query->query_vars['tax_query'] );
+        echo '</pre>';
+
+        echo '<pre>terms type: '. gettype($query->query_vars['tax_query'][0]['terms']) . '</pre>'; // Move this line here.
+
+    }
+
+    return $query;
+}
+add_filter( 'parse_query', 'volleyball_venue_city_filter_query' );
+/*
+function volleyball_venue_city_filter_query( $query ) {
+    global $pagenow, $typenow;
+
+    if ( 'edit.php' !== $pagenow || 'venue' !== $typenow ) {
+        return;
+    }
+
+    $taxonomy_slug = 'city';
+
+    if ( isset( $_GET[ $taxonomy_slug ] ) && $_GET[ $taxonomy_slug ] !== '0' ) {
+        $term_id = intval( $_GET[ $taxonomy_slug ] );
+
+        $query->query_vars['tax_query'][] = array(
+            'taxonomy' => $taxonomy_slug,
+            'field'    => 'term_id',
+            'terms'    => $term_id,
+        );
+    }
+}
+add_filter( 'parse_query', 'volleyball_venue_city_filter_query' );
+*/
 
 
 

@@ -68,6 +68,18 @@
 /*
     GLOBALLY REMOVE THINGS FROM ADMIN
 */
+body.post-type-league #pageparentdiv,
+body.post-type-local-league #pageparentdiv,
+body.post-type-venue #pageparentdiv,
+body.post-type-program #pageparentdiv,
+body.post-type-city #pageparentdiv,
 .inline-edit-wrapper .inline-edit-categories{
     display: none !important;
+}
+
+/**
+ *  ADMIN BAR
+ */
+#wpadminbar li#wp-admin-bar-logout-link{
+    float: right;
 }

@@ -1,5 +1,8 @@
 <template>
-    <div v-if="loading">Loading programs...</div>
+    <div v-if="loading" class="loading">
+        <img src="/wp-content/themes/volleyballnetwork/assets/img/UI/Spinner-white.gif" alt="Loading" />
+        <span>Loading programs...</span>
+    </div>
     <div v-if="error">{{ error }}</div>
 
     <!-- filter search bar -->
@@ -16,6 +19,20 @@
             <select id="city" v-model="selectedCity">
                 <option value="">All Cities</option>
                 <option v-for="city in availableCities" :key="city" :value="city">{{ city }}</option>
+            </select>
+        </div>
+        <div class="filter">
+            <label for="age">Age</label>
+            <select id="age" v-model="selectedAge">
+                <option value="">All Ages</option>
+                <option v-for="age in availableAges" :key="age" :value="age">{{ age }}</option>
+            </select>
+        </div>
+        <div class="filter">
+            <label for="gender">Gender</label>
+            <select id="gender" v-model="selectedGender">
+                <option value="">All Genders</option>
+                <option v-for="gender in availableGenders" :key="gender" :value="gender">{{ gender }}</option>
             </select>
         </div>
     </div>
@@ -36,8 +53,8 @@
                 <div class="program-details">
                     <div class="row">
                         <div class="col">
-                            <div v-if="matchingSeason(program)">  
-                                <h4 v-if="matchingSeason(program)" class="orange">{{ matchingSeason(program)?.season }} {{ matchingSeason(program)?.year }}</h4>
+                            <div v-if="program.program_season">
+                                <h4 class="orange">{{ program.program_season }}</h4>
                             </div>
                             <div v-else>
                                 <p>No matching season found.</p>
@@ -45,7 +62,7 @@
                         </div>
                         <div class="col">
                             <h4><span v-if="program.venue_city && program.venue_city.length > 0">{{ program.venue_city.map(city => city.name ).join(' ') }}</span><span v-else>City Not Found</span></h4>
-                            <p><span v-if="program.venue_address">{{ program.venue_address }}</span><span v-else>Address Not Found</span></p>
+                            <p><span v-if="program.venue_address">{{ decodedHTML(program.venue_address) }}</span><span v-else>Address Not Found</span></p>
                             <p>
                                 <span v-if="program.venue_city && program.venue_city.length > 0">{{ program.venue_city.map(city => city.name ).join(' ') }}</span>, 
                                 <span v-if="program.venue_state && program.venue_state.length > 0">{{ program.venue_state.map(state => state.name ).join(' ') }}</span>. 
@@ -55,7 +72,9 @@
                         <div class="col">
                             <h4>Schedule</h4>
                             <p v-if="program.program_start_date"><strong>Start Time: </strong>{{ program.program_start_date }}</p>
+                            <p v-else>Start Time: {{ getSeasonStartDate(program) }}</p>
                             <p v-if="program.program_end_date"><strong>End Time: </strong>{{ program.program_end_date }}</p>
+                            <p v-else>End Time: {{ getSeasonEndDate(program) }}</p>
                             <p v-if="program.program_days">
                                 <strong>Days: </strong>
                                 <span v-if="Array.isArray(program.program_days)">{{ program.program_days.join(', ') }}</span>
@@ -65,7 +84,12 @@
                         </div>
                         <div class="col">
                             <h4>Details</h4>
-                            <p v-if="matchingSeason(program)"><strong>Price: </strong>{{ matchingSeason(program)?.price }}</p>
+                            <p v-if="getSeasonPrice(program)">
+                                {{ getSeasonPrice(program) }} CAD
+                            </p>
+                            <p v-else-if="program.program_season">
+                                Price not available for {{ program.program_season }}
+                            </p>
                             <p v-if="program.program_gender"><strong>Gender: </strong> {{ program.program_gender.map(gender => gender.name ).join(' ') }}</p>
                         </div>
                         <!--
@@ -74,7 +98,12 @@
                         </div>
                         -->
                         <div class="col">
-                            <span v-if="matchingSeason(program)"><a :href="matchingSeason(program)?.registration_url" class="btn" target="_blank">Register Now</a></span>
+                            <a v-if="getRegistrationUrl(program)" :href="getRegistrationUrl(program) || undefined" target="_blank" class="button btn">
+                                Register Now
+                            </a>
+                            <p v-else-if="program.program_season">
+                                Registration URL not available for {{ program.program_season }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -87,6 +116,7 @@
 <script lang="ts">
     import { defineComponent } from 'vue';
     import axios from 'axios';
+    import * as he from 'he';
 
     const apiUrl = 'http://volleyballnetwork.local/wp-json/wp/v2'; // Your WordPress API base URL
 
@@ -94,7 +124,7 @@
         id: number;
         title: { rendered: string };
         program_league?: number | null;
-        program_league_season?: number | null;
+        program_season?: string | null;
         program_venue?: number | null;
         program_age?: { id: number; name: string; slug: string; }[] | null;
         program_age_range?: string | null;
@@ -104,41 +134,49 @@
         program_days?: string | null;
         program_time?: string | null;
         league_title?: string | null;
-        seasons?: {
-            id: number;
-            season: string;
-            year: string;
-            registration_url: string;
-            price: string;
-        }[] | null;
+        local_league_league?: number | null;
+        season_winter_registration?: string | null;
+        season_winter_price?: string | null;
+        season_winter_start_date?: string | null;
+        season_winter_end_date?: string | null;
+        season_spring_registration?: string | null;
+        season_spring_price?: string | null;
+        season_spring_start_date?: string | null;
+        season_spring_end_date?: string | null;
+        season_summer_registration?: string | null;
+        season_summer_price?: string | null;
+        season_summer_start_date?: string | null;
+        season_summer_end_date?: string | null;
+        season_fall_registration?: string | null;
+        season_fall_price?: string | null;
+        season_fall_start_date?: string | null;
+        season_fall_end_date?: string | null;
         venue_title?: string | null;
         venue_address?: string | null;
         venue_postal_code?: string | null;
-        venue_city?: { ID: number; name: string; SLUG: string; TAXONOMY: string; DESCRIPTION: string; PARENT: number; COUNT: number; LINK: string; META: any[]; YOAST_HEAD: string; YOAST_HEAD_JSON: any; _LINKS: any; }[] | null;
-        venue_state?: { ID: number; name: string; SLUG: string; TAXONOMY: string; DESCRIPTION: string; PARENT: number; COUNT: number; LINK: string; META: any[]; YOAST_HEAD: string; YOAST_HEAD_JSON: any; _LINKS: any; }[] | null;
-        venue_country?: { ID: number; name: string; SLUG: string; TAXONOMY: string; DESCRIPTION: string; PARENT: number; COUNT: number; LINK: string; META: any[]; YOAST_HEAD: string; YOAST_HEAD_JSON: any; _LINKS: any; }[] | null;
-        selectedState?: string;
+        venue_city?: { ID: number; name: string; SLUG: string; TAXONOMY: string; DESCRIPTION: string; PARENT: number; COUNT: number; LINK: string; META: any[]; YOAST_HEAD: string;  }[] | null;
+        venue_state?: { ID: number; name: string; SLUG: string; TAXONOMY: string; DESCRIPTION: string; PARENT: number; COUNT: number; LINK: string; META: any[]; YOAST_HEAD: string;  }[] | null;
+        venue_country?: { ID: number; name: string; SLUG: string; TAXONOMY: string; DESCRIPTION: string; PARENT: number; COUNT: number; LINK: string; META: any[]; YOAST_HEAD: string;  }[] | null;
     }
 
     export default defineComponent({
         name: 'ProgramSearchApp',
         computed: {
-            matchingSeason(): (program: Program) => { id: number; season: string; year: string; registration_url: string; price: string; } | null {
-                return (program: Program) => {
-                    if (program.program_league_season && program.seasons) {
-                        return program.seasons.find(season => season.id === program.program_league_season) || null;
-                    }
-                    return null;
-                };
-            },
             filteredPrograms(): Program[] {
                 return this.programs.filter(program => {
                     const stateMatch = !this.selectedState || (program.venue_state && program.venue_state.length > 0 && program.venue_state.some(state => state.name.toLowerCase() === this.selectedState.toLowerCase()));
 
                     const cityMatch = !this.selectedCity || (program.venue_city && program.venue_city.length > 0 && program.venue_city.some(city => city.name.toLowerCase() === this.selectedCity.toLowerCase()));
 
-                    return stateMatch && cityMatch;
+                    const ageMatch = !this.selectedAge || (program.program_age && program.program_age.length > 0 && program.program_age.some(age => age.name.toLowerCase() === this.selectedAge.toLowerCase()));
+
+                    const genderMatch = !this.selectedGender || (program.program_gender && program.program_gender.length > 0 && program.program_gender.some(gender => gender.name.toLowerCase() === this.selectedGender.toLowerCase()));
+
+                    return stateMatch && cityMatch && ageMatch && genderMatch;
                 });
+            },
+            registrationUrl(): string | null {
+                return this.program ? this.getRegistrationUrl(this.program) : null;
             }
         },
         data() {
@@ -149,13 +187,24 @@
                 selectedState: '',
                 availableStates: [] as string[],
                 selectedCity: '',
-                availableCities: [] as string[]
+                availableCities: [] as string[],
+                selectedAge: '',
+                availableAges: [] as string[],
+                selectedGender: '',
+                availableGenders: [] as string[],
+                program: null as Program | null,
             };
         },
         mounted() {
             this.fetchPrograms();
         },
         methods: {
+            decodedHTML(value: string | null | undefined): string {
+                if (value) {
+                    return he.decode(value); // Use he.decode() to decode HTML entities
+                }
+                return '';
+            },
             decodedHTMLSrings(title: string | null | undefined): string {  // Make title parameter accept null or undefined
                 if (title) {
                     const tempDiv = document.createElement('div');
@@ -163,6 +212,74 @@
                     return tempDiv.textContent || tempDiv.innerText || '';
                 }
                 return '';
+            },
+            getRegistrationUrl(program: Program): string | null {
+                if (!program.program_season) {
+                    return null;
+                }
+                switch (program.program_season) {
+                    case 'winter':
+                        return program.season_winter_registration || null;
+                    case 'spring':
+                        return program.season_spring_registration || null;
+                    case 'summer':
+                        return program.season_summer_registration || null;
+                    case 'fall':
+                        return program.season_fall_registration || null;
+                    default:
+                        return null;
+                }
+            },
+            getSeasonPrice(program: Program): string | null {
+                if (!program.program_season) {
+                    return null;
+                }
+                switch (program.program_season) {
+                    case 'winter':
+                        return program.season_winter_price || null;
+                    case 'spring':
+                        return program.season_spring_price || null;
+                    case 'summer':
+                        return program.season_summer_price || null;
+                    case 'fall':
+                        return program.season_fall_price || null;
+                    default:
+                        return null;
+                }
+            },
+            getSeasonStartDate(program: Program): string | null {
+                if (!program.program_season) {
+                    return null;
+                }
+                switch (program.program_season) {
+                    case 'winter':
+                        return program.season_winter_start_date || null;
+                    case 'spring':
+                        return program.season_spring_start_date || null;
+                    case 'summer':
+                        return program.season_summer_start_date || null;
+                    case 'fall':
+                        return program.season_fall_start_date || null;
+                    default:
+                        return null;
+                }
+            },
+            getSeasonEndDate(program: Program): string | null {
+                if (!program.program_season) {
+                    return null;
+                }
+                switch (program.program_season) {
+                    case 'winter':
+                        return program.season_winter_end_date || null;
+                    case 'spring':
+                        return program.season_spring_end_date || null;
+                    case 'summer':
+                        return program.season_summer_end_date || null;
+                    case 'fall':
+                        return program.season_fall_end_date || null;
+                    default:
+                        return null;
+                }
             },
             async fetchPrograms() {
                 this.loading = true;
@@ -178,7 +295,7 @@
                 }
 
                 try {
-                    const response = await axios.get(`${apiUrl}/program`);
+                    const response = await axios.get(`${apiUrl}/program?per_page=100`);
 
                     if (Array.isArray(response.data)) {
                     const programsWithLeaguesAndVenues = await Promise.all(
@@ -190,31 +307,202 @@
                                 /*
                                     LEAGUE:
                                 */
-                            // title
+                                // title
                                 try {
                                     if (program.program_league) {
-                                        console.log("Fetching league:", `${apiUrl}/league/${program.program_league}`); // Log the URL
-                                        const leagueResponse = await axios.get(`${apiUrl}/league/${program.program_league}`);
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.local_league_league = leagueResponse.data.local_league_league;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.local_league_league = null; // Or some default value
+                                }
+                                try {
+                                    if (program.local_league_league) {
+                                        console.log("Fetching league:", `${apiUrl}/league/${program.local_league_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/league/${program.local_league_league}`);
                                         program.league_title = leagueResponse.data.title.rendered;
                                     }
                                 } catch (leagueError) {
                                     console.error("Error fetching league:", leagueError); // Log the specific error
                                     program.league_title = null; // Or some default value
                                 }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.local_league_league = leagueResponse.data.local_league_league;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.local_league_league = null; // Or some default value
+                                }
                                 // seasons
                                 try {
-                                    if (program.program_league) { // Fetch seasons if program ID exists
-                                        const leagueResponse = await axios.get(`${apiUrl}/league/${program.program_league}`);
-                                        program.seasons = leagueResponse.data.seasons;
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_winter_registration = leagueResponse.data.season_winter_registration;
                                     }
-                                } catch (seasonsError) {
-                                    console.error("Error fetching seasons:", seasonsError);
-                                    program.seasons = null;
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_winter_registration = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_winter_price = leagueResponse.data.season_winter_price;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_winter_price = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_winter_start_date = leagueResponse.data.season_winter_start_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_winter_start_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_winter_end_date = leagueResponse.data.season_winter_end_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_winter_end_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_spring_registration = leagueResponse.data.season_spring_registration;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_spring_registration = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_spring_price = leagueResponse.data.season_spring_price;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_spring_price = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_spring_start_date = leagueResponse.data.season_spring_start_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_spring_start_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_spring_end_date = leagueResponse.data.season_spring_end_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_spring_end_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_summer_registration = leagueResponse.data.season_summer_registration;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_summer_registration = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_summer_price = leagueResponse.data.season_summer_price;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_summer_price = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_summer_start_date = leagueResponse.data.season_summer_start_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_summer_start_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_summer_end_date = leagueResponse.data.season_summer_end_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_summer_end_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_fall_registration = leagueResponse.data.season_fall_registration;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_fall_registration = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_fall_price = leagueResponse.data.season_fall_price;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_fall_price = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_fall_start_date = leagueResponse.data.season_fall_start_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_fall_start_date = null; // Or some default value
+                                }
+                                try {
+                                    if (program.program_league) {
+                                        console.log("Fetching league:", `${apiUrl}/local-league/${program.program_league}`); // Log the URL
+                                        const leagueResponse = await axios.get(`${apiUrl}/local-league/${program.program_league}`);
+                                        program.season_fall_end_date = leagueResponse.data.season_fall_end_date;
+                                    }
+                                } catch (leagueError) {
+                                    console.error("Error fetching league:", leagueError); // Log the specific error
+                                    program.season_fall_end_date = null; // Or some default value
                                 }
                                 /*
                                     VENUE:
                                 */
-                            // title
+                                // title
                                 try {
                                     if (program.program_venue) {
                                         console.log("Fetching venue:", `${apiUrl}/venue/${program.program_venue}`); // Log the URL
@@ -278,17 +566,17 @@
                                 /*
                                     PROGRAM:
                                 */
-                                // league season
+                                // season
+                                // start time
                                 try {
                                     if (program.id) {
                                         const metaResponse = await axios.get(`${apiUrl}/program/${program.id}`);
-                                        program.program_league_season = metaResponse.data.program_league_season;
+                                        program.program_season = metaResponse.data.program_season;
                                     }
-                                } catch (leagueSeasonError) {
-                                    console.error("Error fetching league season:", leagueSeasonError);
-                                    program.program_league_season = null;
+                                } catch (programMetaError) {
+                                    console.error("Error fetching league season:", programMetaError);
+                                    program.program_season = null;
                                 }
-                                // start time
                                 try {
                                     if (program.id) {
                                         const metaResponse = await axios.get(`${apiUrl}/program/${program.id}`);
@@ -343,11 +631,13 @@
                     this.programs = programsWithLeaguesAndVenues.filter(program => program !== null) as Program[];
 
                     /*
-                        After fetching programs, populate availableStates and availableCities
+                        After fetching programs, populate filter options
                     */
                     if (this.programs && this.programs.length > 0) {
                         const uniqueStates = new Set<string>();
                         const uniqueCities = new Set<string>();
+                        const uniqueAges = new Set<string>();
+                        const uniqueGenders = new Set<string>();
 
                         this.programs.forEach(program => {
                             if (program.venue_state && program.venue_state.length > 0) {
@@ -356,10 +646,18 @@
                             if (program.venue_city && program.venue_city.length > 0) {
                                 program.venue_city.forEach(city => uniqueCities.add(city.name));
                             }
+                            if (program.program_age && program.program_age.length > 0) {
+                                program.program_age.forEach(age => uniqueAges.add(age.name));
+                            }
+                            if (program.program_gender && program.program_gender.length > 0) {
+                                program.program_gender.forEach(gender => uniqueGenders.add(gender.name));
+                            }
                         });
 
                         this.availableStates = Array.from(uniqueStates).sort();
                         this.availableCities = Array.from(uniqueCities).sort();
+                        this.availableAges = Array.from(uniqueAges).sort();
+                        this.availableGenders = Array.from(uniqueGenders).sort();
                     }
 
                 } else {

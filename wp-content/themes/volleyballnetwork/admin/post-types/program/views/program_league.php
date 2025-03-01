@@ -90,11 +90,10 @@
 			}
 		?>
 	</select>
-
-	<label for="program_registration">Registration URL</label>
+	
+	<label for="program_registration" style="color:#FFA736">Override Season Registration URL</label>
 	<input type="text" name="program_registration" id="program_registration" value="<?= $program_registration ?>" placeholder="https://">
 
-	<label for="program_price">Price</label>
+	<label for="program_price" style="color:#FFA736">Override Season Price</label>
 	<input type="text" name="program_price" id="program_price" value="<?= $program_price ?>" placeholder="$0.00">
-
 </div>

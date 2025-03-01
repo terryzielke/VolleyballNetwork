@@ -7,11 +7,6 @@
 ?>
 
 <div class="frame">
-    <label for="program_start_date">Start Date</label>
-    <input type="date" id="program_start_date" name="program_start_date" value="<?=$program_start_date?>" />
-    <label for="program_end_date">End Date</label>
-    <input type="date" id="program_end_date" name="program_end_date" value="<?=$program_end_date?>" />
-
     <label for="program_days">Days</label>
     <div id="program_days">
         <label><input type="checkbox" name="program_days[]" value="Sunday" <?=($program_days ? (in_array('Sunday', $program_days) ? 'checked' : '') : '') ?> /> Sunday</label>
@@ -25,4 +20,9 @@
     
     <label for="program_time">Time</label>
     <input type="text" id="program_time" name="program_time" value="<?=$program_time?>" />
+
+    <label for="program_start_date" style="color:#FFA736">Override Season Start Date</label>
+    <input type="date" id="program_start_date" name="program_start_date" value="<?=$program_start_date?>" />
+    <label for="program_end_date" style="color:#FFA736">Override Season End Date</label>
+    <input type="date" id="program_end_date" name="program_end_date" value="<?=$program_end_date?>" />
 </div>

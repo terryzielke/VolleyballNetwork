@@ -39,7 +39,7 @@ function volleyball_league_post_type_int() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'capability_type'    => 'page',
+		'capability_type'    => 'page',/*
         'capabilities'        => array(
             'create_posts' => 'do_not_allow', // Prevents non-admins from creating
             'edit_posts'   => 'edit_others_posts', // Only admins can edit others' posts.
@@ -49,7 +49,7 @@ function volleyball_league_post_type_int() {
             'publish_posts' => 'publish_posts', //Only admins can publish
             'read_post'    => 'read',
             'read_private_posts' => 'read_private_posts'
-        ),
+        ),*/
 		'has_archive'        => false,
 		'hierarchical'       => true,
 		'menu_position'      => 10,

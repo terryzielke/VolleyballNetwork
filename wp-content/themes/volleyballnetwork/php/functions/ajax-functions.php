@@ -1,25 +1,7 @@
 <?php
-/*
-	AJAX HOOKS
-*
-function get_league_seasons() {
-    if (isset($_POST['league_id'])) {
-        $league_id = intval($_POST['league_id']);
-        $seasons = get_post_meta($league_id, 'seasons', true);
-
-        if (!empty($seasons)) {
-            wp_send_json_success($seasons);
-        } else {
-            wp_send_json_error('No seasons found');
-        }
-    } else {
-        wp_send_json_error('Invalid league ID');
-    }
-}
-add_action('wp_ajax_get_league_seasons', 'get_league_seasons');
-/**/
-
-
+/**
+ * AJAX handler for fetching seasons based on a selected league
+ */
 function fetch_league_seasons() {
     if (!isset($_POST['league_id'])) {
         wp_send_json_error(['message' => 'No league selected']);
@@ -63,4 +45,25 @@ function fetch_league_seasons() {
 add_action('wp_ajax_fetch_league_seasons', 'fetch_league_seasons');
 add_action('wp_ajax_nopriv_fetch_league_seasons', 'fetch_league_seasons'); // For non-logged-in users if needed
 /**/
+
+
+
+/**
+ * AJAX handler for fetching cities based on a selected state
+ */
+function get_city_meta_callback() {
+    $term_id = intval($_POST['term_id']);
+
+    $country_id = get_term_meta($term_id, 'city_country', true);
+    $state_id = get_term_meta($term_id, 'city_state', true);
+
+    wp_send_json_success(array(
+        'country_id' => $country_id,
+        'state_id' => $state_id
+    ));
+}
+
+add_action('wp_ajax_get_city_meta', 'get_city_meta_callback');
+add_action('wp_ajax_nopriv_get_city_meta', 'get_city_meta_callback');
+
 ?>
