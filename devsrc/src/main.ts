@@ -21,6 +21,28 @@ function clickOutsideElement(
   };
 }
 
+/**
+ * If page is not at top, add scrolling class to body
+ * If page is scrolling up, add scrolling-up class to body
+ */
+let lastScrollTop = 0;
+window.addEventListener('scroll', () => {
+  const body = document.body;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrollTop > 0) {
+    body.classList.add('scrolling');
+  } else {
+    body.classList.remove('scrolling');
+  }
+  if (scrollTop > lastScrollTop) {
+    body.classList.remove('scrolling-up');
+  } else {
+    body.classList.add('scrolling-up');
+  }
+  lastScrollTop = scrollTop;
+});
+
+
 /*
   SEARCH FORM ANIMATION
 */
@@ -238,3 +260,44 @@ import MyComponent from './components/programSearchApp.vue';
 const app = createApp(MyComponent); // Create a Vue app instance
 
 app.mount('#programSearchApp'); // Mount the app to an element with the ID 'app'
+
+
+/**
+ * On click of #league-filters .league-filter
+ * get value from data-league-id attribute
+ * Find #league-container .league with matching data-league-id
+ * Hide all other .league elements
+ * Show the matching .league element
+ */
+const leagueFilters = document.querySelectorAll('#league-filters .league-filter');
+const leagueContainers = document.querySelectorAll('#league-container .league');
+// click event
+leagueFilters.forEach(filter => {
+  filter.addEventListener('click', () => {
+    // give the clicked filter the active class
+    leagueFilters.forEach(filter => filter.classList.remove('active'));
+    filter.classList.add('active');
+    // get the leagueId from the clicked filter
+    const leagueId = filter.getAttribute('data-league-id');
+    if (leagueId) {
+      // if leagueId is equal to "all", show all leagues
+      if (leagueId === 'all') {
+        leagueContainers.forEach(league => {
+          const leagueElement = league as HTMLElement;
+          leagueElement.style.display = 'block';
+        });
+      }
+      // else, show only the league with the matching leagueId
+      else{
+        leagueContainers.forEach(league => {
+          const leagueElement = league as HTMLElement;
+          if (leagueElement.getAttribute('data-league-id') === leagueId) {
+            leagueElement.style.display = 'block';
+          } else {
+            leagueElement.style.display = 'none';
+          }
+        });
+      }
+    }
+  });
+});

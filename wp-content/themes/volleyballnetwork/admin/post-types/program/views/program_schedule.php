@@ -4,6 +4,8 @@
     $program_end_date	= get_post_meta( $post->ID, 'program_end_date', true );
     $program_days		= get_post_meta( $post->ID, 'program_days', true );
     $program_time		= get_post_meta( $post->ID, 'program_time', true );
+    $program_start_time	= get_post_meta( $post->ID, 'program_start_time', true );
+    $program_end_time	= get_post_meta( $post->ID, 'program_end_time', true );
 ?>
 
 <div class="frame">
@@ -18,8 +20,12 @@
         <label><input type="checkbox" name="program_days[]" value="Saturday" <?=($program_days ? (in_array('Saturday', $program_days) ? 'checked' : '') : '') ?> /> Saturday</label>
     </div>
     
-    <label for="program_time">Time</label>
+    <label for="program_time">Time (being removed)</label>
     <input type="text" id="program_time" name="program_time" value="<?=$program_time?>" />
+    <label for="program_start_time">Start Time</label>
+    <input type="time" id="program_start_time" name="program_start_time" value="<?=$program_start_time?>" />
+    <label for="program_end_time">End Time</label>
+    <input type="time" id="program_end_time" name="program_end_time" value="<?=$program_end_time?>" />
 
     <label for="program_start_date" style="color:#FFA736">Override Season Start Date</label>
     <input type="date" id="program_start_date" name="program_start_date" value="<?=$program_start_date?>" />

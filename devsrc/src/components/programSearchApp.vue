@@ -1,116 +1,129 @@
 <template>
+    <!-- filter search bar -->
+    <div id="program-filters">
+        <div class="container">
+            <div class="content">
+                <h3>Find a Program</h3>
+            </div>
+            <div class="content">
+                <div class="filter">
+                    <label for="state">State</label>
+                    <select id="state" v-model="selectedState">
+                        <option value="">All Provinces</option>
+                        <option v-for="state in availableStates" :key="state" :value="state">{{ state }}</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="city">City</label>
+                    <select id="city" v-model="selectedCity">
+                        <option value="">All Cities</option>
+                        <option v-for="city in availableCities" :key="city" :value="city">{{ city }}</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="age">Age</label>
+                    <select id="age" v-model="selectedAge">
+                        <option value="">All Ages</option>
+                        <option v-for="age in availableAges" :key="age" :value="age">{{ age }}</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="gender">Gender</label>
+                    <select id="gender" v-model="selectedGender">
+                        <option value="">All Genders</option>
+                        <option v-for="gender in availableGenders" :key="gender" :value="gender">{{ gender }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- loading and error messages -->
     <div v-if="loading" class="loading">
         <img src="/wp-content/themes/volleyballnetwork/assets/img/UI/Spinner-white.gif" alt="Loading" />
         <span>Loading programs...</span>
     </div>
     <div v-if="error">{{ error }}</div>
 
-    <!-- filter search bar -->
-    <div id="program-filters">
-        <div class="filter">
-            <label for="state">State</label>
-            <select id="state" v-model="selectedState">
-                <option value="">All Provinces</option>
-                <option v-for="state in availableStates" :key="state" :value="state">{{ state }}</option>
-            </select>
-        </div>
-        <div class="filter">
-            <label for="city">City</label>
-            <select id="city" v-model="selectedCity">
-                <option value="">All Cities</option>
-                <option v-for="city in availableCities" :key="city" :value="city">{{ city }}</option>
-            </select>
-        </div>
-        <div class="filter">
-            <label for="age">Age</label>
-            <select id="age" v-model="selectedAge">
-                <option value="">All Ages</option>
-                <option v-for="age in availableAges" :key="age" :value="age">{{ age }}</option>
-            </select>
-        </div>
-        <div class="filter">
-            <label for="gender">Gender</label>
-            <select id="gender" v-model="selectedGender">
-                <option value="">All Genders</option>
-                <option v-for="gender in availableGenders" :key="gender" :value="gender">{{ gender }}</option>
-            </select>
-        </div>
-    </div>
-
     <!-- filtered programs -->
-    <div v-if="filteredPrograms.length">
-        <ul>
-            <li v-for="program in filteredPrograms" :key="program.id" class="program"
-                :city="program.venue_city && program.venue_city.length > 0 ? program.venue_city.map(city => city.name).join(' ') : ''"
-                :state="program.venue_state && program.venue_state.length > 0 ? program.venue_state.map(state => state.name).join(' ') : ''"
-                :country="program.venue_country && program.venue_country.length > 0 ? program.venue_country.map(country => country.name).join(' ') : ''"
-                :age="program.program_age && program.program_age.length > 0 ? program.program_age.map(age => age.name).join(' ') : ''">
-                <div class="program-header">
-                    <h3>{{ decodedHTMLSrings(program.venue_title) || 'Venue Not Found' }} - {{ decodedHTMLSrings(program.league_title) || 'League Not Found' }} 
-                        <span v-if="program.program_age">- Age {{ program.program_age_range }}</span>
-                    </h3>
-                </div>
-                <div class="program-details">
-                    <div class="row">
-                        <div class="col">
-                            <div v-if="program.program_season">
-                                <h4 class="orange">{{ program.program_season }}</h4>
+    <div class="container">
+        <div class="content">
+            <div v-if="filteredPrograms.length">
+                <ul id="programs">
+                    <li v-for="program in filteredPrograms" :key="program.id" class="program"
+                        :city="program.venue_city && program.venue_city.length > 0 ? program.venue_city.map(city => city.name).join(' ') : ''"
+                        :state="program.venue_state && program.venue_state.length > 0 ? program.venue_state.map(state => state.name).join(' ') : ''"
+                        :country="program.venue_country && program.venue_country.length > 0 ? program.venue_country.map(country => country.name).join(' ') : ''"
+                        :age="program.program_age && program.program_age.length > 0 ? program.program_age.map(age => age.name).join(' ') : ''">
+                        <div class="program-header">
+                            <h3>{{ decodedHTMLSrings(program.venue_title) || 'Venue Not Found' }} - {{ decodedHTMLSrings(program.league_title) || 'League Not Found' }} 
+                                <span v-if="program.program_age">- Age {{ program.program_age_range }}</span>
+                                <span v-if="program.program_gender" :class="program.program_gender.map(gender => gender.name ).join(' ')"></span>
+                            </h3>
+                        </div>
+                        <div class="program-details">
+                            <div class="row">
+                                <div class="col col-12 col-md-1">
+                                    <div v-if="program.program_season">
+                                        <h4 class="orange">{{ program.program_season }}</h4>
+                                    </div>
+                                    <div v-else>
+                                        <p>No matching season found.</p>
+                                    </div>
+                                </div>
+                                <div class="col col-12 col-md-3">
+                                    <h4><span v-if="program.venue_city && program.venue_city.length > 0">{{ program.venue_city.map(city => city.name ).join(' ') }}</span><span v-else>City Not Found</span></h4>
+                                    <p><span v-if="program.venue_address"><a :href="generateMapUrl(program)" target="_blank">{{ decodedHTML(program.venue_address) }}</a></span><span v-else>Address Not Found</span></p>
+                                    <p>
+                                        <span v-if="program.venue_city && program.venue_city.length > 0">{{ program.venue_city.map(city => city.name ).join(' ') }}</span>, 
+                                        <span v-if="program.venue_state && program.venue_state.length > 0">{{ program.venue_state.map(state => state.name ).join(' ') }}</span>. 
+                                        <span v-if="program.venue_postal_code">{{ program.venue_postal_code }}</span>
+                                    </p>
+                                </div>
+                                <div class="col col-12 col-md-3">
+                                    <h4>Schedule</h4>
+                                    <p v-if="program.program_start_date"><strong>Start Time: </strong>{{ program.program_start_date }}</p>
+                                    <p v-else><strong>Start Time: </strong> {{ getSeasonStartDate(program) }}</p>
+                                    <p v-if="program.program_end_date"><strong>End Time: </strong>{{ program.program_end_date }}</p>
+                                    <p v-else><strong>End Time: </strong> {{ getSeasonEndDate(program) }}</p>
+                                    <p v-if="program.program_days">
+                                        <strong>Days: </strong>
+                                        <span v-if="Array.isArray(program.program_days)">{{ program.program_days.join(', ') }}</span>
+                                        <span v-else>{{ program.program_days }}</span>
+                                    </p>
+                                    <p><strong>Time: </strong><span v-if="program.program_start_time">{{ formatTime(program.program_start_time) }}</span> - <span v-if="program.program_end_time">{{ formatTime(program.program_end_time) }}</span></p>
+                                </div>
+                                <div class="col col-12 col-md-3">
+                                    <h4>Details</h4>
+                                    <p v-if="getSeasonPrice(program)">
+                                        <strong>Price: </strong>{{ getSeasonPrice(program) }} CAD
+                                    </p>
+                                    <p v-else-if="program.program_season">
+                                        Price not available for {{ program.program_season }}
+                                    </p>
+                                    <p v-if="program.program_gender"><strong>Gender: </strong> {{ program.program_gender.map(gender => gender.name ).join(' ') }}</p>
+                                </div>
+                                <!--
+                                <div class="col">
+                                <h4>Contact</h4>
+                                </div>
+                                -->
+                                <div class="col col-12 col-md-2">
+                                    <a v-if="getRegistrationUrl(program)" :href="getRegistrationUrl(program) || undefined" target="_blank" class="button btn">
+                                        Register Now
+                                    </a>
+                                    <p v-else-if="program.program_season">
+                                        Registration URL not available for {{ program.program_season }}
+                                    </p>
+                                </div>
                             </div>
-                            <div v-else>
-                                <p>No matching season found.</p>
-                            </div>
                         </div>
-                        <div class="col">
-                            <h4><span v-if="program.venue_city && program.venue_city.length > 0">{{ program.venue_city.map(city => city.name ).join(' ') }}</span><span v-else>City Not Found</span></h4>
-                            <p><span v-if="program.venue_address">{{ decodedHTML(program.venue_address) }}</span><span v-else>Address Not Found</span></p>
-                            <p>
-                                <span v-if="program.venue_city && program.venue_city.length > 0">{{ program.venue_city.map(city => city.name ).join(' ') }}</span>, 
-                                <span v-if="program.venue_state && program.venue_state.length > 0">{{ program.venue_state.map(state => state.name ).join(' ') }}</span>. 
-                                <span v-if="program.venue_postal_code">{{ program.venue_postal_code }}</span>
-                            </p>
-                        </div>
-                        <div class="col">
-                            <h4>Schedule</h4>
-                            <p v-if="program.program_start_date"><strong>Start Time: </strong>{{ program.program_start_date }}</p>
-                            <p v-else>Start Time: {{ getSeasonStartDate(program) }}</p>
-                            <p v-if="program.program_end_date"><strong>End Time: </strong>{{ program.program_end_date }}</p>
-                            <p v-else>End Time: {{ getSeasonEndDate(program) }}</p>
-                            <p v-if="program.program_days">
-                                <strong>Days: </strong>
-                                <span v-if="Array.isArray(program.program_days)">{{ program.program_days.join(', ') }}</span>
-                                <span v-else>{{ program.program_days }}</span>
-                            </p>
-                            <p v-if="program.program_time"><strong>Time: </strong>{{ program.program_time }}</p>
-                        </div>
-                        <div class="col">
-                            <h4>Details</h4>
-                            <p v-if="getSeasonPrice(program)">
-                                {{ getSeasonPrice(program) }} CAD
-                            </p>
-                            <p v-else-if="program.program_season">
-                                Price not available for {{ program.program_season }}
-                            </p>
-                            <p v-if="program.program_gender"><strong>Gender: </strong> {{ program.program_gender.map(gender => gender.name ).join(' ') }}</p>
-                        </div>
-                        <!--
-                        <div class="col">
-                        <h4>Contact</h4>
-                        </div>
-                        -->
-                        <div class="col">
-                            <a v-if="getRegistrationUrl(program)" :href="getRegistrationUrl(program) || undefined" target="_blank" class="button btn">
-                                Register Now
-                            </a>
-                            <p v-else-if="program.program_season">
-                                Registration URL not available for {{ program.program_season }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div v-else-if="!loading && !error">No programs found.</div>
+        </div>
     </div>
-    <div v-else-if="!loading && !error">No programs found.</div>
 </template>
 
 <script lang="ts">
@@ -133,6 +146,8 @@
         program_end_date?: string | null;
         program_days?: string | null;
         program_time?: string | null;
+        program_start_time?: string | null;
+        program_end_time?: string | null;
         league_title?: string | null;
         local_league_league?: number | null;
         season_winter_registration?: string | null;
@@ -280,6 +295,22 @@
                     default:
                         return null;
                 }
+            },
+            formatTime(time: string | null | undefined): string {
+                if (!time) return '';
+
+                const [hours, minutes] = (time.split(':')).map(Number);
+                let period = hours >= 12 ? 'PM' : 'AM';
+                let formattedHours = hours % 12;
+                formattedHours = formattedHours === 0 ? 12 : formattedHours;
+
+                return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+            },
+            generateMapUrl(program: Program): string {
+                let address = `${program.venue_address || ''}, ${program.venue_city && program.venue_city.length > 0 ? program.venue_city.map(city => city.name).join(' ') : ''}, ${program.venue_state && program.venue_state.length > 0 ? program.venue_state.map(state => state.name).join(' ') : ''} ${program.venue_postal_code || ''}`;
+                address = he.decode(address);
+                address = encodeURIComponent(address.trim());
+                return `https://www.google.com/maps/search/?api=1&query=${address}`;
             },
             async fetchPrograms() {
                 this.loading = true;
@@ -586,6 +617,24 @@
                                     console.error("Error fetching league season:", programMetaError);
                                     program.program_start_date = null;
                                 }
+                                try {
+                                    if (program.id) {
+                                        const metaResponse = await axios.get(`${apiUrl}/program/${program.id}`);
+                                        program.program_start_time = metaResponse.data.program_start_time;
+                                    }
+                                } catch (programMetaError) {
+                                    console.error("Error fetching league season:", programMetaError);
+                                    program.program_start_time = null;
+                                }
+                                try {
+                                    if (program.id) {
+                                        const metaResponse = await axios.get(`${apiUrl}/program/${program.id}`);
+                                        program.program_end_time = metaResponse.data.program_end_time;
+                                    }
+                                } catch (programMetaError) {
+                                    console.error("Error fetching league season:", programMetaError);
+                                    program.program_end_time = null;
+                                }
                                 // taxonomies
                                 try {
                                     if (program.id) {
@@ -678,6 +727,5 @@
 <style scoped>
     /* Component-specific styles */
     h2 {
-        color: blue;
     }
 </style>

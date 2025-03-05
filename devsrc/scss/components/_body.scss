@@ -31,7 +31,7 @@ html{
 				margin: 40px 0;
 				.col{
 					.cell{
-						background-color: color.adjust($blue, $lightness: 60%);
+						background-color: $light;
 						border-radius: 20px;
 						padding: 20px;
 					}

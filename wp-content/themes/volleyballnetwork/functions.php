@@ -53,7 +53,6 @@ add_action('admin_enqueue_scripts', function(){
  	wp_enqueue_script( 'jquery-ui-datepicker' );
     wp_enqueue_script( 'jquery-ui-sortable' );
     wp_enqueue_script('ajax-script', get_template_directory_uri() . '/php/functions/ajax-scripts.js', array('jquery'), null, true);
-    //wp_localize_script('custom-admin-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 });
 
 
@@ -72,6 +71,7 @@ require get_template_directory() . '/admin/post-types/admin-league/index.php';
 require get_template_directory() . '/admin/post-types/local-league/index.php';
 require get_template_directory() . '/admin/post-types/venue/index.php';
 require get_template_directory() . '/admin/post-types/program/index.php';
+require get_template_directory() . '/admin/post-types/division/index.php';
 require get_template_directory() . '/admin/taxonomies/taxonomies.php';
 
 
@@ -88,7 +88,13 @@ function volleyball_post_type_templates($postType){
   		$postType = dirname( __FILE__ ) . '/admin/post-types/venue/templates/single-venue.php';
     }
     if($post->post_type == 'league'){
-        $postType = dirname( __FILE__ ) . '/admin/post-types/league/templates/single-league.php';
+        $postType = dirname( __FILE__ ) . '/admin/post-types/admin-league/templates/single-league.php';
+    }
+    if($post->post_type == 'local-league'){
+        $postType = dirname( __FILE__ ) . '/admin/post-types/local-league/templates/single-local-league.php';
+    }
+    if($post->post_type == 'division'){
+        $postType = dirname( __FILE__ ) . '/admin/post-types/division/templates/single-division.php';
     }
         
 	return $postType;

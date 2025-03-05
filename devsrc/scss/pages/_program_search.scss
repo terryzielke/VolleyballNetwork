@@ -1,0 +1,167 @@
+#program-filters{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: $blue;
+    padding: 40px 0;
+    .container{
+        .content{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            h3{
+                color: $white;
+                margin: 0 0 10px;
+            }
+            .filter{
+                &:not(:last-child){
+                    margin-right: 20px;
+                }
+                &:not(:first-child){
+                    margin-left: 20px;
+                }
+                label{
+                    display: block;
+                    color: $orange;
+                    font-family: $impact;
+                    font-size: clamp(12px,.8vw,20px);
+                    margin-bottom: 10px;
+                }
+                select{
+                    position: relative;
+                    -webkit-appearance: none;
+                    display: block;
+                    width: 100%;
+                    max-width: 200px;
+                    padding: 5px 10px;
+                    border: 1px solid color.adjust($blue, $lightness: -10%);
+                    background-color: $white;
+                    color: $grey;
+                    padding-right: 30px;
+                    background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/down-carrot-grey.svg);
+                    background-repeat: no-repeat;
+                    background-size: 10px;
+                    background-position: center right 10px;
+                }
+            }
+        }
+    }
+}
+
+// loader and errors
+.loading{
+    margin-bottom: 40px;
+    text-align: center;
+    img{
+        width: 100px;
+        margin: auto;
+    }
+    span{
+        display: block;
+        width: 100%;
+        font-size: $font-size;
+        color: $blue;
+    }
+}
+
+// program list
+ul.programs,
+ul#programs{
+    list-style: none;
+    margin: 40px 0;
+    padding: 0;
+    // single program
+    li.program{
+        margin-bottom: 40px;
+        padding: 0 !important;
+        background-color: $light;
+        border-radius: 10px;
+        overflow: hidden;
+        .program-header{
+            padding: 20px 20px 20px;
+            background-color: $blue;
+            h3{
+                color: $white;
+                margin: 0;
+                padding-left: 1.2em;
+                background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/location-orange.svg);
+                background-size: .8em;
+                background-repeat: no-repeat;
+                background-position: bottom left;
+                span.CO-ED,
+                span.Boys,
+                span.Girls{
+                    position: relative;
+                    top: 2px;
+                    margin-left: .3em;
+                    &::before,
+                    &::after{
+                        display: inline-block;
+                        position: relative;
+                        width: 20px;
+                        height: .8em;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center bottom;
+                    }
+                }
+                span.CO-ED,
+                span.Boys{
+                    &::before{
+                        content: '';
+                        background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/boy-orange.svg);
+                    }
+                }
+                span.CO-ED,
+                span.Girls{
+                    &::after{
+                        content: '';
+                        background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/girl-orange.svg);
+                    }
+                }
+            }
+        }
+        .program-details{
+            padding: 20px 20px;
+            font-size: clamp(12px,.8vw,20px);
+            .row{
+                .col{
+                    h4{
+                        font-family: $impact;
+                        font-size: $font-size;
+                    }
+                    &:nth-last-child(1){
+                        text-align: right;
+                    }
+                }
+            }
+        }
+        @media(max-width:$md){
+            .program-header{
+                h3{
+                    line-height: 1.2em;
+                    background-position: top left;
+                    span{
+                        display: block;
+                        &.Boys,
+                        &.Girls,
+                        &.CO-ED{
+                            display: inline;
+                        }
+                    }
+                }
+            }
+            .program-details{
+                font-size: clamp(10px,.8vw,16px);
+                .row{
+                    .col{
+                        .btn{
+                            width: 100%;
+                            margin-top: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

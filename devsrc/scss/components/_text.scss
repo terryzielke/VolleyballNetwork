@@ -13,6 +13,7 @@ html{
 			line-height: 1.5em;
 			margin: 1em 0;
 		}
+		ol,
 		ul{
 			margin: 1em 0;
 			padding: 0 0 0 1.8em;
@@ -22,6 +23,9 @@ html{
 				padding: 0 0 0 .2em;
 				line-height: 1.2em;
 			}
+		}
+		ol{
+			list-style-type: decimal;
 		}
 		
 		h1{
@@ -50,8 +54,8 @@ html{
 		}
 		h4{
 			font-family: $rajdhani;
-			font-size: clamp(20px, 1vw, 25px);
-			font-weight: 400;
+			font-size: clamp(20px, 1.5vw, 25px);
+			font-weight: 500;
 			line-height: .8em;
 			margin: .5em 0 .5em;
 			text-transform: uppercase;

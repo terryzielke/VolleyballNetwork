@@ -21,6 +21,8 @@ interface Program {
     program_end_date?: string | null;
     program_days?: string | null;
     program_time?: string | null;
+    program_start_time?: string | null;
+    program_end_time?: string | null;
     league_title?: string | null;
     local_league_league?: number | null;
     season_winter_registration?: string | null;
@@ -102,6 +104,8 @@ declare const _default: import("vue").DefineComponent<{}, {}, {
     getSeasonPrice(program: Program): string | null;
     getSeasonStartDate(program: Program): string | null;
     getSeasonEndDate(program: Program): string | null;
+    formatTime(time: string | null | undefined): string;
+    generateMapUrl(program: Program): string;
     fetchPrograms(): Promise<void>;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 export default _default;

@@ -17,7 +17,7 @@ input[type=submit]{
 	&:hover{
 		background-color: color.adjust($blue, $lightness: 10%);
 		border-color: color.adjust($blue, $lightness: 10%);
-		color: color.adjust($blue, $lightness: 10%);
+		color: $white;
 	}
 	&.blue{
 		background-color: $blue;
@@ -26,7 +26,6 @@ input[type=submit]{
 		&:hover{
 			background-color: color.adjust($blue, $lightness: 10%);
 			border-color: color.adjust($blue, $lightness: 10%);
-			
 			color: $white;
 		}
 	}

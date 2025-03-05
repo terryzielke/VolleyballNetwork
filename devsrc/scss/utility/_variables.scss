@@ -31,6 +31,7 @@
 /* VARIABLES START */
 $black: #000000;
 $white: #ffffff;
+$light: #E9EBF4;
 $blue: #264898;
 $orange: #FFA736;
 $grey: #404040;
@@ -63,4 +64,4 @@ $social:		$fontawesome;						// DO NOT EDIT
 $impact:		'impact', sans-serif;
 $rajdhani:		'rajdhani', sans-serif;
 $text:			'Open Sans', sans-serif;
-$font-size:		clamp(14px, 1.2vw, 20px);
+$font-size:		clamp(14px, .9vw, 20px);

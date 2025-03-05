@@ -1,9 +1,9 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-/*
-	POST TYPES
-*/
+/**
+ * Post Types
+ */
 function volleyball_league_post_type_int() {
 	
 	$league_labels = array(
@@ -39,22 +39,12 @@ function volleyball_league_post_type_int() {
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'query_var'          => true,
-		'capability_type'    => 'page',/*
-        'capabilities'        => array(
-            'create_posts' => 'do_not_allow', // Prevents non-admins from creating
-            'edit_posts'   => 'edit_others_posts', // Only admins can edit others' posts.
-            'edit_post'    => 'edit_others_posts',
-            'delete_posts' => 'delete_others_posts', // Only admins can delete others' posts.
-            'delete_post'  => 'delete_others_posts',
-            'publish_posts' => 'publish_posts', //Only admins can publish
-            'read_post'    => 'read',
-            'read_private_posts' => 'read_private_posts'
-        ),*/
+		'capability_type'    => 'page',
 		'has_archive'        => false,
 		'hierarchical'       => true,
 		'menu_position'      => 10,
 		'menu_icon'          => 'dashicons-networking',
-		'supports'           => array( 'title', 'editor', 'page-attributes' ),
+		'supports'           => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
         'show_in_rest'       => true,
 	);
 	register_post_type( 'league', $league_args );
@@ -62,12 +52,115 @@ function volleyball_league_post_type_int() {
 }
 add_action( 'init', 'volleyball_league_post_type_int' );
 
-/*
-	HIDE MENU ITEM FOR NON-ADMINS
-*/
+/**
+ * Hide menu from non-admins
+ */
 function hide_league_menu() {
     if (!current_user_can('administrator')) {
         remove_menu_page('edit.php?post_type=league');
     }
 }
 add_action('admin_menu', 'hide_league_menu');
+
+
+/**
+ * Meta Boxes
+ */
+function volleyball_admin_league_add_meta_boxes() {
+	add_meta_box(
+		'league-details',
+		'Details',
+		'league_details',
+		'league',
+		'normal'
+	);
+	add_meta_box(
+		'league-ages',
+		'Ages',
+		'league_ages',
+		'league',
+		'side'
+	);
+	add_meta_box(
+		'league-header',
+		'Header',
+		'league_header',
+		'league',
+		'advanced',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes', 'volleyball_admin_league_add_meta_boxes' );
+
+function league_details( $post ) {
+	include( 'views/league_details.php' );
+}
+function league_ages( $post ) {
+	include( 'views/league_ages.php' );
+}
+function league_header( $post ) {
+	include( 'views/league_header.php' );
+}
+
+/**
+ * Move advanced meta boxes above the default editor
+ */
+function volleyball_admin_league_move_meta_boxes() {
+	remove_meta_box( 'league-header', 'league', 'advanced' );
+	add_meta_box( 'league-header', 'Header', 'league_header', 'league', 'normal', 'high' );
+}
+add_action( 'add_meta_boxes', 'volleyball_admin_league_move_meta_boxes', 999 );
+
+
+/**
+ * Save Meta Boxes
+ */
+function volleyball_admin_league_save_meta_boxes( $post_id ) {
+    // Check if our nonce is set.
+    if (!isset($_POST['volleyball_network_admin_league_nonce'])) {
+        return;
+    }
+
+    // Verify that the nonce is valid.
+    if (!wp_verify_nonce($_POST['volleyball_network_admin_league_nonce'], 'volleyball_network_admin_league_nonce')) {
+        return;
+    }
+
+    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check the user's permissions.
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+	if ( isset( $_REQUEST['league_primary_header'] ) ) {
+		update_post_meta( $post_id, 'league_primary_header', sanitize_text_field(htmlentities($_REQUEST['league_primary_header'])));
+	}
+	if ( isset( $_REQUEST['league_sub_header'] ) ) {
+		update_post_meta( $post_id, 'league_sub_header', sanitize_text_field(htmlentities($_REQUEST['league_sub_header'])));
+	}
+	if ( isset( $_REQUEST['league_ages'] ) ) {
+		update_post_meta( $post_id, 'league_ages', sanitize_text_field(htmlentities($_REQUEST['league_ages'])));
+	}
+
+    // Sanitize and save the data
+    if (isset($_POST['league_excerpt'])) {
+		update_post_meta($post_id, 'league_excerpt', wp_kses_post($_POST['league_excerpt']));
+    }
+
+    if (isset($_POST['league_program_info'])) {
+        update_post_meta($post_id, 'league_program_info', wp_kses_post($_POST['league_program_info']));
+    }
+
+    if (isset($_POST['league_format_info'])) {
+        update_post_meta($post_id, 'league_format_info', wp_kses_post($_POST['league_format_info']));
+    }
+
+    if (isset($_POST['league_expectation_info'])) {
+        update_post_meta($post_id, 'league_expectation_info', wp_kses_post($_POST['league_expectation_info']));
+    }
+}
+add_action( 'save_post', 'volleyball_admin_league_save_meta_boxes' );

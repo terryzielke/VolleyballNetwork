@@ -54,5 +54,9 @@
 			</div>
 		</div>
 	</header>
+	<!-- back to top -->
+	<a id="back-to-top" href="#header">
+		<i class="fas fa-caret-up"></i>
+	</a>
 	<!-- main -->
 	<main id="main">

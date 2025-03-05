@@ -22,18 +22,4 @@
     </div>
 </section>
 
-<section class="registration">
-    <div class="container">
-        <div class="text-container">
-            <h2>Registration Info</h2>
-            <div class="registration-info">
-                <?php
-                    // Output the WYSIWYG content with formatting
-                    echo wpautop( do_shortcode( $league_registration_info ) );
-                ?>
-            </div>
-        </div>
-    </div>
-</section>
-
 <?php get_footer(); ?>

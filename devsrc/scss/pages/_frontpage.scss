@@ -113,3 +113,81 @@
         }
     }
 }
+
+
+/* Available leagues */
+section#available-leagues-section{
+    margin: 80px 0;
+    #league-filters{
+        margin-bottom: 80px;
+        .col{
+            a.league-filter{
+                display: block;
+                padding: 1em 1em .8em;
+                color: $blue;
+                font-family: $rajdhani;
+                font-size: clamp(20px, 1.5vw, 25px);
+                text-transform: uppercase;
+                text-align: center;
+                background: $light;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: .2s all linear;
+                &:hover,
+                &.active{
+                    background: $white;
+                }
+            }
+        }
+    }
+    #league-container{
+        .league{
+            .row{
+                .col{
+                    figure{
+                        position: relative;
+                        margin: 0;
+                        img{
+                            width: 100%;
+                            height: auto;
+                            border-radius: 10px;
+                        }
+                        span.ages{
+                            position: absolute;
+                            bottom: 20px;
+                            left: 20px;
+                            color: $white;
+                            text-shadow: 0 0 10px rgba(0,0,0,.5);
+                            font-weight: 600;
+                        }
+                    }
+                    h3{
+                        color: $orange;
+                    }
+                }
+            }
+        }
+    }
+    @media(max-width:$md){
+        #league-filters{
+            .col{
+                a.league-filter{
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        #league-container{
+            .league{
+                .row{
+                    .col{
+                        figure{
+                            span.ages{
+                                font-size: clamp(20px, 2vw, 30px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

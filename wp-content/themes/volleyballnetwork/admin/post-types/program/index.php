@@ -117,6 +117,12 @@ function volleyball_program_save_post_meta_data( $post_id ){
 		if ( isset( $_REQUEST['program_end_date'] ) ) {
 			update_post_meta( $post_id, 'program_end_date', sanitize_text_field(htmlentities($_REQUEST['program_end_date'])));
 		}
+		if ( isset( $_REQUEST['program_start_time'] ) ) {
+			update_post_meta( $post_id, 'program_start_time', sanitize_text_field(htmlentities($_REQUEST['program_start_time'])));
+		}
+		if ( isset( $_REQUEST['program_end_time'] ) ) {
+			update_post_meta( $post_id, 'program_end_time', sanitize_text_field(htmlentities($_REQUEST['program_end_time'])));
+		}
 		// cant use sanitize_text_field for array
 		update_post_meta( $post_id, 'program_days', $_REQUEST['program_days']);
 		if ( isset( $_REQUEST['program_time'] ) ) {
@@ -240,6 +246,8 @@ function add_custom_fields_to_program_api( $response, $post, $request ) {
 
 		$program_start_date	= get_post_meta( $post->ID, 'program_start_date', true );
 		$program_end_date	= get_post_meta( $post->ID, 'program_end_date', true );
+		$program_start_time	= get_post_meta( $post->ID, 'program_start_time', true );
+		$program_end_time	= get_post_meta( $post->ID, 'program_end_time', true );
 		$program_days		= get_post_meta( $post->ID, 'program_days', true );
 		$program_time		= get_post_meta( $post->ID, 'program_time', true );
 
@@ -258,6 +266,12 @@ function add_custom_fields_to_program_api( $response, $post, $request ) {
         if(isset($program_end_date)){
             $response->data['program_end_date'] = $program_end_date;
         }
+		if(isset($program_start_time)){
+			$response->data['program_start_time'] = $program_start_time;
+		}
+		if(isset($program_end_time)){
+			$response->data['program_end_time'] = $program_end_time;
+		}
         if(isset($program_days)){
             $response->data['program_days'] = $program_days;
         }
