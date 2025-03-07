@@ -1,11 +1,11 @@
 <?php	
     // Get post meta data
-    $program_start_date	= get_post_meta( $post->ID, 'program_start_date', true );
-    $program_end_date	= get_post_meta( $post->ID, 'program_end_date', true );
-    $program_days		= get_post_meta( $post->ID, 'program_days', true );
-    $program_time		= get_post_meta( $post->ID, 'program_time', true );
-    $program_start_time	= get_post_meta( $post->ID, 'program_start_time', true );
-    $program_end_time	= get_post_meta( $post->ID, 'program_end_time', true );
+    $program_start_date	    = get_post_meta( $post->ID, 'program_start_date', true );
+    $program_end_date	    = get_post_meta( $post->ID, 'program_end_date', true );
+    $program_days		    = get_post_meta( $post->ID, 'program_days', true );
+    $program_start_time	    = get_post_meta( $post->ID, 'program_start_time', true );
+    $program_end_time	    = get_post_meta( $post->ID, 'program_end_time', true );
+    $program_cancelations	= get_post_meta( $post->ID, 'program_cancelations', true );
 ?>
 
 <div class="frame">
@@ -20,8 +20,6 @@
         <label><input type="checkbox" name="program_days[]" value="Saturday" <?=($program_days ? (in_array('Saturday', $program_days) ? 'checked' : '') : '') ?> /> Saturday</label>
     </div>
     
-    <label for="program_time">Time (being removed)</label>
-    <input type="text" id="program_time" name="program_time" value="<?=$program_time?>" />
     <label for="program_start_time">Start Time</label>
     <input type="time" id="program_start_time" name="program_start_time" value="<?=$program_start_time?>" />
     <label for="program_end_time">End Time</label>
@@ -31,4 +29,7 @@
     <input type="date" id="program_start_date" name="program_start_date" value="<?=$program_start_date?>" />
     <label for="program_end_date" style="color:#FFA736">Override Season End Date</label>
     <input type="date" id="program_end_date" name="program_end_date" value="<?=$program_end_date?>" />
+    
+    <label for="program_cancelations">Cancelations</label>
+    <input type="text" id="program_cancelations" name="program_cancelations" value="<?=$program_cancelations?>" />
 </div>

@@ -52,7 +52,8 @@ add_action('admin_enqueue_scripts', function(){
     wp_enqueue_script('jquery');
  	wp_enqueue_script( 'jquery-ui-datepicker' );
     wp_enqueue_script( 'jquery-ui-sortable' );
-    wp_enqueue_script('ajax-script', get_template_directory_uri() . '/php/functions/ajax-scripts.js', array('jquery'), null, true);
+    wp_enqueue_script('admin-script', get_template_directory_uri() . '/admin/scripts/admin.js', array('jquery'), null, true);
+    wp_enqueue_script('ajax-script', get_template_directory_uri() . '/admin/scripts/ajax.js', array('jquery'), null, true);
 });
 
 
@@ -73,6 +74,17 @@ require get_template_directory() . '/admin/post-types/venue/index.php';
 require get_template_directory() . '/admin/post-types/program/index.php';
 require get_template_directory() . '/admin/post-types/division/index.php';
 require get_template_directory() . '/admin/taxonomies/taxonomies.php';
+require get_template_directory() . '/admin/users/user-division.php';
+
+
+/*
+    PHP FUNCTIONS
+*/
+require get_template_directory() . '/admin/scripts/ajax-functions.php';
+require get_template_directory() . '/php/functions/location-functions.php';
+require get_template_directory() . '/php/functions/restrict-user-access.php';
+require get_template_directory() . '/php/functions/get_program_list.php';
+
 
 
 /*
@@ -288,7 +300,7 @@ function is_blog () {
   OVERRIDE THE EMAIL FROM VALUE
 */
 function mail_name( $email ){
-	return 'Alberta Craft Alliance';
+	return 'Volleyball Network';
 }
 add_filter( 'wp_mail_from_name', 'mail_name' );
 
@@ -388,67 +400,26 @@ add_filter('forminator_custom_form_submit_errors', function ($submit_errors, $fo
     return $submit_errors;
 }, 10, 3);
 
+function custom_prevent_league_redirect() {
+    // Add a new rewrite rule that checks for the specific query parameters
+    add_rewrite_rule(
+        '^find-a-program/?$',
+        'index.php?pagename=find-a-program', // Ensure the correct page is targeted
+        'top'
+    );
 
-/*
-    CONVERT TAXONOMY CHECKBOXES TO RADIO BUTTONS
-*/
-function admin_footer_javascript_scripts() {
-
-    if ( is_admin() && ! current_user_can('administrator') ) {
-        $allowed_taxonomies = array( 'state', 'country', 'city' );
-        $user_id = get_current_user_id();
-
-        echo '<script type="text/javascript">';
-        foreach ( $allowed_taxonomies as $taxonomy ) {
-            $user_terms = get_user_meta( $user_id, 'user_' . $taxonomy, true );
-            if ( is_array( $user_terms ) ) {
-                echo "localStorage.setItem('user_" . $taxonomy . "', JSON.stringify(" . json_encode( $user_terms ) . "));\n";
-            } else {
-                echo "localStorage.removeItem('user_" . $taxonomy . "');\n";
-            }
-        }
-        echo '</script>';
-    }
-
-    echo '<script>
-            jQuery(document).ready(function($) {
-                $("#taxonomy-city input[type=checkbox]").each(function() {
-                    $(this).attr("type", "radio");
-                });
-                $("#taxonomy-state input[type=checkbox]").each(function() {
-                    $(this).attr("type", "radio");
-                });
-                $("#taxonomy-country input[type=checkbox]").each(function() {
-                    $(this).attr("type", "radio");
-                });
-            });
-
-
-            jQuery(document).ready(function($) {
-                var allowedTaxonomies = ["state", "country", "city"];
-
-                allowedTaxonomies.forEach(function(taxonomy) {
-                
-                    var userTerms = JSON.parse(localStorage.getItem("user_" + taxonomy)); // Retrieve user terms from localStorage
-
-                    if (userTerms) {
-                        $("#" + taxonomy + "checklist input[type=radio]").each(function() {
-                            var termId = parseInt($(this).val());
-                            if (!userTerms.includes(termId)) {
-                                $(this).closest("li").remove();
-                            }
-                        });
-                    }
-                });
-            });
-        </script>';
+    // Add the custom query vars to the allowed list
+    add_filter('query_vars', 'custom_query_vars');
 }
-add_action('admin_footer', 'admin_footer_javascript_scripts');
+add_action('init', 'custom_prevent_league_redirect');
 
+function custom_query_vars($query_vars) {
+    $query_vars[] = 'state';
+    $query_vars[] = 'league';
+    return $query_vars;
+}
 
-/*
-    PHP FUNCTIONS
-*/
-require get_template_directory() . '/php/functions/location-functions.php';
-require get_template_directory() . '/php/functions/restrict-user-access.php';
-require get_template_directory() . '/php/functions/ajax-functions.php';
+function custom_flush_rewrite_rules() {
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'custom_flush_rewrite_rules' );

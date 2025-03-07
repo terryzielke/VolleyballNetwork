@@ -25,19 +25,6 @@ header#header{
 				&:hover{
 					color: $orange;
 				}
-				&#utility-find-program{
-					padding-right: 15px;
-					&::before{
-						content: '';
-						position: absolute;
-						top: 0;
-						right: 0;
-						width: 0;
-						height: 100%;
-						border-right: 1px solid $white;
-						transform: rotate(-20deg);
-					}
-				}
 				&#utility-login{
 					padding-right: 15px;
 					&::before{
@@ -55,9 +42,75 @@ header#header{
 					
 				}
 			}
+			form.search-form{
+				position: relative;
+				width: 110px;
+				padding: 0;
+				background: transparent;
+				padding-right: 15px;
+				transition: .2s all linear;
+				&::before{
+					content: '';
+					position: absolute;
+					top: 0;
+					right: 0;
+					width: 0;
+					height: 100%;
+					border-right: 1px solid $white;
+					transform: rotate(-20deg);
+				}
+				label{
+					position: relative;
+					width: 100%;
+					.screen-reader-text{
+						display: none !important;
+					}
+					&::before{
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 0;
+						display: inline-block;
+						width: 20px;
+						height: 100%;
+						background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/search-white.svg);
+						background-repeat: no-repeat;
+						background-size: 16px;
+						background-position: center;
+					}
+					input.search-field{
+						-webkit-appearance: none;
+						background: none;
+						border: none;
+						height: 30px;
+						margin-left: 25px;
+						color: $white;
+						text-transform: uppercase;
+						outline: none !important;
+						border: none !important;
+						box-shadow: none !important;
+						transition: width 0.3s ease-out;
+						&::placeholder {
+							color: hsla(0,0%,100%,.5);
+						}
+						&:focus{
+							&::placeholder {
+								color: $white;
+							}
+						}
+					}
+					input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-results-decoration{
+						display: none !important;
+					}
+				}
+				input.search-submit{
+					display: none !important;
+				}
+			}
 		}
 		@media(max-width: $lg){
 			.col{
+				form input,
 				a{
 					font-size: clamp(10px,.6vw,12px);
 					font-weight: 500;
@@ -390,76 +443,40 @@ header#header{
 			&.right{
 				z-index: 10;
 				text-align: right;
-				form.search-form{
-					position: absolute;
-					top: 0;
-					right: 0;
-					float: right;
-					width: 110px;
-					padding: 34px 0;
-					background: $white;
-					transition: width 0.3s ease-out, box-shadow 0.3s ease-out;
-					&::after{
+
+				#program-search{
+					position: relative;
+					display: inline-block;
+					padding-top: calc(50px - .5em);
+					font-family: $impact;
+					font-size: clamp(16px, 1.5vw, 25px);
+					color: $orange;
+					padding-left: 1em;
+					cursor: pointer;
+					transition: .2s all linear;
+					span{
+						transition: .2s all linear;
+					}
+					&:hover{
+						color: color.adjust($orange, $lightness: 10%);
+					}
+					&::before{
 						content: '';
 						position: absolute;
-						z-index: 2;
 						top: 0;
-						right: 0;
+						left: 0;
 						display: inline-block;
 						width: 20px;
 						height: 100%;
-						background: linear-gradient(to right, hsla(0,0%,100%,.0), hsla(0,0%,100%,1));
-						opacity: 1;
-					}
-					label{
-						position: relative;
-						width: 100%;
-						.screen-reader-text{
-							display: none !important;
-						}
-						&::before{
-							content: '';
-							position: relative;
-							top: 1px;
-							display: inline-block;
-							width: 20px;
-							height: 20px;
-							background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/search.svg);
-							background-repeat: no-repeat;
-							background-size: contain;
-							background-position: center;
-						}
-						input.search-field{
-							-webkit-appearance: none;
-							background: none;
-							border: none;
-							height: 30px;
-							width: calc(100% - 30px);
-							font-size: 20px;
-							font-family: $impact;
-							color: $grey;
-							text-transform: uppercase;
-							outline: none !important;
-							border: none !important;
-							box-shadow: none !important;
-							transition: width 0.3s ease-out;
-							&::placeholder {
-								color: $orange;
-							}
-							&:focus{
-								&::placeholder {
-									color: hsla(0,0%,0%,.1);
-								}
-							}
-						}
-						input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-results-decoration{
-							display: none !important;
-						}
-					}
-					input.search-submit{
-						display: none !important;
+						background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/search-blue.svg);
+						background-repeat: no-repeat;
+						background-size: .8em;
+						background-position: bottom .1em left;
 					}
 				}
+
+
+
 				#menu-button{
 					display: none;
 					position: absolute;
@@ -512,26 +529,13 @@ header#header{
 					}
 				}
 				@media(max-width:$lg){
-					form.search-form{
-						width: 90px;
-						padding: 27px 0;
-						label{
-							&::before{
-								width: 15px;
-								height: 15px;
-							}
-							input.search-field{
-								height: 25px;
-								width: calc(100% - 25px);
-								font-size: 16px;
-							}
-						}
+					#program-search{
+						padding-top: calc(40px - .5em);
 					}
 				}
 				@media(max-width:$md){
-					form.search-form{
+					#program-search{
 						right: 40px;
-						padding: 26px 0;
 					}
 					#menu-button{
 						display: block;
@@ -547,7 +551,7 @@ header#header{
 #back-to-top{
 	position: fixed;
 	z-index: 100;
-	bottom: 20px;
+	bottom: 40px;
 	right: 0;
 	width: 40px;
 	height: 40px;

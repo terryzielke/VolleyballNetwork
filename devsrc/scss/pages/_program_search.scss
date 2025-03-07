@@ -1,18 +1,18 @@
-#program-filters{
+#filters-section{
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
     background-color: $blue;
     padding: 40px 0;
     .container{
-        .content{
+        h3{
+            color: $white;
+            margin: 0 0 10px;
+        }
+        #filters{
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
-            h3{
-                color: $white;
-                margin: 0 0 10px;
-            }
+            //justify-content: space-between;
             .filter{
                 &:not(:last-child){
                     margin-right: 20px;
@@ -85,7 +85,7 @@ ul#programs{
                 margin: 0;
                 padding-left: 1.2em;
                 background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/location-orange.svg);
-                background-size: .8em;
+                background-size: contain;
                 background-repeat: no-repeat;
                 background-position: bottom left;
                 span.CO-ED,

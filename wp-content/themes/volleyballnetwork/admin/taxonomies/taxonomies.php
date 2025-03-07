@@ -1,7 +1,7 @@
 <?php
 function register_volleyball_taxonomies() {
     // Country Taxonomy
-    register_taxonomy('country', array('venue', 'local-league', 'city'), array(
+    register_taxonomy('country', array('venue', 'local-league', 'city', 'division'), array(
         'label' => __('Country'),
         'rewrite' => array('slug' => 'country'),
         'hierarchical' => true, // Set to true for parent-child relationships
@@ -13,7 +13,7 @@ function register_volleyball_taxonomies() {
     ));
 
     // State Taxonomy
-    register_taxonomy('state', array('venue', 'local-league', 'city'), array(
+    register_taxonomy('state', array('venue', 'local-league', 'city', 'division'), array(
         'label' => __('State'),
         'rewrite' => array('slug' => 'state'),
         'hierarchical' => true,
@@ -25,7 +25,7 @@ function register_volleyball_taxonomies() {
     ));
 
     // City Taxonomy
-    register_taxonomy('city', array('venue', 'local-league', 'city'), array(
+    register_taxonomy('city', array('venue', 'local-league', 'city', 'division'), array(
         'label' => __('City'),
         'rewrite' => array('slug' => 'city'),
         'hierarchical' => true,
@@ -272,167 +272,5 @@ function display_city_country_state_columns($content, $column_name, $term_id) {
     return $content;
 }
 add_filter('manage_city_custom_column', 'display_city_country_state_columns', 10, 3);
-
-
-/**
- * Add country taxonomy to user profile
- */
-function add_country_taxonomy_to_user_profile( $user ) {
-    $user_country = get_user_meta( $user->ID, 'user_country', true );
-    if ( ! is_array( $user_country ) ) {
-        $user_country = array();
-    }
-    ?>
-    <div id="user-country-taxonomy-wrapper">
-        <h3>Country Taxonomy Assignment</h3>
-        <table class="form-table">
-            <tr>
-                <th><label for="user_country">Countries</label></th>
-                <td>
-                    <?php
-                    $terms = get_terms( array(
-                        'taxonomy' => 'country',
-                        'hide_empty' => false,
-                    ) );
-
-                    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                        foreach ( $terms as $term ) {
-                            $checked = in_array( $term->term_id, $user_country ) ? 'checked' : '';
-                            echo '<label><input type="checkbox" name="user_country[]" value="' . esc_attr( $term->term_id ) . '" ' . $checked . '> ' . esc_html( $term->name ) . '</label><br>';
-                        }
-                    } else {
-                        echo 'No countries found.';
-                    }
-                    ?>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <?php
-}
-add_action( 'show_user_profile', 'add_country_taxonomy_to_user_profile' );
-add_action( 'edit_user_profile', 'add_country_taxonomy_to_user_profile' );
-
-function save_country_taxonomy_user_profile( $user_id ) {
-    if ( ! current_user_can( 'edit_user', $user_id ) ) {
-        return false;
-    }
-
-    if ( isset( $_POST['user_country'] ) ) {
-        update_user_meta( $user_id, 'user_country', array_map( 'intval', $_POST['user_country'] ) );
-    } else {
-        update_user_meta( $user_id, 'user_country', array() ); // Clear if nothing selected
-    }
-}
-add_action( 'personal_options_update', 'save_country_taxonomy_user_profile' );
-add_action( 'edit_user_profile_update', 'save_country_taxonomy_user_profile' );
-
-
-/**
- * Add state taxonomy to user profile
- */
- function add_state_taxonomy_to_user_profile( $user ) {
-    $user_state = get_user_meta( $user->ID, 'user_state', true );
-    if ( ! is_array( $user_state ) ) {
-        $user_state = array();
-    }
-    ?>
-    <div id="user-state-taxonomy-wrapper">
-        <h3>State Taxonomy Assignment</h3>
-        <table class="form-table">
-            <tr>
-                <th><label for="user_state">States</label></th>
-                <td>
-                    <?php
-                    $terms = get_terms( array(
-                        'taxonomy' => 'state',
-                        'hide_empty' => false,
-                    ) );
-
-                    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                        foreach ( $terms as $term ) {
-                            $checked = in_array( $term->term_id, $user_state ) ? 'checked' : '';
-                            echo '<label><input type="checkbox" name="user_state[]" value="' . esc_attr( $term->term_id ) . '" ' . $checked . '> ' . esc_html( $term->name ) . '</label><br>';
-                        }
-                    } else {
-                        echo 'No states found.';
-                    }
-                    ?>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <?php
-}
-add_action( 'show_user_profile', 'add_state_taxonomy_to_user_profile' );
-add_action( 'edit_user_profile', 'add_state_taxonomy_to_user_profile' );
-
-function save_state_taxonomy_user_profile( $user_id ) {
-    if ( ! current_user_can( 'edit_user', $user_id ) ) {
-        return false;
-    }
-
-    if ( isset( $_POST['user_state'] ) ) {
-        update_user_meta( $user_id, 'user_state', array_map( 'intval', $_POST['user_state'] ) );
-    } else {
-        update_user_meta( $user_id, 'user_state', array() ); // Clear if nothing selected
-    }
-}
-add_action( 'personal_options_update', 'save_state_taxonomy_user_profile' );
-add_action( 'edit_user_profile_update', 'save_state_taxonomy_user_profile' );
-
-
-/**
- * Add city taxonomy to user profile
- */
-    function add_city_taxonomy_to_user_profile( $user ) {
-        $user_city = get_user_meta( $user->ID, 'user_city', true );
-        if ( ! is_array( $user_city ) ) {
-            $user_city = array();
-        }
-        ?>
-        <div id="user-city-taxonomy-wrapper">
-            <h3>City Taxonomy Assignment</h3>
-            <table class="form-table">
-                <tr>
-                    <th><label for="user_city">Cities</label></th>
-                    <td>
-                        <?php
-                        $terms = get_terms( array(
-                            'taxonomy' => 'city',
-                            'hide_empty' => false,
-                        ) );
-        
-                        if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-                            foreach ( $terms as $term ) {
-                                $checked = in_array( $term->term_id, $user_city ) ? 'checked' : '';
-                                echo '<label><input type="checkbox" name="user_city[]" value="' . esc_attr( $term->term_id ) . '" ' . $checked . '> ' . esc_html( $term->name ) . '</label><br>';
-                            }
-                        } else {
-                            echo 'No cities found.';
-                        }
-                        ?>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <?php
-    }
-    add_action( 'show_user_profile', 'add_city_taxonomy_to_user_profile' );
-    add_action( 'edit_user_profile', 'add_city_taxonomy_to_user_profile' );
-
-    function save_city_taxonomy_user_profile( $user_id ) {
-        if ( ! current_user_can( 'edit_user', $user_id ) ) {
-            return false;
-        }
-    
-        if ( isset( $_POST['user_city'] ) ) {
-            update_user_meta( $user_id, 'user_city', array_map( 'intval', $_POST['user_city'] ) );
-        } else {
-            update_user_meta( $user_id, 'user_city', array() ); // Clear if nothing selected
-        }
-    }
-    add_action( 'personal_options_update', 'save_city_taxonomy_user_profile' );
-    add_action( 'edit_user_profile_update', 'save_city_taxonomy_user_profile' );
 
 ?>

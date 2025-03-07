@@ -75,6 +75,13 @@ function volleyball_program_add_meta_boxes() {
 		'program',
 		'normal'
 	);
+	add_meta_box(
+		'note',
+		'Note',
+		'program_note',
+		'program',
+		'normal'
+	);
 }
 add_action( 'add_meta_boxes', 'volleyball_program_add_meta_boxes' );
 
@@ -83,6 +90,9 @@ function program_league( $post ) {
 }
 function program_schedule( $post ) {
 	include( 'views/program_schedule.php' );
+}
+function program_note( $post ) {
+	include( 'views/program_note.php' );
 }
 
 
@@ -98,6 +108,9 @@ function volleyball_program_save_post_meta_data( $post_id ){
 		// meta data
 		if ( isset( $_REQUEST['program_league'] ) ) {
 			update_post_meta( $post_id, 'program_league', sanitize_text_field(htmlentities($_REQUEST['program_league'])));
+		}
+		if ( isset( $_REQUEST['program_division'] ) ) {
+			update_post_meta( $post_id, 'program_division', sanitize_text_field(htmlentities($_REQUEST['program_division'])));
 		}
 		if ( isset( $_REQUEST['program_season'] ) ) {
 			update_post_meta( $post_id, 'program_season', sanitize_text_field(htmlentities($_REQUEST['program_season'])));
@@ -123,6 +136,12 @@ function volleyball_program_save_post_meta_data( $post_id ){
 		if ( isset( $_REQUEST['program_end_time'] ) ) {
 			update_post_meta( $post_id, 'program_end_time', sanitize_text_field(htmlentities($_REQUEST['program_end_time'])));
 		}
+		if ( isset( $_REQUEST['program_cancelations'] ) ) {
+			update_post_meta( $post_id, 'program_cancelations', sanitize_text_field(htmlentities($_REQUEST['program_cancelations'])));
+		}
+		if ( isset( $_REQUEST['program_note'] ) ) {
+			update_post_meta( $post_id, 'program_note', sanitize_text_field(htmlentities($_REQUEST['program_note'])));
+		}
 		// cant use sanitize_text_field for array
 		update_post_meta( $post_id, 'program_days', $_REQUEST['program_days']);
 		if ( isset( $_REQUEST['program_time'] ) ) {
@@ -142,6 +161,7 @@ function volleyball_program_columns( $columns ) {
 		'title' => __( 'Program' ),
 		'venue' => __( 'Venue' ),
 		'league' => __( 'League' ),
+		'division' => __( 'Division' ),
 		'age' => __( 'Age' ),
 		'gender' => __( 'Gender' ),
 	);
@@ -200,8 +220,15 @@ function volleyball_program_custom_columns( $column, $post_id ) {
                     }
                 }
             }
-
             echo esc_html(get_the_title($league)) . ':<br>' . esc_html($season_title);
+			break;
+		case 'division' :
+			$division = get_post_meta( $post_id, 'program_division', true );
+			$division_title = '';
+			if ( !empty($division) ) {
+				$division_title = get_the_title($division);
+			}
+			echo esc_html($division_title);
 			break;
 	}
 }
@@ -212,6 +239,7 @@ function volleyball_program_sortable_columns( $columns ) {
     $columns['gender'] = 'gender';
     $columns['venue'] = 'venue';
     $columns['league'] = 'league';
+	$columns['division'] = 'division';
     return $columns;
 }
 add_filter( 'manage_edit-program_sortable_columns', 'volleyball_program_sortable_columns' );
@@ -241,22 +269,26 @@ add_action( 'pre_get_posts', 'volleyball_program_orderby' );
 function add_custom_fields_to_program_api( $response, $post, $request ) {
     if ( $post->post_type === 'program' ) {
 
-		$program_league = get_post_meta( $post->ID, 'program_league', true ); // Assuming you're using ACF.  Adapt if using other methods.
+		$program_league = get_post_meta( $post->ID, 'program_league', true );
+		$program_division = get_post_meta( $post->ID, 'program_division', true );
 		$program_season = get_post_meta( $post->ID, 'program_season', true );
 
 		$program_start_date	= get_post_meta( $post->ID, 'program_start_date', true );
 		$program_end_date	= get_post_meta( $post->ID, 'program_end_date', true );
 		$program_start_time	= get_post_meta( $post->ID, 'program_start_time', true );
 		$program_end_time	= get_post_meta( $post->ID, 'program_end_time', true );
+		$program_cancelations	= get_post_meta( $post->ID, 'program_cancelations', true );
 		$program_days		= get_post_meta( $post->ID, 'program_days', true );
-		$program_time		= get_post_meta( $post->ID, 'program_time', true );
-
-		$program_venue = get_post_meta( $post->ID, 'program_venue', true );
+		$program_venue		= get_post_meta( $post->ID, 'program_venue', true );
+		$program_note		= get_post_meta( $post->ID, 'program_note', true );
 
         // Add each custom field to the response data.
         if(isset($program_league)){
             $response->data['program_league'] = $program_league;
         }
+		if(isset($program_division)){
+			$response->data['program_division'] = $program_division;
+		}
         if(isset($program_season)){
             $response->data['program_season'] = $program_season;
         }
@@ -266,6 +298,9 @@ function add_custom_fields_to_program_api( $response, $post, $request ) {
         if(isset($program_end_date)){
             $response->data['program_end_date'] = $program_end_date;
         }
+		if(isset($program_cancelations)){
+			$response->data['program_cancelations'] = $program_cancelations;
+		}
 		if(isset($program_start_time)){
 			$response->data['program_start_time'] = $program_start_time;
 		}
@@ -275,12 +310,12 @@ function add_custom_fields_to_program_api( $response, $post, $request ) {
         if(isset($program_days)){
             $response->data['program_days'] = $program_days;
         }
-        if(isset($program_time)){
-            $response->data['program_time'] = $program_time;
-        }
         if(isset($program_venue)){
             $response->data['program_venue'] = $program_venue;
         }
+		if(isset($program_note)){
+			$response->data['program_note'] = $program_note;
+		}
     }
     return $response;
 }

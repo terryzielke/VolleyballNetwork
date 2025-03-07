@@ -251,17 +251,6 @@ visibleElements.forEach(element => {
 });
 
 
-/*
-  INCLUDE VUE.JS COMPONENTS
-*/
-import { createApp } from 'vue';
-import MyComponent from './components/programSearchApp.vue';
-
-const app = createApp(MyComponent); // Create a Vue app instance
-
-app.mount('#programSearchApp'); // Mount the app to an element with the ID 'app'
-
-
 /**
  * On click of #league-filters .league-filter
  * get value from data-league-id attribute
@@ -270,7 +259,7 @@ app.mount('#programSearchApp'); // Mount the app to an element with the ID 'app'
  * Show the matching .league element
  */
 const leagueFilters = document.querySelectorAll('#league-filters .league-filter');
-const leagueContainers = document.querySelectorAll('#league-container .league');
+const leagueContainers = document.querySelectorAll('#leagues-section .league');
 // click event
 leagueFilters.forEach(filter => {
   filter.addEventListener('click', () => {
@@ -300,4 +289,54 @@ leagueFilters.forEach(filter => {
       }
     }
   });
+});
+
+/**
+ * Program search filters
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const filters = document.querySelectorAll("#filters select"); 
+  applyFilters();
+  filters.forEach(filter => {
+      filter.addEventListener("change", applyFilters);
+  });
+  
+  function applyFilters() {
+    const getFilterValue = (id: string): string => {
+        const element = document.getElementById(id);
+        return element ? (element as HTMLSelectElement).value : "";
+    };
+
+    const selectedFilters: Record<string, string> = {
+        state: getFilterValue("state"),
+        city: getFilterValue("city"),
+        programs: getFilterValue("programs"),
+        season: getFilterValue("season"),
+        age: getFilterValue("age"),
+        gender: getFilterValue("gender")
+    };
+
+    const programs = document.querySelectorAll(".program");
+    
+    programs.forEach(program => {
+        const programElement = program as HTMLElement;
+        const state = programElement.dataset.state?.trim() || "";
+        const city = programElement.dataset.city?.trim() || "";
+        const programs = programElement.dataset.programs?.trim() || "";
+        const season = programElement.dataset.season?.trim() || "";
+        const ages = programElement.dataset.ages?.split(",").map(age => age.trim()) || [];
+        const gender = programElement.dataset.gender?.trim() || "";
+        
+        let matches = true;
+
+        if (selectedFilters.state && state !== selectedFilters.state) matches = false;
+        if (selectedFilters.city && city !== selectedFilters.city) matches = false;
+        if (selectedFilters.programs && programs !== selectedFilters.programs) matches = false;
+        if (selectedFilters.season && season !== selectedFilters.season) matches = false;
+        if (selectedFilters.age && !ages.includes(selectedFilters.age)) matches = false;
+        if (selectedFilters.gender && gender !== selectedFilters.gender) matches = false;
+
+        programElement.style.display = matches ? "block" : "none";
+    });
+  }
 });

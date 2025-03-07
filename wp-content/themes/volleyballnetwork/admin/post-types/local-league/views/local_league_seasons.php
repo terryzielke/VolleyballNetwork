@@ -4,18 +4,22 @@
     $season_winter_price = get_post_meta( $post->ID, 'season_winter_price', true );
     $season_winter_start_date = get_post_meta( $post->ID, 'season_winter_start_date', true );
     $season_winter_end_date = get_post_meta( $post->ID, 'season_winter_end_date', true );
+    $season_winter_note = get_post_meta( $post->ID, 'season_winter_note', true );
     $season_spring_registration = get_post_meta( $post->ID, 'season_spring_registration', true );
     $season_spring_price = get_post_meta( $post->ID, 'season_spring_price', true );
     $season_spring_start_date = get_post_meta( $post->ID, 'season_spring_start_date', true );
     $season_spring_end_date = get_post_meta( $post->ID, 'season_spring_end_date', true );
+    $season_spring_note = get_post_meta( $post->ID, 'season_spring_note', true );
     $season_summer_registration = get_post_meta( $post->ID, 'season_summer_registration', true );
     $season_summer_price = get_post_meta( $post->ID, 'season_summer_price', true );
     $season_summer_start_date = get_post_meta( $post->ID, 'season_summer_start_date', true );
     $season_summer_end_date = get_post_meta( $post->ID, 'season_summer_end_date', true );
+    $season_summer_note = get_post_meta( $post->ID, 'season_summer_note', true );
     $season_fall_registration = get_post_meta( $post->ID, 'season_fall_registration', true );
     $season_fall_price = get_post_meta( $post->ID, 'season_fall_price', true );
     $season_fall_start_date = get_post_meta( $post->ID, 'season_fall_start_date', true );
     $season_fall_end_date = get_post_meta( $post->ID, 'season_fall_end_date', true );
+    $season_fall_note = get_post_meta( $post->ID, 'season_fall_note', true );
 
     // default start dates
     $default_winter_start_date  = date('Y') . '-02-01';
@@ -41,6 +45,8 @@
     <input type="date" id="season_winter_start_date" name="season_winter_start_date" value="<?=($season_winter_start_date ? $season_winter_start_date : $default_winter_start_date )?>" />
     <label for="season_winter_end_date">End Date</label>
     <input type="date" id="season_winter_end_date" name="season_winter_end_date" value="<?=($season_winter_end_date ? $season_winter_end_date : $default_winter_end_date )?>" />
+    <label for="season_winter_note">Note</label>
+    <textarea id="season_winter_note" name="season_winter_note"><?=$season_winter_note?></textarea>
 
     <h3>Spring</h3>
     <label for="season_spring_registration">Registration URL</label>
@@ -51,6 +57,8 @@
     <input type="date" id="season_spring_start_date" name="season_spring_start_date" value="<?=( $season_spring_start_date ? $season_spring_start_date : $default_spring_start_date )?>" />
     <label for="season_spring_end_date">End Date</label>
     <input type="date" id="season_spring_end_date" name="season_spring_end_date" value="<?=($season_spring_end_date ? $season_spring_end_date : $default_spring_end_date )?>" />
+    <label for="season_spring_note">Note</label>
+    <textarea id="season_spring_note" name="season_spring_note"><?=$season_spring_note?></textarea>
 
     <h3>Summer</h3>
     <label for="season_summer_registration">Registration URL</label>
@@ -61,6 +69,8 @@
     <input type="date" id="season_summer_start_date" name="season_summer_start_date" value="<?=( $season_summer_start_date ? $season_summer_start_date : $default_summer_start_date )?>" />
     <label for="season_summer_end_date">End Date</label>
     <input type="date" id="season_summer_end_date" name="season_summer_end_date" value="<?=($season_summer_end_date ? $season_summer_end_date : $default_summer_end_date )?>" />
+    <label for="season_summer_note">Note</label>
+    <textarea id="season_summer_note" name="season_summer_note"><?=$season_summer_note?></textarea>
 
     <h3>Fall</h3>
     <label for="season_fall_registration">Registration URL</label>
@@ -71,5 +81,7 @@
     <input type="date" id="season_fall_start_date" name="season_fall_start_date" value="<?=( $season_fall_start_date ? $season_fall_start_date : $default_fall_start_date )?>" />
     <label for="season_fall_end_date">End Date</label>
     <input type="date" id="season_fall_end_date" name="season_fall_end_date" value="<?=($season_fall_end_date ? $season_fall_end_date : $default_fall_end_date )?>" />
+    <label for="season_fall_note">Note</label>
+    <textarea id="season_fall_note" name="season_fall_note"><?=$season_fall_note?></textarea>
 
 </div>

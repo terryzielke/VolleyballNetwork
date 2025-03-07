@@ -4,9 +4,11 @@
 
 	// Get post meta data
 	$local_league_league = get_post_meta( $post->ID, 'local_league_league', true );
+	$local_league_division = get_post_meta( $post->ID, 'local_league_division', true );
 ?>
 
 <div class="frame">
+    <label for="local_league_league">League Type</label>
     <select name="local_league_league" id="local_league_league">
         <?php
             $league_args = array(
@@ -19,6 +21,42 @@
                 echo '<option value="' . $league->ID . '" ' . $selected . '>' . get_the_title($league->ID) . '</option>';
             }
         ?>	
+    </select>
+
+    <label for="local_league_division">Division</label>
+    <select name="local_league_division" id="local_league_division">
+        <?php
+            // if user is not admin, get user_division meta from profile
+            if (!current_user_can('administrator')) {
+                $user_division = get_user_meta(get_current_user_id(), 'user_division', true);
+
+                // get all divisions where the division is the same as the user's division
+                $division_args = array(
+                    'post_type' => 'division',
+                    'post_status' => 'publish',
+                    'posts_per_page' => -1,
+                    'p' => $user_division,
+                    'suppress_filters' => true,
+                );
+                $divisions = get_posts($division_args);
+                foreach ($divisions as $division) {
+                    $selected = $local_league_division == $division->ID ? 'selected' : '';
+                    echo '<option value="' . $division->ID . '" ' . $selected . '>' . get_the_title($division->ID) . '</option>';
+                }
+            }
+            else{
+                $division_args = array(
+                    'post_type' => 'division',
+                    'post_status' => 'publish',
+                    'posts_per_page' => -1,
+                );
+                $divisions = get_posts($division_args);
+                foreach ($divisions as $division) {
+                    $selected = $local_league_division == $division->ID ? 'selected' : '';
+                    echo '<option value="' . $division->ID . '" ' . $selected . '>' . get_the_title($division->ID) . '</option>';
+                }
+            }
+        ?>
     </select>
 </div>
 

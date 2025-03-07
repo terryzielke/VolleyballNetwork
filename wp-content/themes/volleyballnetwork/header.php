@@ -20,7 +20,9 @@
 	<header id="header">
 		<div class="utility-row row">
 			<div class="col col-6">
-				<a id="utility-find-program">Find a program<span> near you</span></a>
+				<?php
+					get_search_form();
+				?>
 			</div>
 			<div class="col col-6">
 				<a id="utility-login">Login</a>
@@ -43,9 +45,7 @@
 				?>
 			</div>
 			<div class="col col-6 col-md-2 right">
-				<?php
-					get_search_form();
-				?>
+				<a id="program-search" href="/program-search/?province=alberta"><span>Find a program</span></a>
 				<button id="menu-button">
 					<b class="bar bar1"></b>
 					<b class="bar bar2"></b>

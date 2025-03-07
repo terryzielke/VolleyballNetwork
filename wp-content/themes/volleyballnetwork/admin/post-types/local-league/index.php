@@ -99,6 +99,9 @@ function save_local_league_seasons( $post_id ) {
 		if ( isset( $_REQUEST['local_league_league'] ) ) {
 			update_post_meta( $post_id, 'local_league_league', sanitize_text_field(htmlentities($_REQUEST['local_league_league'])));
 		}
+		if ( isset( $_REQUEST['local_league_division'] ) ) {
+			update_post_meta( $post_id, 'local_league_division', sanitize_text_field(htmlentities($_REQUEST['local_league_division'])));
+		}
 		if ( isset( $_REQUEST['season_winter_registration'] ) ) {
 			update_post_meta( $post_id, 'season_winter_registration', sanitize_text_field(htmlentities($_REQUEST['season_winter_registration'])));
 		}
@@ -110,6 +113,9 @@ function save_local_league_seasons( $post_id ) {
 		}
 		if ( isset( $_REQUEST['season_winter_end_date'] ) ) {
 			update_post_meta( $post_id, 'season_winter_end_date', sanitize_text_field(htmlentities($_REQUEST['season_winter_end_date'])));
+		}
+		if ( isset( $_REQUEST['season_winter_note'] ) ) {
+			update_post_meta( $post_id, 'season_winter_note', sanitize_text_field(htmlentities($_REQUEST['season_winter_note'])));
 		}
 		if ( isset( $_REQUEST['season_spring_registration'] ) ) {
 			update_post_meta( $post_id, 'season_spring_registration', sanitize_text_field(htmlentities($_REQUEST['season_spring_registration'])));
@@ -123,6 +129,9 @@ function save_local_league_seasons( $post_id ) {
 		if ( isset( $_REQUEST['season_spring_end_date'] ) ) {
 			update_post_meta( $post_id, 'season_spring_end_date', sanitize_text_field(htmlentities($_REQUEST['season_spring_end_date'])));
 		}
+		if ( isset( $_REQUEST['season_spring_note'] ) ) {
+			update_post_meta( $post_id, 'season_spring_note', sanitize_text_field(htmlentities($_REQUEST['season_spring_note'])));
+		}
 		if ( isset( $_REQUEST['season_summer_registration'] ) ) {
 			update_post_meta( $post_id, 'season_summer_registration', sanitize_text_field(htmlentities($_REQUEST['season_summer_registration'])));
 		}
@@ -135,6 +144,9 @@ function save_local_league_seasons( $post_id ) {
 		if ( isset( $_REQUEST['season_summer_end_date'] ) ) {
 			update_post_meta( $post_id, 'season_summer_end_date', sanitize_text_field(htmlentities($_REQUEST['season_summer_end_date'])));
 		}
+		if ( isset( $_REQUEST['season_summer_note'] ) ) {
+			update_post_meta( $post_id, 'season_summer_note', sanitize_text_field(htmlentities($_REQUEST['season_summer_note'])));
+		}
 		if ( isset( $_REQUEST['season_fall_registration'] ) ) {
 			update_post_meta( $post_id, 'season_fall_registration', sanitize_text_field(htmlentities($_REQUEST['season_fall_registration'])));
 		}
@@ -146,6 +158,9 @@ function save_local_league_seasons( $post_id ) {
 		}
 		if ( isset( $_REQUEST['season_fall_end_date'] ) ) {
 			update_post_meta( $post_id, 'season_fall_end_date', sanitize_text_field(htmlentities($_REQUEST['season_fall_end_date'])));
+		}
+		if ( isset( $_REQUEST['season_fall_note'] ) ) {
+			update_post_meta( $post_id, 'season_fall_note', sanitize_text_field(htmlentities($_REQUEST['season_fall_note'])));
 		}
 	}
 	
@@ -186,6 +201,7 @@ function volleyball_local_league_columns( $columns ) {
 		'cb' => '<input type="checkbox" />',
 		'title' => __( 'Local League' ),
 		'league' => __( 'League' ),
+		'division' => __( 'Division' ),
 		'city' => __( 'City' ),
 		'state' => __( 'State/Provice' ),
 		'country' => __( 'Country' ),
@@ -203,6 +219,11 @@ function volleyball_local_league_columns_content( $column, $post_id ) {
 			$local_league_league = get_post_meta( $post_id, 'local_league_league', true );
 			echo $local_league_league ? get_the_title( $local_league_league ) : '';
 			break;
+		case 'division':
+			$local_league_division = get_post_meta( $post_id, 'local_league_division', true );
+			echo $local_league_division ? get_the_title( $local_league_division ) : '';
+			break;
+
 		case 'country':
 			// get terms
 			$terms = get_the_terms( $post_id, 'country' );
@@ -270,6 +291,7 @@ add_action( 'manage_local-league_posts_custom_column', 'volleyball_local_league_
  */
 function volleyball_local_league_columns_sortable( $columns ) {
 	$columns['league'] = 'league';
+	$columns['division'] = 'division';
 	$columns['country'] = 'country';
 	$columns['state'] = 'state';
 	$columns['city'] = 'city';
@@ -286,26 +308,34 @@ function volleyball_local_league_rest_api( $response, $post, $request ) {
     if ( $post->post_type === 'local-league' ) {
         // meta data
         $local_league_league = get_post_meta( $post->ID, 'local_league_league', true );
+		$local_league_division = get_post_meta( $post->ID, 'local_league_division', true );
         $season_winter_registration = get_post_meta( $post->ID, 'season_winter_registration', true );
         $season_winter_price = get_post_meta( $post->ID, 'season_winter_price', true );
 		$season_winter_start_date = get_post_meta( $post->ID, 'season_winter_start_date', true );
 		$season_winter_end_date = get_post_meta( $post->ID, 'season_winter_end_date', true );
+		$season_winter_note = get_post_meta( $post->ID, 'season_winter_note', true );
         $season_spring_registration = get_post_meta( $post->ID, 'season_spring_registration', true );
         $season_spring_price = get_post_meta( $post->ID, 'season_spring_price', true );
 		$season_spring_start_date = get_post_meta( $post->ID, 'season_spring_start_date', true );
 		$season_spring_end_date = get_post_meta( $post->ID, 'season_spring_end_date', true );
+		$season_spring_note = get_post_meta( $post->ID, 'season_spring_note', true );
         $season_summer_registration = get_post_meta( $post->ID, 'season_summer_registration', true );
         $season_summer_price = get_post_meta( $post->ID, 'season_summer_price', true );
 		$season_summer_start_date = get_post_meta( $post->ID, 'season_summer_start_date', true );
 		$season_summer_end_date = get_post_meta( $post->ID, 'season_summer_end_date', true );
+		$season_summer_note = get_post_meta( $post->ID, 'season_summer_note', true );
         $season_fall_registration = get_post_meta( $post->ID, 'season_fall_registration', true );
         $season_fall_price = get_post_meta( $post->ID, 'season_fall_price', true );
 		$season_fall_start_date = get_post_meta( $post->ID, 'season_fall_start_date', true );
 		$season_fall_end_date = get_post_meta( $post->ID, 'season_fall_end_date', true );
+		$season_fall_note = get_post_meta( $post->ID, 'season_fall_note', true );
         // add to response
         if(isset($local_league_league)){
             $response->data['local_league_league'] = $local_league_league;
         }
+		if(isset($local_league_division)){
+			$response->data['local_league_division'] = $local_league_division;
+		}
         if(isset($season_winter_registration)){
             $response->data['season_winter_registration'] = $season_winter_registration;
         }
@@ -317,6 +347,9 @@ function volleyball_local_league_rest_api( $response, $post, $request ) {
 		}
 		if(isset($season_winter_end_date)){
 			$response->data['season_winter_end_date'] = $season_winter_end_date;
+		}
+		if(isset($season_winter_note)){
+			$response->data['season_winter_note'] = $season_winter_note;
 		}
         if(isset($season_spring_registration)){
             $response->data['season_spring_registration'] = $season_spring_registration;
@@ -330,6 +363,9 @@ function volleyball_local_league_rest_api( $response, $post, $request ) {
 		if(isset($season_spring_end_date)){
 			$response->data['season_spring_end_date'] = $season_spring_end_date;
 		}
+		if(isset($season_spring_note)){
+			$response->data['season_spring_note'] = $season_spring_note;
+		}
         if(isset($season_summer_registration)){
             $response->data['season_summer_registration'] = $season_summer_registration;
         }
@@ -342,6 +378,9 @@ function volleyball_local_league_rest_api( $response, $post, $request ) {
 		if(isset($season_summer_end_date)){
 			$response->data['season_summer_end_date'] = $season_summer_end_date;
 		}
+		if(isset($season_summer_note)){
+			$response->data['season_summer_note'] = $season_summer_note;
+		}
         if(isset($season_fall_registration)){
             $response->data['season_fall_registration'] = $season_fall_registration;
         }
@@ -353,6 +392,9 @@ function volleyball_local_league_rest_api( $response, $post, $request ) {
 		}
 		if(isset($season_fall_end_date)){
 			$response->data['season_fall_end_date'] = $season_fall_end_date;
+		}
+		if(isset($season_fall_note)){
+			$response->data['season_fall_note'] = $season_fall_note;
 		}
     }
     return $response;
