@@ -1,7 +1,7 @@
 <?php
 
-function get_programs_list($state_filter = '', $city_filter = '', $league_filter = '') {
-    ob_start();
+function get_program_list($state_filter = '', $city_filter = '', $league_filter = '') {
+    //ob_start();
     
     echo '<ul id="programs">';
 
@@ -104,7 +104,7 @@ function get_programs_list($state_filter = '', $city_filter = '', $league_filter
     wp_reset_query();
     echo '</ul>';
     
-    return ob_get_clean();
+  //  return ob_get_clean();
 }
 
 ?>

@@ -340,3 +340,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+ 
+
+/**
+ * Adjust width of select element based on selected option
+ */
+function adjustSelectWidth(select: HTMLSelectElement): void {
+  const selectedOption: HTMLOptionElement = select.options[select.selectedIndex];
+  const tempSpan: HTMLSpanElement = document.createElement('span');
+  tempSpan.style.font = window.getComputedStyle(select).font;
+  tempSpan.style.visibility = 'hidden';
+  tempSpan.style.position = 'absolute';
+  tempSpan.textContent = selectedOption.textContent;
+  document.body.appendChild(tempSpan);
+  select.style.width = tempSpan.offsetWidth * 1.2 + 'px';
+  document.body.removeChild(tempSpan);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selectElement: HTMLSelectElement | null = document.querySelector('#find-program-select');
+  const findProgramButton: HTMLAnchorElement | null = document.querySelector('#find-program-button');
+
+  if (selectElement && findProgramButton) {
+    selectElement.addEventListener('change', () => {
+      adjustSelectWidth(selectElement);
+      const selectedValue: string = selectElement.value.replace(/\s/g, '-').toLowerCase();
+      const baseUrl: string = '/program-search';
+
+      if (selectedValue) {
+        findProgramButton.href = `${baseUrl}/?state=${selectedValue}`;
+      } else {
+        findProgramButton.href = baseUrl; // Reset if no value selected
+      }
+    });
+    adjustSelectWidth(selectElement); // Initial width set.
+  }
+});

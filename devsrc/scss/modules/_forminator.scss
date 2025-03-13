@@ -1,11 +1,13 @@
 form.forminator-custom-form{
-	label,
+	label{
+
+	}
 	.forminator-description{
 		display: none !important;
 	}
 	input,
 	textarea{
-		border: none !important;
+		border: 1px solid $grey !important;
 		border-radius: 5px !important;
 	}
 	.forminator-button-submit{
@@ -13,16 +15,19 @@ form.forminator-custom-form{
 		-webkit-appearance: none;
 		background-color: $blue !important;
 		border: 2px solid $blue !important;
-		color: $grey !important;
+		color: $white !important;
 		padding: .3em 1em !important;
 		border-radius: 1000px !important;
+		font-family: $impact !important;
 		font-size: $font-size !important;
-		font-weight: 800 !important;
+		font-weight: 400 !important;
 		transition: .2s all linear !important;
+		box-shadow: none !important;
 		&:hover{
 			background-color: $orange !important;
 			border-color: $orange !important;
-			color: $black !important;
+			color: $white !important;
+			box-shadow: none !important;
 		}
 	}
 }

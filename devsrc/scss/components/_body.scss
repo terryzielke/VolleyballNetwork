@@ -2,6 +2,9 @@ html{
 	body{
 		background-color: $white;
 		overflow-x: hidden;
+		hr{
+			opacity: .1 !important;
+		}
 		main#main{
 			min-height: 35vh;
 			// page header

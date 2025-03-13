@@ -4,6 +4,7 @@ html{
 		-moz-osx-font-smoothing: grayscale;
 		font-size: $font-size;
 		color: $grey;
+		line-height: 1.5em;
 		
 		a{
 			text-decoration: none !important;
@@ -21,7 +22,7 @@ html{
 			li{
 				margin: .5em 0;
 				padding: 0 0 0 .2em;
-				line-height: 1.2em;
+				line-height: 1.5em;
 			}
 		}
 		ol{
@@ -38,7 +39,7 @@ html{
 		h2{
 			font-family: $impact;
 			font-size: clamp(20px, 3vw, 40px);
-			line-height: .8em;
+			line-height: 1em;
 			margin: .5em 0 .5em;
 			text-transform: uppercase;
 			color: $blue;
@@ -46,11 +47,11 @@ html{
 		h3{
 			font-family: $rajdhani;
 			font-size: clamp(20px, 2vw, 30px);
-			font-weight: 400;
+			font-weight: 600;
 			line-height: .8em;
 			margin: .8em 0 .5em;
 			text-transform: uppercase;
-			color: $blue;
+			color: $orange;
 		}
 		h4{
 			font-family: $rajdhani;

@@ -97,7 +97,7 @@
 			?>
 		</div>
 		<div class="text-container">
-			<div id="league-container">
+			<div id="leagues-section">
 				<?php
 					echo $leagues_HTML;
 				?>
@@ -105,5 +105,7 @@
 		</div>
 	</div>
 </section>
+
+<?php include('php/includes/become-an-affiliate-cta.php') ?>
 
 <?php get_footer(); ?>

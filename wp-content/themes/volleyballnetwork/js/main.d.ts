@@ -28,3 +28,7 @@ declare const visibleElements: NodeListOf<Element>;
  */
 declare const leagueFilters: NodeListOf<Element>;
 declare const leagueContainers: NodeListOf<Element>;
+/**
+ * Adjust width of select element based on selected option
+ */
+declare function adjustSelectWidth(select: HTMLSelectElement): void;

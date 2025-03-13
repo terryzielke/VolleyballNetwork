@@ -44,7 +44,7 @@ function volleyball_league_post_type_int() {
 		'hierarchical'       => true,
 		'menu_position'      => 10,
 		'menu_icon'          => 'dashicons-networking',
-		'supports'           => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+		'supports'           => array( 'title', 'thumbnail', 'page-attributes' ),
         'show_in_rest'       => true,
 	);
 	register_post_type( 'league', $league_args );
@@ -89,6 +89,13 @@ function volleyball_admin_league_add_meta_boxes() {
 		'advanced',
 		'high'
 	);
+	add_meta_box(
+		'league-description',
+		'Description',
+		'league_description',
+		'league',
+		'normal'
+	);
 }
 add_action( 'add_meta_boxes', 'volleyball_admin_league_add_meta_boxes' );
 
@@ -100,6 +107,9 @@ function league_ages( $post ) {
 }
 function league_header( $post ) {
 	include( 'views/league_header.php' );
+}
+function league_description( $post ) {
+	include( 'views/league_description.php' );
 }
 
 /**
@@ -161,6 +171,10 @@ function volleyball_admin_league_save_meta_boxes( $post_id ) {
 
     if (isset($_POST['league_expectation_info'])) {
         update_post_meta($post_id, 'league_expectation_info', wp_kses_post($_POST['league_expectation_info']));
+    }
+
+    if (isset($_POST['league_description'])) {
+        update_post_meta($post_id, 'league_description', wp_kses_post($_POST['league_description']));
     }
 }
 add_action( 'save_post', 'volleyball_admin_league_save_meta_boxes' );

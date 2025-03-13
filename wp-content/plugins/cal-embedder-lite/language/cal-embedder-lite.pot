@@ -1,0 +1,397 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: UseStrict's Calendly Embedder\n"
+"POT-Creation-Date: 2023-01-20 08:59-0500\n"
+"PO-Revision-Date: 2022-12-21 10:49-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: cal-embedder-lite.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: admin-settings.tmpl.php:9
+msgid "Refresh URLs"
+msgstr ""
+
+#: admin-settings.tmpl.php:23
+#, php-format
+msgid "UseStrict's Calendly Embedder (v%s)"
+msgstr ""
+
+#: admin-settings.tmpl.php:26
+msgid "Integration"
+msgstr ""
+
+#: admin-settings.tmpl.php:32
+msgid ""
+"Using an API Key to connect to Calendly is deprecated and <strong>will stop "
+"working in December, 2022</strong>.\n"
+"Please create a <a href=\"https://calendly.com/integrations/api_webhooks\" "
+"target=\"_new\">Personal Access Token</a>, click disconnect, and reconnect "
+"using the new token."
+msgstr ""
+
+#: admin-settings.tmpl.php:41
+msgid "API Key"
+msgstr ""
+
+#: admin-settings.tmpl.php:43
+msgid "Personal Access Token"
+msgstr ""
+
+#: admin-settings.tmpl.php:50
+msgid ""
+"Please enter your Calendly Personal Access Token below and click "
+"\"Connect\". This will help us get your Event Types from Calendly and "
+"display them in the shortcode builder."
+msgstr ""
+
+#: admin-settings.tmpl.php:53
+msgid "Connect"
+msgstr ""
+
+#: admin-settings.tmpl.php:59
+msgid "Your Calendly API Key."
+msgstr ""
+
+#: admin-settings.tmpl.php:68
+msgid "Your Calendly Personal Access Token."
+msgstr ""
+
+#: admin-settings.tmpl.php:83
+#, php-format
+msgid "You can find it <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: admin-settings.tmpl.php:105
+msgid "Disconnect"
+msgstr ""
+
+#: admin-settings.tmpl.php:125
+msgid "Shortcode Builder"
+msgstr ""
+
+#: admin-settings.tmpl.php:131
+msgid "Required Fields"
+msgstr ""
+
+#: admin-settings.tmpl.php:135
+msgid "URL"
+msgstr ""
+
+#: admin-settings.tmpl.php:163
+msgid "Embed Type"
+msgstr ""
+
+#: admin-settings.tmpl.php:166
+msgid "Inline"
+msgstr ""
+
+#: admin-settings.tmpl.php:167
+msgid "Pop-up Text"
+msgstr ""
+
+#: admin-settings.tmpl.php:168
+msgid "Pop-up Widget"
+msgstr ""
+
+#: admin-settings.tmpl.php:175
+msgid "Widget Settings"
+msgstr ""
+
+#: admin-settings.tmpl.php:180
+msgid "Text"
+msgstr ""
+
+#: admin-settings.tmpl.php:182 cal-embedder-lite.php:242
+#: cal-embedder-lite.php:350
+msgid "Schedule time with me"
+msgstr ""
+
+#: admin-settings.tmpl.php:187
+msgid "Color"
+msgstr ""
+
+#: admin-settings.tmpl.php:194 admin-settings.tmpl.php:278
+msgid "Text Color"
+msgstr ""
+
+#: admin-settings.tmpl.php:201
+msgid "Include Branding"
+msgstr ""
+
+#: admin-settings.tmpl.php:211
+msgid "Booking Page Settings"
+msgstr ""
+
+#: admin-settings.tmpl.php:216
+msgid "Prefill User Info"
+msgstr ""
+
+#: admin-settings.tmpl.php:221
+msgid "Allow Query Strings"
+msgstr ""
+
+#: admin-settings.tmpl.php:226
+msgid "Min. Width"
+msgstr ""
+
+#: admin-settings.tmpl.php:231
+msgid "Height"
+msgstr ""
+
+#: admin-settings.tmpl.php:236
+msgid "Extra Classes"
+msgstr ""
+
+#: admin-settings.tmpl.php:241
+msgid "Extra Styles"
+msgstr ""
+
+#: admin-settings.tmpl.php:249
+#, php-format
+msgid "Custom Answer %d"
+msgstr ""
+
+#: admin-settings.tmpl.php:256
+msgid "Hide GDPR Banner"
+msgstr ""
+
+#: admin-settings.tmpl.php:261
+msgid "Hide Landing Page Details"
+msgstr ""
+
+#: admin-settings.tmpl.php:266
+msgid "Hide Event Type Details"
+msgstr ""
+
+#: admin-settings.tmpl.php:271
+msgid "Background Color"
+msgstr ""
+
+#: admin-settings.tmpl.php:285
+msgid "Primary Color"
+msgstr ""
+
+#: admin-settings.tmpl.php:295
+msgid "Loading..."
+msgstr ""
+
+#: admin-settings.tmpl.php:297
+msgid "Click to Copy."
+msgstr ""
+
+#: admin-settings.tmpl.php:298
+msgid "Copied!"
+msgstr ""
+
+#: admin-settings.tmpl.php:299
+msgid "Click to copy."
+msgstr ""
+
+#: admin-settings.tmpl.php:302
+msgid "Instructions"
+msgstr ""
+
+#: admin-settings.tmpl.php:303
+msgid ""
+"Select the options and then click the \"copy\" link to copy the shortcode "
+"into the clipboard. Then paste it in the post/page where you want the "
+"Calendly widget to appear."
+msgstr ""
+
+#: admin-settings.tmpl.php:304
+msgid "Required Fields:"
+msgstr ""
+
+#: admin-settings.tmpl.php:307
+msgid "URL:"
+msgstr ""
+
+#: admin-settings.tmpl.php:308
+msgid ""
+"This is the URL that is passed to the Calendly widget. Choose the "
+"\"Profile\" URL to display all of your Event Types."
+msgstr ""
+
+#: admin-settings.tmpl.php:311
+msgid "Embed Type:"
+msgstr ""
+
+#: admin-settings.tmpl.php:314
+#, php-format
+msgid ""
+"See <a href=\"%s\" target=\"_blank\">this</a> for information on each type."
+msgstr ""
+
+#: admin-settings.tmpl.php:319
+msgid "Booking Page Fields"
+msgstr ""
+
+#: admin-settings.tmpl.php:322
+msgid "Prefill User Info:"
+msgstr ""
+
+#: admin-settings.tmpl.php:323
+msgid ""
+"Turn this on if you want to pre-populate the booking form with the logged-in "
+"user's Name, First and Last Name, and Email, depending on your form fields."
+msgstr ""
+
+#: admin-settings.tmpl.php:326
+msgid "Allow Query Strings:"
+msgstr ""
+
+#: admin-settings.tmpl.php:327
+msgid ""
+"Whether to allow Calendly to fetch information from the page URL. Supported "
+"strings are <code>name</code>, <code>firstName</code>, <code>lastName</code> "
+"and <code>email</code>. If the user is logged in and Prefill is enabled, the "
+"Prefill information will take precedence."
+msgstr ""
+
+#: admin-settings.tmpl.php:330
+msgid "Min. Width and Height:"
+msgstr ""
+
+#: admin-settings.tmpl.php:331
+msgid "Adjust dimensions of the iframe that Calendly creates."
+msgstr ""
+
+#: admin-settings.tmpl.php:334
+msgid "Custom Answers 1 to 10:"
+msgstr ""
+
+#: admin-settings.tmpl.php:337
+#, php-format
+msgid ""
+"Calendly allows for up to 10 extra fields of various types. They explain the "
+"values you can enter <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+#: admin-settings.tmpl.php:346
+#, php-format
+msgid ""
+"For more powerful control of your widgets, check out our Calendly Embedder "
+"Pro plugin over at <a href=\"%s\">UseStrict Consulting</a>."
+msgstr ""
+
+#: admin-settings.tmpl.php:349
+msgid "Features include:"
+msgstr ""
+
+#: admin-settings.tmpl.php:351
+msgid "Save your shortcodes in the shortcode library for ease of use."
+msgstr ""
+
+#: admin-settings.tmpl.php:352
+msgid "Embed using a Gutenberg block."
+msgstr ""
+
+#: admin-settings.tmpl.php:353
+msgid "Embed using an Elementor widget."
+msgstr ""
+
+#: admin-settings.tmpl.php:354
+msgid ""
+"Setting Google Analytics variables (Campaign, Source, Medium, Content and "
+"Term)"
+msgstr ""
+
+#: admin-settings.tmpl.php:355
+msgid "Track interaction such as:"
+msgstr ""
+
+#: admin-settings.tmpl.php:357
+msgid "Profile page was viewed"
+msgstr ""
+
+#: admin-settings.tmpl.php:358
+msgid "Event type page was viewed"
+msgstr ""
+
+#: admin-settings.tmpl.php:359
+msgid "Invitee selected date and time"
+msgstr ""
+
+#: admin-settings.tmpl.php:360
+msgid "Invitee successfully booked a meeting"
+msgstr ""
+
+#: cal-embedder-lite.php:189
+msgid "You MUST provide a URL for the Calendly shortcode"
+msgstr ""
+
+#: cal-embedder-lite.php:202
+#, php-format
+msgid ""
+"I do not know how to handle these attributes. type: \"%1$s\", widget: "
+"\"%2$s\""
+msgstr ""
+
+#: cal-embedder-lite.php:578
+msgid "Missing or bad nonce"
+msgstr ""
+
+#: cal-embedder-lite.php:669 cal-embedder-lite.php:803
+msgid "The Personal Access Token used is incorrect or has been revoked."
+msgstr ""
+
+#: cal-embedder-lite.php:680 cal-embedder-lite.php:751
+#, php-format
+msgid "Profile (%1$s)"
+msgstr ""
+
+#: cal-embedder-lite.php:790
+msgid "The API Key is deprecated. Use a Personal Access Token instead."
+msgstr ""
+
+#: cal-embedder-lite.php:797
+msgid "The Personal Access Token is required"
+msgstr ""
+
+#: cal-embedder-lite.php:812
+msgid "Disconnected!"
+msgstr ""
+
+#: cal-embedder-lite.php:817
+msgid "Refreshed!"
+msgstr ""
+
+#: cal-embedder-lite.php:854
+#, php-format
+msgid "<a href=\"%s\">Settings</a>"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "UseStrict's Calendly Embedder"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://usestrict.net/cal-embedder-pro"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Simple embedding for Calendly (and soon various other calendar services)."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Vinny Alves"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://usestrict.consulting"
+msgstr ""

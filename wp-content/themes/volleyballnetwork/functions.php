@@ -31,13 +31,6 @@ add_action('wp_enqueue_scripts', function(){
     wp_enqueue_style('theme.min', get_stylesheet_directory_uri() . '/css/theme.min.css', array(), $version);
 	// JS 
     wp_enqueue_script( 'theme-ts-script', get_template_directory_uri() . '/js/main.js', array(), filemtime(get_template_directory() . '/js/main.js'), true );
-	/*
-	// INC scripts
-	wp_enqueue_style( 'slick-css', get_template_directory_uri() . '/inc/slick/slick.css');
-	wp_enqueue_script( 'slick-js', get_template_directory_uri() . '/inc/slick/slick.min.js', array(), '20151215', true );
-	wp_enqueue_script( 'jquery-visible', get_template_directory_uri() . '/inc/visible/jquery.visible.min.js');
-	wp_enqueue_script( 'nearby', get_template_directory_uri() . '/inc/nearby/nearby.js');
-    */
 });
 // ADMIN STYLES & SCRIPTS
 add_action('admin_enqueue_scripts', function(){
@@ -83,6 +76,7 @@ require get_template_directory() . '/admin/users/user-division.php';
 require get_template_directory() . '/admin/scripts/ajax-functions.php';
 require get_template_directory() . '/php/functions/location-functions.php';
 require get_template_directory() . '/php/functions/restrict-user-access.php';
+require get_template_directory() . '/php/functions/get_program_filters.php';
 require get_template_directory() . '/php/functions/get_program_list.php';
 
 
@@ -243,11 +237,6 @@ add_action('wp_logout',function(){
   wp_safe_redirect( home_url() );
   exit;
 });
-
-
-
-// SET PUBLIC STATUS
-// update_option('blog_public', strpos(site_url(), '.zieke.design') ? '0' : '1');
 
 
 

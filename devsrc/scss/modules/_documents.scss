@@ -1,0 +1,99 @@
+.dataTables_filter,
+.dataTables_info{
+    display: none !important;
+}
+table.dataTable thead th, 
+table.dataTable thead td,
+table.dataTable.no-footer{
+	border-color: $light !important;
+}
+table.dataTable{
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    overflow: hidden;
+    thead{
+        background-color: $light;
+    }
+    thead{
+        tr{
+            th{
+                background-image: none !important;
+                padding-top: 4px;
+                padding-bottom: 2px;
+                line-height: 38px;
+                &.col-id,
+                &.col-content,
+                &.col-image,
+                &.col-doc_categories{
+                    display: none;
+                }
+                &.col-date,
+                &.col-link{
+                    width: 120px !important;
+                    max-width: 120px !important;
+                }
+            }
+        }
+    }
+    tbody{
+        tr{
+            td{
+                line-height: 38px;
+                color: $blue;
+                &.col-id,
+                &.col-content,
+                &.col-image,
+                &.col-doc_categories{
+                    display: none;
+                }
+                &.col-title{
+                    font-weight: 600;
+                }
+                &.col-link{
+                    text-align: right;
+                    a{
+                        max-width: 150px;
+                        float: right;
+                    }
+                }
+            }
+            &:nth-child(1){
+                td{
+                    padding-top: 12px;
+                }
+            }
+        }
+    }
+    @media(max-width: $md){
+        thead{
+            tr{
+                th{
+                    &.col-date,
+                    &.col-link{
+                        display: none;
+                    }
+                }
+            }
+        }
+        tbody{
+            display: block;
+            width: 100%;
+            tr{
+                display: block;
+                width: 100%;
+                td{
+                    display: block;
+                    padding: 5px 10px;
+                    line-height: 1em;
+                    &.col-link{
+                        text-align: left;
+                        a{
+                            max-width: 100%;
+                            float: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

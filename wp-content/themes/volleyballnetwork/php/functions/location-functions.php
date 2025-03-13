@@ -1,4 +1,33 @@
 <?php
+
+function getUserProvince() {
+    $ip = $_SERVER['REMOTE_ADDR']; // Get the user's IP address
+    $url = "http://ip-api.com/json/{$ip}?fields=regionName,status,message";
+    
+    $response = file_get_contents($url);
+    $data = json_decode($response, true);
+
+    if ($data && $data['status'] === 'success') {
+        return strtolower($data['regionName']); // Returns the state/province name
+    } else {
+        return "";
+    }
+}
+
+function getUserCity() {
+    $ip = $_SERVER['REMOTE_ADDR']; // Get the user's IP address
+    $url = "http://ip-api.com/json/{$ip}?fields=city,status,message";
+    
+    $response = file_get_contents($url);
+    $data = json_decode($response, true);
+
+    if ($data && $data['status'] === 'success') {
+        return strtolower($data['city']); // Returns the city name
+    } else {
+        return "";
+    }
+}
+
 /* Get user IP */
 function getUserIP() {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

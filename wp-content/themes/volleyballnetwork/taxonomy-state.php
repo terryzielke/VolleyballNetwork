@@ -46,16 +46,6 @@
 	</div>
 </section>
 
-<section class="page">
-	<div class="container">
-		<div class="text-container">
-			<div class="content">
-				<?= the_content() ?>
-			</div>
-		</div>
-	</div>
-</section>
-
 <section id="leagues-section">
         <?php
             foreach($leagues as $league_id) {
@@ -84,7 +74,7 @@
                                 <?php
 
 
-                                echo get_programs_list($province,'',$league_title);
+                                get_program_list($province,'',$league_title);
                                 ?>
                             </div>
                         </div>
@@ -92,6 +82,16 @@
                 <?php
             }
         ?>
+</section>
+
+<section class="page">
+	<div class="container">
+		<div class="text-container">
+			<div class="content">
+				<?= the_content() ?>
+			</div>
+		</div>
+	</div>
 </section>
 
 <?php get_footer(); ?>

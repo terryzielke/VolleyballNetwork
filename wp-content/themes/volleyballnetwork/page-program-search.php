@@ -3,7 +3,11 @@
 <section id="filters-section">
 	<div class="container">
 		<h3>Find a Program</h3>
-		<?php include('php/includes/program-filters.php'); ?>
+		<?php
+			get_program_filters();
+			
+			//include('php/includes/program-filters.php');
+		?>
 	</div>
 </section>
 
@@ -12,9 +16,9 @@
     <div class="container">
 		<div id="program-container">
 			<?php
-			echo get_programs_list();
+				get_program_list();
 
-			//include('php/includes/program-list.php');
+				//include('php/includes/program-list.php');
 			
 			?>
 		</ul>

@@ -42,6 +42,7 @@ Template Name: Contact
                     </div>
                 </div>
             </div>
+            <?= do_shortcode('[forminator_form id="304"]') ?>
         </div>
     </div>
 
