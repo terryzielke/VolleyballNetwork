@@ -9,6 +9,7 @@ form.forminator-custom-form{
 	textarea{
 		border: 1px solid $grey !important;
 		border-radius: 5px !important;
+		background-color: $white !important;
 	}
 	.forminator-button-submit{
 		display: inline-block;
@@ -29,5 +30,15 @@ form.forminator-custom-form{
 			color: $white !important;
 			box-shadow: none !important;
 		}
+	}
+	.forminator-button-upload{
+		color: $white !important;
+		background-color: $grey !important;
+		border: 1px solid $grey !important;
+		border-radius: 5px !important;
+		box-shadow: none !important;
+	}
+	.forminator-button-delete{
+		background-color: transparent !important;
 	}
 }

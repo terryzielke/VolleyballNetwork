@@ -291,6 +291,60 @@ leagueFilters.forEach(filter => {
   });
 });
 
+
+/**
+ * Search page results filtering
+ */
+const resultFilters = document.querySelectorAll('#search-result-filters .result-filter');
+const resultListings = document.querySelectorAll('#search-results-section .result');
+// click event
+resultFilters.forEach(filter => {
+  filter.addEventListener('click', () => {
+    // give the clicked filter the active class
+    resultFilters.forEach(filter => filter.classList.remove('active'));
+    filter.classList.add('active');
+    // get the resultId from the clicked filter
+    const resultId = filter.getAttribute('data-post-type');
+    if (resultId) {
+      // if resultId is equal to "all", show all results
+      if (resultId === 'all') {
+        resultListings.forEach(result => {
+          const resultElement = result as HTMLElement;
+          resultElement.style.display = 'block';
+        });
+      }
+      // else, show only the result with the matching result
+      else{
+        resultListings.forEach(result => {
+          const resultElement = result as HTMLElement;
+          if (resultElement.getAttribute('data-post-type') === resultId) {
+            resultElement.style.display = 'block';
+          } else {
+            resultElement.style.display = 'none';
+          }
+        });
+      }
+      // apply odd and even classes to all visible results
+      var visiblePosition = 'odd';
+      resultListings.forEach((result, index) => {
+        const resultElement = result as HTMLElement;
+        resultElement.classList.remove('odd', 'even');
+        if (resultElement.style.display === 'block') {
+          // alternate odd and even classes
+          if (visiblePosition === 'odd') {
+            resultElement.classList.add('odd');
+            visiblePosition = 'even';
+          } else {
+            resultElement.classList.add('even');
+            visiblePosition = 'odd';
+          }
+        }
+      });
+    }
+  });
+});
+
+
 /**
  * Program search filters
  */
@@ -374,5 +428,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     adjustSelectWidth(selectElement); // Initial width set.
+  }
+});
+
+
+/**
+ * Toggle filters for programs
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.getElementById("toggle-filters");
+  const filters = document.getElementById("filters");
+
+  if (toggleButton && filters) {
+    toggleButton.addEventListener("click", () => {
+      filters.classList.toggle("open");
+    });
   }
 });

@@ -9,13 +9,7 @@
 </section>
 
 <section class="page">
-	<div class="container">
-		<div class="text-container">
-			<div class="content">
-				<?= the_content() ?>
-			</div>
-		</div>
-	</div>
+	<?= the_content() ?>
 </section>
 
 <?php get_footer(); ?>

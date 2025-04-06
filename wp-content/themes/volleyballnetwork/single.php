@@ -11,15 +11,7 @@
 </section>
 
 <section class="page">
-	<div class="container">
-		<div class="row">
-			<div class="col col-12">
-				<div class="content">
-					<?= the_content() ?>
-				</div>
-			</div>
-		</div>
-	</div>
+	<?= the_content() ?>
 </section>
 
 <?php get_footer(); ?>

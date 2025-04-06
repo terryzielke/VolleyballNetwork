@@ -2,6 +2,11 @@ html{
 	body{
 		background-color: $white;
 		overflow-x: hidden;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		font-size: $font-size;
+		color: $grey;
+		line-height: 1.5em;
 		hr{
 			opacity: .1 !important;
 		}
@@ -11,7 +16,7 @@ html{
 			section.header{
 				.container{
 					.text-container{
-						margin: 0 auto clamp(25px, 5vh, 50px);
+						margin: 0 auto;
 						padding: clamp(25px, 5vh, 50px) 0;
 						border-bottom: 1px solid hsla(0,0%,0%,.1);
 						h1{
@@ -19,10 +24,83 @@ html{
 							color: $orange;
 						}
 					}
+					.header-section-filters{
+						.text-container{
+							display: flex;
+							padding: 0 !important;
+							border-bottom: none !important;
+							a{
+								display: inline-block;
+								padding: 1em;
+								font-family: $impact;
+								border-bottom-right-radius: 5px;
+								border-bottom-left-radius: 5px;
+								transition: .2s all linear;
+								cursor: pointer;
+								&:not(.active){
+									background-color: $light;
+								}
+								&:not(:last-child){
+									margin-right: 5px;
+								}
+								&:not(:first-child){
+									margin-left: 5px;
+								}
+								&:hover{
+									background-color: color.adjust($light, $lightness: 10%);
+								}
+							}
+					
+							#filters{
+								margin: 20px 0;
+								display: flex;
+								flex-direction: row;
+								.filter{
+									&:nth-child(1){
+										display: none !important;
+									}
+									&:not(:last-child){
+										margin-right: 20px;
+									}
+									&:not(:nth-child(2)){
+										margin-left: 20px;
+									}
+									label{
+										display: block;
+										color: $orange;
+										font-family: $impact;
+										font-size: clamp(12px,.8vw,20px);
+										margin-bottom: 10px;
+									}
+									select{
+										position: relative;
+										-webkit-appearance: none;
+										display: block;
+										width: 100%;
+										max-width: 200px;
+										padding: 5px 10px;
+										padding-right: 30px;
+										font-family: $text;
+										font-size: clamp(12px,.6vw,18px);
+										font-weight: 600;
+										color: $grey;
+										background-color: $white;
+										background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/down-carrot-grey.svg);
+										background-repeat: no-repeat;
+										background-size: 10px;
+										background-position: center right 10px;
+										border: 2px solid $light;
+										outline: none;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 			// page body
 			section.page{
+				margin-top: -1px;
 				.container{
 					.text-container{
 						margin: 0 auto clamp(25px, 5vh, 50px);
@@ -49,11 +127,11 @@ html{
 			}
 			// container
 			.container {
-				max-width: 1600px;
+				max-width: $container;
 				padding-left: 20px;
 				padding-right: 20px;
 				.text-container{
-					max-width: 1100px;
+					max-width: $text-container;
 					margin: auto;
 					padding-left: 0;
 					padding-right: 0;

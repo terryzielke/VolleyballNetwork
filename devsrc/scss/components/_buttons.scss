@@ -1,63 +1,76 @@
-button,
-.button,
-.btn,
-input[type=submit],
-em strong a,
-strong em a{
-	display: inline-block;
-	-webkit-appearance: none;
-	background-color: $blue;
-	border-color: $blue;
-	color: $white;
-	margin: 0 5px 5px 0;
-	padding: .3em 1em;
-	border-radius: 1000px;
-	font-family: $impact;
-	font-size: clamp(16px, 1.2vw, 20px);
-	font-weight: 100;
-	font-style: normal;
-	text-transform: uppercase;
-	transition: .2s all linear;
-	&:hover{
-		background-color: color.adjust($blue, $lightness: 10%);
-		border-color: color.adjust($blue, $lightness: 10%);
-		color: $white;
-	}
-	&.blue{
+// DIVI RESTRITION CONTAINERS
+header#header,
+footer#footer,
+#et-boc .et-l .et_pb_section .et_pb_row .et_pb_column .et_pb_module .et_pb_text_inner,
+#et-boc .et-l .et_pb_section .et_pb_row .et_pb_column .et_pb_module .et_pb_code_inner,
+#et-boc .et-l .et_pb_section .et_pb_row .et_pb_column .et_pb_module.et_pb_button_module_wrapper,
+main#main .header,
+main#main .template-section{
+	// DIVI RESTRICTED STYLES
+	//button,
+	.button,
+	.btn,
+    .et_pb_button,
+	input[type=submit]{
+		display: inline-block;
+		-webkit-appearance: none;
 		background-color: $blue;
 		border-color: $blue;
 		color: $white;
+		margin: 0 5px 5px 0;
+		padding: .4em 1em .3em;
+		border-radius: 1000px;
+		font-family: $impact;
+		font-size: clamp(16px, 0.8vw, 20px);
+		font-weight: 100;
+		font-style: normal;
+		text-transform: uppercase;
+		transition: .2s all linear;
+		&::after{
+			content: none !important;
+			display: none !important;
+		}
 		&:hover{
 			background-color: color.adjust($blue, $lightness: 10%);
 			border-color: color.adjust($blue, $lightness: 10%);
 			color: $white;
 		}
-	}
-	&.orange{
-		background-color: $orange;
-		border-color: $orange;
-		color: $white;
-		&:hover{
-			background-color: color.adjust($orange, $lightness: 10%);
-			border-color: color.adjust($orange, $lightness: 10%);
+		&.blue{
+			background-color: $blue;
+			border-color: $blue;
 			color: $white;
+			&:hover{
+				background-color: color.adjust($blue, $lightness: 10%);
+				border-color: color.adjust($blue, $lightness: 10%);
+				color: $white;
+			}
 		}
-	}
-	&.white{
-		background-color: $white;
-		border-color: $white;
-		color: $blue;
-		&:hover{
-			background-color: color.adjust($white, $lightness: -10%);
-			border-color: color.adjust($white, $lightness: -10%);
+		&.orange{
+			background-color: $orange;
+			border-color: $orange;
+			color: $white;
+			&:hover{
+				background-color: color.adjust($orange, $lightness: 10%);
+				border-color: color.adjust($orange, $lightness: 10%);
+				color: $white;
+			}
+		}
+		&.white{
+			background-color: $white;
+			border-color: $white;
 			color: $blue;
+			&:hover{
+				background-color: color.adjust($white, $lightness: -10%);
+				border-color: color.adjust($white, $lightness: -10%);
+				color: $blue;
+			}
 		}
 	}
-}
-
-.button-wrapper{
-	padding: 50px 0 0;
-	@media(max-width:$md){
-		padding: 5vh 0 0;
+	
+	.button-wrapper{
+		padding: 50px 0 0;
+		@media(max-width:$md){
+			padding: 5vh 0 0;
+		}
 	}
 }

@@ -1,0 +1,95 @@
+html{
+    body.et-db{
+        #main{
+            #et-boc{
+                .et-l{
+                    // Split Section
+                    .et_pb_section.divi-split-section{
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
+                        .et_pb_row{
+                            margin: 0 !important;
+                            .et_pb_column{
+                                margin-left: 0 !important;
+                                margin-right: 0 !important;
+                                &:first-child{
+                                    padding: clamp(20px, 2vw, 40px) clamp(40px, 3vw, 80px) !important;
+                                }
+                                &:last-child{
+                                    .et_pb_image,
+                                    .et_pb_image .et_pb_image_wrap,
+                                    .et_pb_image .et_pb_image_wrap img{
+                                        position: absolute;
+                                        top: 0;
+                                        width: 52vw;
+                                        height: 100%;
+                                        object-fit: cover;
+                                    }
+                                }
+                            }
+                            &.reverse{
+                                .et_pb_column{
+                                    &:last-child{
+                                        .et_pb_image,
+                                        .et_pb_image .et_pb_image_wrap,
+                                        .et_pb_image .et_pb_image_wrap img{
+                                            right: 0;
+                                        }
+                                    }
+                                }
+                            }
+                            &:not(.reverse){
+                                .et_pb_column{
+                                    &:last-child{
+                                        .et_pb_image,
+                                        .et_pb_image .et_pb_image_wrap,
+                                        .et_pb_image .et_pb_image_wrap img{
+                                            left: 0;
+                                        }
+                                    }
+                                }
+                            }
+                            @media(max-width: $md){
+                                .et_pb_column{
+                                    &:first-child{
+                                        padding: clamp(40px, 3vw, 80px) !important;
+                                    }
+                                }
+                                &.reverse{
+                                    .et_pb_column{
+                                        &:last-child{
+                                            height: 100vw !important;
+                                            .et_pb_image{
+                                                width: 100vw;
+                                                right: -20px;
+                                            }
+                                            .et_pb_image .et_pb_image_wrap,
+                                            .et_pb_image .et_pb_image_wrap img{
+                                                width: 100vw;
+                                            }
+                                        }
+                                    }
+                                }
+                                &:not(.reverse){
+                                    .et_pb_column{
+                                        &:last-child{
+                                            height: 100vw !important;
+                                            .et_pb_image{
+                                                width: 100vw;
+                                                left: -20px;
+                                            }
+                                            .et_pb_image .et_pb_image_wrap,
+                                            .et_pb_image .et_pb_image_wrap img{
+                                                width: 100vw;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

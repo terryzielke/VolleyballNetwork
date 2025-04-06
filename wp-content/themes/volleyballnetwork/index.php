@@ -4,7 +4,7 @@
 	$latest_posts = get_posts(['numberposts' => 12 , 'post__not_in' => [$latest_post[0]->ID]]);
 ?>
 
-<section id="blog">
+<section id="blog" class="template-section">
 	<div class="frame">
 		<h1>Blog</h1>
 		<div class="columns">
@@ -37,7 +37,7 @@
 	</div>
 </section>
 
-<section class="BLOG-PREVIEW">
+<section class="BLOG-PREVIEW template-section">
 	<?php foreach(array_slice($latest_posts,3,12) as $post) { setup_postdata($post);?>	
 	<div class="frame">
         <div class="columns">

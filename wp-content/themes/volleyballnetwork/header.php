@@ -5,13 +5,31 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="<?=get_template_directory_uri()?>/assets/img/volleyball-network-icon.svg">
 	<script src="https://kit.fontawesome.com/dd2ef627ee.js" crossorigin="anonymous"></script>
-	<!-- fonts --
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	-->
 	<?php wp_head(); ?>
+	<?php
+		$postBody = '';
+		if(is_home()){
+			$postBody = 'blog-body';
+		}
+		elseif(is_404()){ 
+			$postBody = 'oops-body';
+		}
+		elseif(is_author()){
+			$postBody = 'author-body';
+		}
+		elseif(is_search()){
+			$postBody = 'search-body';
+		}
+		else{
+			global $post;
+			if($post){
+				$pageSlug = $post->post_name;
+				$postBody = $pageSlug.'-body';
+			}
+		}
+	?>
 </head>
-<body <?php body_class(); ?> id="<?php if(is_home()){echo 'blog-body';}elseif(is_404()){ echo 'oops-body';}elseif(is_author()){echo 'author-body';}else{global $post; $pageSlug = $post->post_name; echo $pageSlug.'-body';} ?>">
+<body <?php body_class(); ?> id="<?=$postBody?>">
 
 <!-- content -->
 <div id="page">

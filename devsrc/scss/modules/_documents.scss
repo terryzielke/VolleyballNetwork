@@ -54,6 +54,9 @@ table.dataTable{
                     a{
                         max-width: 150px;
                         float: right;
+                        .dll-button-icon{
+                            display: none;
+                        }
                     }
                 }
             }

@@ -8,6 +8,14 @@
         h3{
             color: $white;
             margin: 0 0 10px;
+            #toggle-filters{
+                color: $orange;
+                font-size: .8em;
+                float: right;
+                @media(min-width: $md){
+                    display: none;
+                }
+            }
         }
         #filters{
             display: flex;
@@ -44,6 +52,26 @@
                     background-position: center right 10px;
                 }
             }
+            @media(max-width: $md){
+                flex-direction: column;
+                .filter{
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    &:not(:last-child){
+                        margin-bottom: 20px;
+                    }
+                    label{
+                        font-size: clamp(10px,.8vw,16px);
+                    }
+                    select{
+                        max-width: 100%;
+                        font-size: clamp(10px,.8vw,16px);
+                    }
+                }
+                &:not(.open){
+                    display: none;
+                }
+            }
         }
     }
 }
@@ -69,7 +97,7 @@ ul.programs,
 ul#programs{
     list-style: none;
     margin: 40px 0;
-    padding: 0;
+    padding: 0 !important;
     // single program
     li.program{
         margin-bottom: 40px;
@@ -141,6 +169,7 @@ ul#programs{
                 h3{
                     line-height: 1.2em;
                     background-position: top left;
+                    background-size: 20px;
                     span{
                         display: block;
                         &.Boys,

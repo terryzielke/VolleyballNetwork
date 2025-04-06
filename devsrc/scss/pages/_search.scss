@@ -1,0 +1,22 @@
+section#search-results-section{
+    margin-bottom: 40px;
+    .result{
+        padding: 20px;
+        border-radius: 10px;
+        h2{
+            margin-top: 0;
+        }
+        p{
+            margin: 0;
+        }
+        &:nth-child(even){
+            background: $light;
+        }
+        &.odd{
+            background: $white;
+        }
+        &.even{
+            background: $light;
+        }
+    }
+}

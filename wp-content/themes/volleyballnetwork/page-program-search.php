@@ -1,25 +1,22 @@
 <?php get_header(); the_post(); ?>
 
-<section id="filters-section">
+<section id="filters-section" class="template-section">
 	<div class="container">
-		<h3>Find a Program</h3>
+		<h3>Find a Program
+			<a id="toggle-filters"><i class="fa-solid fa-filter"></i></a>
+		</h3>
 		<?php
 			get_program_filters();
-			
-			//include('php/includes/program-filters.php');
 		?>
 	</div>
 </section>
 
 
-<section class="programs-section">
+<section class="programs-section template-section">
     <div class="container">
 		<div id="program-container">
 			<?php
 				get_program_list();
-
-				//include('php/includes/program-list.php');
-			
 			?>
 		</ul>
     </div>

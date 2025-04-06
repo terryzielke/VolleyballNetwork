@@ -26,6 +26,10 @@
     cursor: pointer;
     transition: .2s all linear;
 }
+body.wp-admin.toplevel_page_et_divi_options ul .clearfix{
+    height: auto !important;
+    opacity: 1 !important;
+}
 
 
 /*

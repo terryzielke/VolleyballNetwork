@@ -1,4 +1,4 @@
-<section id="find-program-near-you-section" class="blue-bg">
+<section id="find-program-near-you-section" class="blue-bg template-section">
 	<center class="container">
       <form>
          <label class="white">Find A Program Near You</label>

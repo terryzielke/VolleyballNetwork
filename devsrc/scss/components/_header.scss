@@ -273,8 +273,8 @@ header#header{
 											padding: 2em 20px;
 											font-family: $impact;
 											font-weight: 200;;
-											font-size: clamp(12px, .8vw, 20px);
-											line-height: clamp(12px, .8vw, 20px);
+											font-size: clamp(14px, .9vw, 20px);
+											line-height: clamp(14px, .9vw, 20px);
 											color: $white !important;
 											text-transform: uppercase;
 											text-align: left;
@@ -472,7 +472,7 @@ header#header{
 						background-image: url(/wp-content/themes/volleyballnetwork/assets/img/UI/search-blue.svg);
 						background-repeat: no-repeat;
 						background-size: .8em;
-						background-position: bottom .1em left;
+						background-position: bottom .08em left;
 					}
 				}
 
@@ -529,14 +529,24 @@ header#header{
 						}
 					}
 				}
+				@media(max-width:$xl){
+					#program-search{
+						&::before{
+							background-position: bottom .18em left;
+						}
+					}
+				}
 				@media(max-width:$lg){
 					#program-search{
-						padding-top: calc(40px - .5em);
+						padding-top: calc(40px - .7em);
 					}
 				}
 				@media(max-width:$md){
 					#program-search{
 						right: 40px;
+						&::before{
+							background-position: bottom .25em left;
+						}
 					}
 					#menu-button{
 						display: block;

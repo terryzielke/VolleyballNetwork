@@ -1,11 +1,11 @@
 <?php get_header(); the_post(); ?>
 
-<section class="header">
+<section class="header template-section">
 	<div class="container">
 		<div class="text-container" style="margin-bottom: 0;">
 		    <h1 style="margin-top:0;"><?php single_term_title(); ?></h1>
 		</div>
-        <div id="league-filters">
+        <div id="league-filters" class="header-section-filters">
 		    <div class="text-container" style="margin-bottom: 0;">
                 <?php
                     // get this province name
@@ -46,7 +46,7 @@
 	</div>
 </section>
 
-<section id="leagues-section">
+<section id="leagues-section" class="template-section">
         <?php
             foreach($leagues as $league_id) {
                 $league = get_post($league_id);
@@ -85,13 +85,7 @@
 </section>
 
 <section class="page">
-	<div class="container">
-		<div class="text-container">
-			<div class="content">
-				<?= the_content() ?>
-			</div>
-		</div>
-	</div>
+	<?= the_content() ?>
 </section>
 
 <?php get_footer(); ?>

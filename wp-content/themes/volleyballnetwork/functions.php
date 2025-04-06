@@ -129,6 +129,7 @@ add_filter('template_include', function($template) {
     INCLUDE SHORTCODES
 */
 require get_template_directory() . '/php/shortcodes/city-contact-info-list.php';
+require get_template_directory() . '/php/shortcodes/showcase-registration-form.php';
 
 
 
@@ -284,6 +285,17 @@ function is_blog () {
 }
 
 
+/**
+ * MODIFY SEARCH QUERY
+ */
+function modify_search_query($query) {
+    if ($query->is_search() && $query->is_main_query()) {
+        $query->set('post_type', array('post', 'page', 'program')); // Add custom post types if needed
+    }
+}
+add_action('pre_get_posts', 'modify_search_query');
+
+
 
 /*
   OVERRIDE THE EMAIL FROM VALUE
@@ -369,7 +381,7 @@ function getBrowser() {
 
 /*
 	FORMINATOR HOOKS
-*/
+*
 add_filter('forminator_custom_form_submit_errors', function ($submit_errors, $form_id, $field_data_array) {
     foreach ($field_data_array as $field) {
         $value = $field['value'];
@@ -389,6 +401,10 @@ add_filter('forminator_custom_form_submit_errors', function ($submit_errors, $fo
     return $submit_errors;
 }, 10, 3);
 
+
+/*
+    PREVENT REDIRECT TO LEAGUE PAGE
+*/
 function custom_prevent_league_redirect() {
     // Add a new rewrite rule that checks for the specific query parameters
     add_rewrite_rule(

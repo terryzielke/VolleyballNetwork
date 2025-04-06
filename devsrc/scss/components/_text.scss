@@ -1,66 +1,120 @@
-html{
-	body{
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		font-size: $font-size;
-		color: $grey;
+// DIVI RESTRITION CONTAINERS
+header#header,
+footer#footer,
+#et-boc .et-l .et_pb_section .et_pb_row .et_pb_column .et_pb_module .et_pb_text_inner,
+#et-boc .et-l .et_pb_section .et_pb_row .et_pb_column .et_pb_module .et_pb_code_inner,
+#et-boc .et-l .et_pb_section .et_pb_row .et_pb_column .et_pb_module.et_pb_button_module_wrapper,
+main#main .header,
+main#main .template-section{
+	// DIVI RESTRICTED STYLES
+	a{
+		text-decoration: none !important;
+		color: $blue;
+	}
+	p{
 		line-height: 1.5em;
-		
-		a{
-			text-decoration: none !important;
-			color: $blue;
-		}
-		p{
+		margin: 1em 0;
+		padding: 0;
+	}
+	ol,
+	ul:not(#programs):not(#primary-menu):not(.sub-menu){
+		margin: 1em 0;
+		padding: 0 0 0 1.8em;
+		list-style-type: disc;
+		li{
+			margin: .5em 0;
+			padding: 0 0 0 .2em;
 			line-height: 1.5em;
-			margin: 1em 0;
 		}
-		ol,
-		ul{
-			margin: 1em 0;
-			padding: 0 0 0 1.8em;
-			list-style-type: disc;
-			li{
-				margin: .5em 0;
-				padding: 0 0 0 .2em;
-				line-height: 1.5em;
+	}
+	ol{
+		list-style-type: decimal;
+	}
+	
+	h1{
+		font-family: $impact;
+		font-size: clamp(30px, 4vw, 60px);
+		line-height: 1em;
+		margin: .5em 0 .5em;
+		padding: 0;
+		text-transform: uppercase;
+	}
+	h2{
+		font-family: $impact;
+		font-size: clamp(25px, 3vw, 40px);
+		line-height: 1em;
+		margin: .5em 0 .5em;
+		padding: 0;
+		text-transform: uppercase;
+		//color: $blue;
+	}
+	h3{
+		font-family: $rajdhani;
+		font-size: clamp(20px, 2vw, 30px);
+		font-weight: 600;
+		line-height: 1em;
+		margin: .8em 0 .5em;
+		padding: 0;
+		text-transform: uppercase;
+		//color: $orange;
+	}
+	h4{
+		font-family: $rajdhani;
+		font-size: clamp(20px, 1.5vw, 25px);
+		font-weight: 500;
+		line-height: 1em;
+		margin: .5em 0 .5em;
+		padding: 0;
+		text-transform: uppercase;
+		//color: $blue;
+	}
+}
+
+html body,
+html body.et-db #et-boc .et-l .et_pb_module{
+	form.z-html-form{
+		fieldset{
+			width: 100%;
+			label{
+				display: block;
 			}
-		}
-		ol{
-			list-style-type: decimal;
-		}
-		
-		h1{
-			font-family: $impact;
-			font-size: clamp(30px, 4vw, 60px);
-			line-height: .8em;
-			margin: .5em 0 .5em;
-			text-transform: uppercase;
-		}
-		h2{
-			font-family: $impact;
-			font-size: clamp(20px, 3vw, 40px);
-			line-height: 1em;
-			margin: .5em 0 .5em;
-			text-transform: uppercase;
-			color: $blue;
-		}
-		h3{
-			font-family: $rajdhani;
-			font-size: clamp(20px, 2vw, 30px);
-			font-weight: 600;
-			line-height: .8em;
-			margin: .8em 0 .5em;
-			text-transform: uppercase;
-			color: $orange;
-		}
-		h4{
-			font-family: $rajdhani;
-			font-size: clamp(20px, 1.5vw, 25px);
-			font-weight: 500;
-			line-height: .8em;
-			margin: .5em 0 .5em;
-			text-transform: uppercase;
-			color: $blue;
+			input[type="text"],
+			input[type="email"],
+			input[type="password"],
+			input[type="select"],
+			textarea{
+				display: block;
+				width: 100%;
+				margin: 0 0 1em;
+				border: 1px solid $grey;
+				border-radius: 5px;
+				background-color: $white;
+			}
+			input[type=submit]{
+				display: inline-block;
+				-webkit-appearance: none;
+				background-color: $blue !important;
+				border-color: $blue !important;
+				color: $white !important;
+				margin: 1em 5px 5px 0 !important;
+				padding: .4em 1em .3em;
+				border-radius: 1000px;
+				font-family: $impact;
+				font-size: clamp(16px, 0.8vw, 20px);
+				font-weight: 100;
+				font-style: normal;
+				text-transform: uppercase;
+				transition: .2s all linear;
+				&::after{
+					content: none !important;
+					display: none !important;
+				}
+				&:hover{
+					background-color: color.adjust($blue, $lightness: 10%);
+					border-color: color.adjust($blue, $lightness: 10%);
+					color: $white;
+				}
+			}
 		}
 	}
 }

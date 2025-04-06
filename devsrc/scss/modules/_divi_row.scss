@@ -1,0 +1,33 @@
+html{
+    body.et-db{
+        #main{
+            #et-boc{
+                .et-l{
+                    // GRID GALLERY ROW
+                    .et_pb_row.divi-grid-gallery-row{
+                        .et_pb_column{
+                            .et_pb_gallery{
+                                padding-bottom: 40px !important;
+                                .et_pb_gallery_items{
+                                    .et_pb_gallery_item{
+                                        .et_pb_gallery_image{
+                                            pointer-events: none !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // BOXED CONTENT ROW
+                    .et_pb_row.divi-boxed-content-row{
+                        .et_pb_column{
+                            padding: 20px 30px !important;
+                            background-color: $light;
+                            border-radius: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
