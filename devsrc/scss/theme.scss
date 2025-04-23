@@ -12,13 +12,14 @@
 @import 'components/header';
 @import 'components/footer';
 @import 'components/body';
+@import 'components/filters';
 @import 'components/ctas';
 
 //Pages and Posts
 @import 'pages/posts';
 @import 'pages/frontpage';
 @import 'pages/search';
-@import 'pages/state_template';
+@import 'pages/taxonomy_template';
 @import 'pages/league_template';
 @import 'pages/program_search';
 

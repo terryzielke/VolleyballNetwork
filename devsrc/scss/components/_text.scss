@@ -17,7 +17,7 @@ main#main .template-section{
 		padding: 0;
 	}
 	ol,
-	ul:not(#programs):not(#primary-menu):not(.sub-menu){
+	ul:not(#programs):not(#primary-menu):not(.sub-menu):not(#footer-menu){
 		margin: 1em 0;
 		padding: 0 0 0 1.8em;
 		list-style-type: disc;

@@ -51,7 +51,7 @@ html body.et-db #main #et-boc .et-l{
                 }
             }
             &.full-width{
-                max-width: 9999px !important;
+                max-width: $container !important;
             }
             @media(max-width: $xl){
                 .et_pb_column{

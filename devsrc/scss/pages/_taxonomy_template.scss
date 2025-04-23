@@ -1,0 +1,118 @@
+#search-result-filters,
+#league-filters{
+}
+
+section.header.template-section{
+    .header-section-filters{
+        .text-container{
+            display: flex;
+            padding: 0 !important;
+            border-bottom: none !important;
+            a{
+                display: inline-block;
+                padding: 1em;
+                font-family: $impact;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                transition: .2s all linear;
+                cursor: pointer;
+                &:not(.active){
+                    background-color: $light;
+                }
+                &:not(:last-child){
+                    margin-right: 5px;
+                }
+                &:not(:first-child){
+                    margin-left: 5px;
+                }
+                &:hover{
+                    background-color: color.adjust($light, $lightness: 10%);
+                }
+                &#more-filters{
+                    margin-left: auto;
+                    background-color: $white !important;
+                    &:hover{
+                        color: $orange;
+                    }
+                    sub{
+                        line-height: $font-size;
+                        vertical-align: text-top;
+                        margin-left: 5px;
+                        .close{
+                            display: none;
+                        }
+                        .open{
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+section.filters.template-section{
+    .program-filters-wrapper{
+        display: none;
+    }
+}
+
+
+html body.filters-open{
+    section.header.template-section{
+        .header-section-filters{
+            .text-container{
+                a#more-filters{
+                    color: $orange;
+                    .open{
+                        display: none;
+                    }
+                    .close{
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+    section.filters.template-section{
+        .program-filters-wrapper{
+             display: block;
+        }
+    }
+}
+
+
+section#leagues-section{
+    padding-top: 0;
+    .league{
+        position: relative;
+        padding-top: 30px;
+        background-image: url(../assets/img/energy-bg-lighter.svg);
+        background-size: 100vw;
+        background-position: top center;
+        background-repeat: no-repeat;
+        .row{
+            margin-bottom: 20px;
+        }
+        /*
+        .league{
+            position: relative;
+            z-index: 1;
+            #league-container{
+                ul.programs{
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    li{
+                        margin: 0 0 40px;
+                        padding: 0;
+                        background-color: $light;
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }*/
+    }
+}

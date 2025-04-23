@@ -2,17 +2,30 @@ declare function clickOutsideElement(element: HTMLElement | null, callback: () =
 /**
  * If page is not at top, add scrolling class to body
  * If page is scrolling up, add scrolling-up class to body
- */
-declare let lastScrollTop: number;
+ *
+let lastScrollTop = 0;
+window.addEventListener('scroll', () => {
+  const body = document.body;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrollTop > 0) {
+    body.classList.add('scrolling');
+  } else {
+    body.classList.remove('scrolling');
+  }
+  if (scrollTop > lastScrollTop) {
+    body.classList.remove('scrolling-up');
+  } else {
+    body.classList.add('scrolling-up');
+  }
+  lastScrollTop = scrollTop;
+});
+
+
+/*
+  SEARCH FORM ANIMATION
+*/
 declare const searchForm: HTMLElement | null;
 declare const searchField: HTMLInputElement | null;
-declare const menuButton: HTMLElement | null;
-declare const primaryMenu: HTMLElement | null;
-declare const bars: NodeListOf<Element>;
-declare const subMenus: NodeListOf<Element>;
-declare const menuToggles: NodeListOf<Element>;
-declare function closeMenu(): void;
-declare const menuItems: NodeListOf<Element>;
 declare function equalizeCellHeights(): void;
 declare let resizeTimeout: ReturnType<typeof setTimeout> | null;
 declare function isFullyInViewportRobust(element: HTMLElement): boolean;

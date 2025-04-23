@@ -1,0 +1,408 @@
+html{
+	body{
+		header#header{
+            // IMPORTANT
+            // The .mega class is added to the header when the mega menu is active
+            // It utilizes Bootstrap's .row class to create a flexbox layout
+            .header-row.row.mega{
+                padding: 0 $padding !important;
+                @media(max-width:$lg){
+                    height: 80px;
+                }
+                @media(max-width:$md){
+                    height: 60px;
+                }
+                .col{
+                    position: relative;
+                    z-index: 1;
+                    /*
+                        Start Left
+                    */
+                    &.left{
+                        #header-logo{
+                            display: inline-block;
+                            padding: 0;
+                            img{
+                                height: 40px;
+                                margin-top: 30px;
+                                padding: 0 0;
+                            }
+                        }
+                        @media(max-width:$lg){
+                            #header-logo{
+                                img{
+                                    margin-top: 20px;
+                                    height: 40px;
+                                }
+                            }
+                        }
+                        @media(max-width:$md){
+                            #header-logo{
+                                img{
+                                    margin-top: 15px;
+                                    height: 30px;
+                                }
+                            }
+                        }
+                    }
+                    /*
+                        End Left
+                        Start Center
+                    */
+                    &.center{
+                        @media(min-width:$md){
+                            /* header Menu */
+                            #mobile-nav-ui{
+                                display: none !important;
+                            }
+                            .menu-header-container{
+                                #header-menu{
+                                    text-align: center;
+                                    font-size: 0;
+                                    li{
+                                        position: relative;
+                                        display: inline-block;
+                                        &:not(:nth-last-child(1)){
+                                            border-right: 1px solid hsla(0,0%,100%,.05);
+                                        }
+                                        a{
+                                            display: inline-block;
+                                            height: 100px;
+                                            line-height: 100px;
+                                            padding: 0 20px;
+                                        }
+                                        &.menu-item-has-children{
+                                            b{
+                                                content: '';
+                                                position: absolute;
+                                                z-index: 10;
+                                                top: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                padding: 0 !important;
+                                                background-image: url(../assets/img/UI/bullet-light.svg);
+                                                background-repeat: no-repeat;
+                                                background-size: 10px;
+                                                background-position: center bottom 20%;
+                                                opacity: .1;
+                                                transition: .3s all ease-out;
+                                                cursor: pointer;
+                                            }
+                                            &.on{
+                                                b{
+                                                    opacity: .5;
+                                                    background-position: center bottom 13% !important;
+                                                }
+                                                .sub-menu{
+                                                    top: 100%;
+                                                    opacity: 1;
+                                                    pointer-events: all;
+                                                }
+                                            }
+                                            .sub-menu{
+                                                li{
+                                                    &::before{
+                                                        content: none !important;
+                                                        display: none !important;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &:hover{
+                                            b{
+                                                background-position: center bottom 13%;
+                                            }
+                                        }
+                                        /* Sub Menus */
+                                        ul.sub-menu{
+                                            position: absolute;
+                                            top: 110%;
+                                            left: -1px;
+                                            display: flex;
+                                            flex-direction: row;
+                                            width: 70vw;
+                                            padding-bottom: 20px;
+                                            border-left: 1px solid hsla(0,0%,100%,.05);
+                                            font-size: 0;
+                                            opacity: 0;
+                                            pointer-events: none;
+                                            transition: top .2s linear, opacity .2s linear ;
+                                            &.active{
+                                                top: 98px;
+                                                opacity: 1;
+                                                pointer-events: all;
+                                                ul.sub-menu{
+                                                    top: 98px;
+                                                    opacity: 1;
+                                                    pointer-events: all;
+                                                }
+                                            }
+                                            &::before{
+                                                content: '';
+                                                position:absolute;
+                                                z-index: -1;
+                                                top: 0;
+                                                left: -100vw;
+                                                width: 200vw;
+                                                height: calc(100% + 1px);
+                                                background: lighten($dark,2%);
+                                                border-bottom: 1px solid hsla(0,0%,100%,.05);
+                                            }
+                                            &::after{
+                                                content: '';
+                                                position:absolute;
+                                                z-index: -1;
+                                                top: 0;
+                                                right: 100%;
+                                                width: 100vw;
+                                                height: 100%;
+                                                background: lighten($dark,2%);
+                                            }
+                                            li{
+                                                position: relative;
+                                                display: inline-block;
+                                                padding: 0;
+                                                border: none !important;
+                                                a{
+                                                    display: block;
+                                                    height: 0;
+                                                    line-height: 0;
+                                                    margin: .7em 0;
+                                                    padding: 2em 20px 1em;
+                                                    text-align: left;
+                                                }
+                                                
+                                                ul.sub-menu{
+                                                    position: relative !important;
+                                                    top: auto !important;
+                                                    left: 0 !important;
+                                                    display: block !important;
+                                                    background-color: transparent !important;
+                                                    border: none !important;
+                                                    width: 100%;
+                                                    padding-bottom: 0;
+                                                    &::before,
+                                                    &::after{
+                                                        content: none;
+                                                        display: none;
+                                                    }
+                                                    li{
+                                                        display: block;
+                                                        padding: 0;
+                                                        b{
+                                                            display: none !important;
+                                                        }
+                                                        a{
+                                                            height: auto;
+                                                            margin: .7em 0;
+                                                            padding: 0 20px;
+                                                            font-size: calc($font-size - 4px);
+                                                            line-height: 1em;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            @media(max-width:$lg){
+                                .menu-header-container{
+                                    #header-menu{
+                                        li{
+                                            a{
+                                                padding-left: 1vw !important;
+                                                padding-right: 1vw !important;
+                                                height: 80px;
+                                                line-height: 80px;
+                                            }
+                                            ul.sub-menu{
+                                                top: 84px;
+                                                li{
+                                                    a{
+                                                        margin: 5px 0;
+                                                    }
+                                                }
+                                                &.active{
+                                                    top: 80px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        // MOBILE
+                        @media(max-width: $md){
+                            display: none;
+                            position: fixed;
+                            top: 90px;
+                            left: 0;
+                            padding: 0;
+                            width: 100vw;
+                            height: 0;
+                            #mobile-nav-ui{
+                                position: relative;
+                                display: block;
+                                height: 40px;
+                                background: $black;
+                                #nav-back{
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 40px;
+                                    height: 40px;
+                                    background-image: url(../assets/img/UI/carrot-left-light.svg);
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                    background-size: 15px;
+                                    cursor: pointer;
+                                    border-right: 1px solid hsla(0,0%,100%,.05);
+                                }
+                                #nav-current-level{
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    width: calc(100% - 41px);
+                                    height: 40px;
+                                    line-height: 41px;
+                                    padding: 0 20px;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                }
+                            }
+                            .menu-header-container{
+                                text-align: left;
+                                ul#header-menu{
+                                    text-align: left !important;
+                                    height: calc(100vh - 100px);
+                                    overflow-y: scroll;
+                                    &.open{
+                                        display: block;
+                                    }
+                                    li{
+                                        position: relative;
+                                        display: block;
+                                        &:not(:nth-last-child(1)){
+                                            border-bottom: 1px solid hsla(0,0%,100%,.05);
+                                        }
+                                        a{
+                                            display: block;
+                                            padding: 0 10px;
+                                            width: calc(100% - 40px);
+                                            height: 40px;
+                                            line-height: 40px;
+                                            background: hsla(0,0%,0%,0);
+                                            &:hover{
+                                                background: hsla(0,0%,0%,.1);
+                                            }
+                                        }
+                                        &.menu-item-has-children{
+                                            &::before{
+                                                content: '';
+                                                position: absolute;
+                                                z-index: 10;
+                                                top: 0;
+                                                right: 0;
+                                                width: 40px;
+                                                height: 100%;
+                                                padding: 0 !important;
+                                                background-image: url(../assets/img/UI/bullet-light.svg);
+                                                background-repeat: no-repeat;
+                                                background-size: 10px;
+                                                background-position: center bottom 50%;
+                                                opacity: 1;
+                                                transition: .3s all ease-out;
+                                                cursor: pointer;
+                                            }
+                                        }
+                                        &.on > ul.sub-menu{
+                                            display: block;
+                                        }
+                                        ul.sub-menu{
+                                            display: none;
+                                            z-index: 20;
+                                            position: fixed;
+                                            top: 130px;
+                                            left: 0;
+                                            width: 100vw;
+                                            height: calc(100vh - 100px);
+                                            padding: 0;
+                                            background: lighten($dark,2%);
+                                            b{
+                                                display: none !important;
+                                            }
+                                            ul.sub-menu{
+                                                z-index: 30;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    /*
+                        End Center
+                        Start Right
+                    */
+                    &.right{
+                        z-index: 10;
+                        text-align: right;
+                        #header-cta{
+                            position: relative;
+                            display: inline-block;
+                            margin-top: 30px;
+                            padding: 0 20px;
+                            height: 40px;
+                            line-height: 42px;
+                            font-size: $font-size;
+                            font-weight: 700;
+                            cursor: pointer;
+                            transition: .2s all linear;
+                            color: $dark;
+                            font-family: $header;
+                            background-color: $primary;
+                            &:hover{
+                                background-color: $white;
+                            }
+                        }
+                        @media(max-width:$lg){
+                            #header-cta{
+                                margin-top: 20px;
+                                padding: 0 15px;
+                            }
+                        }
+                        @media(max-width:$md){
+                            #header-cta{
+                                height: 30px;
+                                line-height: 32px;
+                                margin-top: 15px;
+                                margin-right: 40px;
+                                padding: 0 10px;
+                            }
+                        }
+                    }
+                    /*
+                        End Right
+                    */
+                }
+            }
+        }
+        &.menu-open{
+            @media(max-width:$md){
+                header#header{
+                    .header-row.row.mega{
+                        .col.center{
+                            display: block;
+                            .menu-header-container{
+                                ul#header-menu{
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

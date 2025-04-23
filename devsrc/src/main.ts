@@ -24,7 +24,7 @@ function clickOutsideElement(
 /**
  * If page is not at top, add scrolling class to body
  * If page is scrolling up, add scrolling-up class to body
- */
+ *
 let lastScrollTop = 0;
 window.addEventListener('scroll', () => {
   const body = document.body;
@@ -60,7 +60,7 @@ if (searchForm && searchField) {
 }
 /*
   MENU SETUP
-*/
+*
 const menuButton = document.querySelector("#menu-button") as HTMLElement | null;
 const primaryMenu = document.querySelector("#primary-menu") as HTMLElement | null;
 const bars = document.querySelectorAll("#menu-button .bar");
@@ -86,7 +86,7 @@ function closeMenu(){
 
 /* 
   ANIMATIONS FOR MENU BUTTON
-*/
+*
 menuToggles.forEach(menuToggle => menuToggle.classList.remove("on"));
 if (menuButton && primaryMenu) {
   menuButton.addEventListener("click", () => {
@@ -113,7 +113,7 @@ if (primaryMenu) {
 
 /*
   MENU EXPANTION ON MOBILE
-*/
+*
 const menuItems = document.querySelectorAll('.menu-item-has-children');
 
 menuItems.forEach(item => {

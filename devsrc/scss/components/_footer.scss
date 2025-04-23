@@ -61,6 +61,7 @@
 						a{
 							font-family: $impact;
 							text-transform: uppercase;
+							font-size: $font-size;
 						}
 					}
 					ul.sub-menu{
@@ -75,7 +76,7 @@
 								margin: 7px 0;
 								font-family: $text;
 								font-weight: 400;
-								font-size: clamp(12px, .7vw, 16px);
+								font-size: calc($font-size - 4px);
 								line-height: 1em;
 								transition: .2s all linear;
 								&:hover{
@@ -100,13 +101,13 @@
 					ul#footer-menu{
 						li{
 							a{
-								font-size: clamp(12px, .8vw, 16px);
+								font-size: $font-size;
 							}
 							.sub-menu{
 								li{
 									a{
 										margin: 4px 0 !important;
-										font-size: clamp(10px, .7vw, 14px) !important;
+										font-size: calc($font-size - 4px) !important;
 										font-weight: 500 !important;
 									}
 								}

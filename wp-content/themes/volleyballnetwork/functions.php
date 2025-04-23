@@ -30,6 +30,7 @@ add_action('wp_enqueue_scripts', function(){
     $version = file_exists($css_file) ? filemtime($css_file) : '1.0.0'; // fallback version
     wp_enqueue_style('theme.min', get_stylesheet_directory_uri() . '/css/theme.min.css', array(), $version);
 	// JS 
+	wp_enqueue_script('navigation', get_template_directory_uri().'/jquery/navigation.js', ['jquery'], '', true);
     wp_enqueue_script( 'theme-ts-script', get_template_directory_uri() . '/js/main.js', array(), filemtime(get_template_directory() . '/js/main.js'), true );
 });
 // ADMIN STYLES & SCRIPTS
