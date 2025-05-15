@@ -1,34 +1,46 @@
-/* GLOBAL */
-html body.et-db #main #et-boc .et-l{
+/*
+    CLASSES AVAILABLE FOR DIVI SECTIONS
+    .no-padding (removes all padding from the section)
+    .split (converts the section into a full width left and right column layout)
+
+    CLASSES AVAILABLE FOR DIVI ROWS
+    .reverse (reverses the order of the columns in the row)
+    .middle (vertically centers the content in each column)
+    .full-width (sets the row to full width)
+*/
+.et-db #et-boc .et-l{
     .et_pb_section {
-        padding: 40px 20px !important;
+        // sets default padding for all sections
         width: 100% !important;
-        &:nth-child(1){
-            padding-top: 20px !important;
-        }
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+        padding-top: 40px;
+        padding-bottom: 40px;
         .et_pb_row {
-            display: flex;
-            justify-content: space-between !important;
+            // sets default margin and padding for all rows
+            display: flex !important;
             width: 100% !important;
-            max-width: $text-container !important;
-            margin-top: 0 !important;
-            margin-bottom: 20px;
+            max-width: $max-width !important;
             margin-left: auto !important;
             margin-right: auto !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
             padding-left: 0 !important;
             padding-right: 0 !important;
+            justify-content: space-between !important;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            padding-top: 0;
+            padding-bottom: 0;
             .et_pb_column{
-                //margin-left: 40px !important;
-                //margin-right: 40px !important;
-                //padding: 0;
+                // defauilt styles for columns
+                position: relative;
             }
             &::after{
+                // removes the default clearfix
                 content: none !important;
                 display: none !important;
             }
             &.reverse{
+                // reverses the order of the columns in the row
                 flex-direction: row-reverse;
                 .et_pb_column{
                     &:first-child{
@@ -40,6 +52,7 @@ html body.et-db #main #et-boc .et-l{
                 }
             }
             &:not(.reverse){
+                // sets the default order of the columns in the row
                 flex-direction: row;
                 .et_pb_column{
                     &:first-child{
@@ -50,16 +63,39 @@ html body.et-db #main #et-boc .et-l{
                     }
                 }
             }
-            &.full-width{
+            &.middle{
+                // vertically centers the content in each column
+                .et_pb_column{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+            &.wide{
                 max-width: $container !important;
             }
-            @media(max-width: $xl){
+            &.full-width{
+                // sets the row to full width
+                position: relative;
+                width: 100vw !important;
+                left: calc(50% - 50vw);
+                max-width: 9999px !important;
+                padding-left: 40px !important;
+                padding-right: 40px !important;
+                @media(max-width: $md){
+                    padding-left: 20px !important;
+                    padding-right: 20px !important;
+                }
+            }            
+            @media(max-width: $max-width){
+                //reapply padding to columns
                 .et_pb_column{
                     margin-left: 20px !important;
                     margin-right: 20px !important;
                 }
             }
             @media(max-width: $md){
+                // change flex direction to column
                 flex-direction: column !important;
                 .et_pb_column{
                     width: 100% !important;
@@ -69,9 +105,145 @@ html body.et-db #main #et-boc .et-l{
             }
         }
         &.no-padding{
+            // removes all padding from the section
             padding: 0 !important;
         }
+        &.split{
+            // converts the section into a full width left and right column layout
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            .et_pb_row{
+                margin: 0 !important; 
+                max-width: 9999px !important;
+                .et_pb_column{
+                    width: 50% !important;
+                    min-height: 50vh;
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    padding: clamp(50px, 4vw, 100px) clamp(40px, 5vw, 100px) !important;
+                    .et_pb_text,
+                    .et_pb_divider{
+                        z-index: 1;
+                    }
+                    .background{
+                        // converts object to background element
+                        position: absolute;
+                        z-index: 0;
+                        top: 0;
+                        width: 52vw;
+                        height: 100%;
+                        background-size: cover;
+                        .et_pb_image_wrap,
+                        .et_pb_image_wrap img{
+                            position: absolute;
+                            z-index: 0;
+                            top: 0;
+                            width: 52vw;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+                &.reverse{
+                    .et_pb_column{
+                        &:last-child{
+                            .background,
+                            .background .et_pb_image_wrap,
+                            .background .et_pb_image_wrap img{
+                                right: 0;
+                            }
+                        }
+                        &:first-child{
+                            .background,
+                            .background .et_pb_image_wrap,
+                            .background .et_pb_image_wrap img{
+                                left: 0;
+                            }
+                        }
+                    }
+                }
+                &:not(.reverse){
+                    .et_pb_column{
+                        &:last-child{
+                            .background,
+                            .background .et_pb_image_wrap,
+                            .background .et_pb_image_wrap img{
+                                left: 0;
+                            }
+                        }
+                        &:first-child{
+                            .background,
+                            .background .et_pb_image_wrap,
+                            .background .et_pb_image_wrap img{
+                                right: 0;
+                            }
+                        }
+                    }
+                }
+                @media(max-width: $md){
+                    .et_pb_column{
+                        width: 100% !important;
+                        &.et_pb_column_empty{
+                            min-height: 80vw;
+                        }
+                        .background{
+                            width: 100vw;
+                            left: calc(50% - 50vw);
+                        }
+                        &:first-child{
+                            padding: clamp(40px, 3vw, 80px) !important;
+                        }
+                    }
+                    &.reverse{
+                        .et_pb_column{
+                            &:last-child{
+                                .background{
+                                    width: 100vw;
+                                    right: -40px;
+                                }
+                                .background .et_pb_image_wrap,
+                                .background .et_pb_image_wrap img{
+                                    width: 100vw;
+                                }
+                            }
+                        }
+                    }
+                    &:not(.reverse){
+                        .et_pb_column{
+                            &:last-child{
+                                .background{
+                                    width: 100vw;
+                                    left: -40px;
+                                }
+                                .background .et_pb_image_wrap,
+                                .background .et_pb_image_wrap img{
+                                    width: 100vw;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+    // remove first element top margin and padding
+    .et_pb_section:first-child{
+        .et_pb_row:first-child{
+            .et_pb_column:first-child{
+                .et_pb_text:first-child{
+                    .et_pb_text_inner{
+                        > :first-child{
+                            margin-top: 0 !important;
+                            padding-top: 0 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // curved corner classes
     .curved-top-left{
         overflow: hidden;
         border-top-left-radius: 8vw;

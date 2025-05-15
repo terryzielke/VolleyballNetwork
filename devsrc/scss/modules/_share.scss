@@ -1,0 +1,12 @@
+.ssbp-container{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+    .ssbp-btn{
+        background-color: $darkblue;
+        color: $white !important;
+        &:hover{
+            background-color: $blue;
+        }
+    }
+}

@@ -1,89 +1,81 @@
-html{
-    body.et-db{
-        #main{
-            #et-boc{
-                .et-l{
-                    // Split Section
-                    .et_pb_section.divi-split-section{
-                        padding-top: 0 !important;
-                        padding-bottom: 0 !important;
-                        .et_pb_row{
-                            margin: 0 !important;
-                            .et_pb_column{
-                                margin-left: 0 !important;
-                                margin-right: 0 !important;
-                                &:first-child{
-                                    padding: clamp(20px, 2vw, 40px) clamp(40px, 3vw, 80px) !important;
-                                }
-                                &:last-child{
-                                    .et_pb_image,
-                                    .et_pb_image .et_pb_image_wrap,
-                                    .et_pb_image .et_pb_image_wrap img{
-                                        position: absolute;
-                                        top: 0;
-                                        width: 52vw;
-                                        height: 100%;
-                                        object-fit: cover;
-                                    }
-                                }
-                            }
-                            &.reverse{
-                                .et_pb_column{
-                                    &:last-child{
-                                        .et_pb_image,
-                                        .et_pb_image .et_pb_image_wrap,
-                                        .et_pb_image .et_pb_image_wrap img{
-                                            right: 0;
-                                        }
-                                    }
-                                }
-                            }
-                            &:not(.reverse){
-                                .et_pb_column{
-                                    &:last-child{
-                                        .et_pb_image,
-                                        .et_pb_image .et_pb_image_wrap,
-                                        .et_pb_image .et_pb_image_wrap img{
-                                            left: 0;
-                                        }
-                                    }
-                                }
-                            }
-                            @media(max-width: $md){
-                                .et_pb_column{
-                                    &:first-child{
-                                        padding: clamp(40px, 3vw, 80px) !important;
-                                    }
-                                }
-                                &.reverse{
-                                    .et_pb_column{
-                                        &:last-child{
-                                            height: 100vw !important;
-                                            .et_pb_image{
-                                                width: 100vw;
-                                                right: -20px;
-                                            }
-                                            .et_pb_image .et_pb_image_wrap,
-                                            .et_pb_image .et_pb_image_wrap img{
-                                                width: 100vw;
-                                            }
-                                        }
-                                    }
-                                }
-                                &:not(.reverse){
-                                    .et_pb_column{
-                                        &:last-child{
-                                            height: 100vw !important;
-                                            .et_pb_image{
-                                                width: 100vw;
-                                                left: -20px;
-                                            }
-                                            .et_pb_image .et_pb_image_wrap,
-                                            .et_pb_image .et_pb_image_wrap img{
-                                                width: 100vw;
-                                            }
-                                        }
-                                    }
+.et-db #et-boc .et-l{
+    .et_pb_section {
+
+        /*
+        CLASS: .side_dots
+        DESCRIPTION: Adds a background image to the left and right side of the section.
+        */
+        &.side_dots,
+        &.side-dots,
+        &.side_dots_dark,
+        &.side-dots-dark{
+            position: relative;
+            &:before,
+            &:after{
+                content: '';
+                position: absolute;
+                top: 0;
+                height: 100%;
+                width: calc((100vw - $max-width) / 2 );
+                background-color: transparent;
+                background-image: url('../assets/img/dot-bg-dark.svg');
+                background-repeat: no-repeat;
+                background-size: 200%;
+                z-index: -1;
+                pointer-events: none;
+            }
+            &:before{
+                left: 0;
+                background-position: right center;
+            }
+            &:after{
+                right: 0;
+                background-position: left center;
+            }
+        }
+        &.side_dots_light,
+        &.side-dots-light{
+            &:before,
+            &:after{
+                background-image: url('../assets/img/dot-bg-light.svg');
+            }
+        }
+
+        /*
+        Float frist row in the section
+        */
+        &.float-first-row{
+            position: relative;
+            overflow: visible;
+            .et_pb_row:nth-child(1){
+                position: absolute;
+                top: -40vh;
+                left: 0;
+                right: 0;
+                z-index: 1;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+/*
+Hardcode first section and row top padding and margin for default template
+*
+html body.page-template-default.et-db{
+    #et-boc .et-l{
+        .et_pb_section{
+            &:first-child{
+                padding-top: clamp(25px,5vh,50px) !important;
+                .et_pb_row:first-child{
+                    margin-top: 0 !important;
+                    .et_pb_column{
+                        .et_pb_text{
+                            .et_pb_text_inner{
+                                h2:first-child{
+                                    margin-top: .2em !important;
                                 }
                             }
                         }
@@ -93,3 +85,4 @@ html{
         }
     }
 }
+*/

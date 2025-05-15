@@ -77,7 +77,9 @@ body.post-type-local-league #pageparentdiv,
 body.post-type-venue #pageparentdiv,
 body.post-type-program #pageparentdiv,
 body.post-type-city #pageparentdiv,
-.inline-edit-wrapper .inline-edit-categories{
+.inline-edit-wrapper .inline-edit-categories,
+html body div.fs-notice.fs-slug-automatic-youtube-gallery,
+html body div#sbi-clicksocial-notice{
     display: none !important;
 }
 

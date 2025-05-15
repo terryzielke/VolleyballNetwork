@@ -16,7 +16,7 @@ $league_expectation_info = get_post_meta( get_the_id(), 'league_expectation_info
 </section>
 
 <?php if($league_program_info && $league_format_info && $league_expectation_info): ?>
-<section id="league-details-section">
+<section id="league-details-section" class="template-section">
     <div class="container">
         <div class="text-container">
             <div class="row">
@@ -44,7 +44,7 @@ $league_expectation_info = get_post_meta( get_the_id(), 'league_expectation_info
 </section>
 <?php endif; ?>
 
-<section id="league-description-section" class="page">
+<section id="league-description-section" class="page template-section">
 	<div class="container">
 		<div class="text-container">
 			<div class="content">

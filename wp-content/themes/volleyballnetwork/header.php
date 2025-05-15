@@ -3,7 +3,7 @@
 <head>
 	<meta charSet="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="<?=get_template_directory_uri()?>/assets/img/volleyball-network-icon.svg">
+	<link rel="shortcut icon" href="<?=get_template_directory_uri()?>/assets/img/VN-icon.png">
 	<script src="https://kit.fontawesome.com/dd2ef627ee.js" crossorigin="anonymous"></script>
 	<?php wp_head(); ?>
 	<?php
@@ -49,7 +49,7 @@
 		<div class="header-row row">
 			<div class="col col-6 col-md-2 left">
 				<a id="header-logo" href="<?=get_site_url()?>">
-					<img src="<?=get_template_directory_uri()?>/assets/img/volleyball-network-logo.svg" alt="<?=get_bloginfo('name')?>">
+					<img src="<?=get_template_directory_uri()?>/assets/img/VN-logo.svg" alt="<?=get_bloginfo('name')?>">
 				</a>
 			</div>
 			<div class="col col-8 center">

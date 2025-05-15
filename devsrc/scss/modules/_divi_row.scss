@@ -3,7 +3,24 @@ html{
         #main{
             #et-boc{
                 .et-l{
-                    // GRID GALLERY ROW
+                    .et_pb_section{
+                        .et_pb_row{
+
+                            // custom section for get clipped campaign
+                            &#get-clipped-five-steps{
+                                @media(max-width:$lg){
+                                    .et_pb_column{
+                                        margin-left: 0 !important;
+                                        margin-right: 0 !important;
+                                        width: 100% !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // GRID GALLERY ROW (deprecated)
+                    // This is a deprecated module, but we still need to style it for existing content
                     .et_pb_row.divi-grid-gallery-row{
                         .et_pb_column{
                             .et_pb_gallery{
@@ -18,7 +35,8 @@ html{
                             }
                         }
                     }
-                    // BOXED CONTENT ROW
+                    // BOXED CONTENT ROW (deprecated)
+                    // This is a deprecated module, but we still need to style it for existing content
                     .et_pb_row.divi-boxed-content-row{
                         .et_pb_column{
                             padding: 20px 30px !important;

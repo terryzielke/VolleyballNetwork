@@ -1,11 +1,10 @@
 <?php get_header(); the_post(); ?>
 
-<section class="header">
+<section class="header" style="background-image: url(<?= get_the_post_thumbnail_url(null, 'full') ?>);">
+	<span class="overlay"></span>
 	<div class="container">
-		<div class="row">
-			<div class="col col-12">
-				<h1><?= the_title() ?></h1>
-			</div>
+		<div class="text-container">
+			<h1><?= the_title() ?></h1>
 		</div>
 	</div>
 </section>

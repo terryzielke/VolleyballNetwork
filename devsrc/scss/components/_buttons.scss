@@ -65,6 +65,80 @@ main#main .template-section{
 				color: $blue;
 			}
 		}
+		&.dark{
+			background-color: $dark;
+			border-color: $dark;
+			color: $white;
+			&:hover{
+				background-color: color.adjust($dark, $lightness: 10%);
+				border-color: color.adjust($dark, $lightness: 10%);
+				color: $white;
+			}
+		}
+		&.darkblue-txt{
+			color: $darkblue !important;
+			&:hover{
+				color: $darkblue !important;
+			}
+		}
+		&.dark-txt{
+			color: $dark !important;
+			&:hover{
+				color: $dark !important;
+			}
+		}
+		&.white-txt{
+			color: $white !important;
+			&:hover{
+				color: $white !important;
+			}
+		}
+		&.orange-txt{
+			color: $orange !important;
+			&:hover{
+				color: $orange !important;
+			}
+		}
+		&.blue-txt{
+			color: $blue !important;
+			&:hover{
+				color: $blue !important;
+			}
+		}
+		&.darkblue-border{
+			border-color: $darkblue !important;
+			&:hover{
+				border-color: $darkblue !important;
+			}
+		}
+		&.dark-border{
+			border-color: $dark !important;
+			&:hover{
+				border-color: $dark !important;
+			}
+		}
+		&.white-border{
+			border-color: $white !important;
+			&:hover{
+				border-color: $white !important;
+			}
+		}
+		&.orange-border{
+			border-color: $orange !important;
+			&:hover{
+				border-color: $orange !important;
+			}
+		}
+		&.blue-border{
+			border-color: $blue !important;
+			&:hover{
+				border-color: $blue !important;
+			}
+		}
+		&.large{
+			font-size: clamp(20px, 1vw, 24px);
+			padding: .4em 1.5em .3em;
+		}
 	}
 	
 	.button-wrapper{

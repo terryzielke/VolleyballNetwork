@@ -30,12 +30,20 @@ main#main .template-section{
 	ol{
 		list-style-type: decimal;
 	}
+	blockquote{
+		padding: 0;
+		border-left: none;
+		span{
+			padding: 10px;
+			border-left: 2px solid $blue;
+		}
+	}
 	
 	h1{
 		font-family: $impact;
 		font-size: clamp(30px, 4vw, 60px);
 		line-height: 1em;
-		margin: .5em 0 .5em;
+		margin: 0 0 .5em;
 		padding: 0;
 		text-transform: uppercase;
 	}
@@ -110,7 +118,7 @@ html body.et-db #et-boc .et-l .et_pb_module{
 					display: none !important;
 				}
 				&:hover{
-					background-color: color.adjust($blue, $lightness: 10%);
+					background-color: lighten($blue, 10%);
 					border-color: color.adjust($blue, $lightness: 10%);
 					color: $white;
 				}

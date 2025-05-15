@@ -4,59 +4,94 @@
 	$latest_posts = get_posts(['numberposts' => 12 , 'post__not_in' => [$latest_post[0]->ID]]);
 ?>
 
-<section id="blog" class="template-section">
-	<div class="frame">
-		<h1>Blog</h1>
-		<div class="columns">
-			<?php if($latest_post) { setup_postdata($latest_post); ?>
-			<div class="column">
-				<div class="post alt-large">
-					<div class="image" style="background-image:url(<?=get_the_post_thumbnail_url(null, 'full')?>)"></div>
-					<div class="content">
-						<h3 class="title"><?=get_the_title()?></h3>
-						<div class="excerpt"><?=get_the_excerpt()?></div>
-					</div>
-					<a class="link" href="<?=get_the_permalink()?>"></a>
-				</div>
-			</div>
-			<?php } ?>
-			<?php if($latest_posts) { ?>
-			<div class="column">
-				<?php foreach(array_slice($latest_posts,0,3) as $post) { setup_postdata($post);?>
-				<div class="post">
-					<div class="image" style="background-image: url(<?=get_the_post_thumbnail_url(null, 'full')?>)"></div>
-					<div class="content">
-						<h4 class="title"><?=get_the_title()?></h4>
-					</div>
-					<a class="link" href="<?=get_the_permalink()?>"></a>
-				</div>
-				<?php } ?>
-			</div>
-			<?php } ?>
+<section class="header" style="background-image: url(<?=get_template_directory_uri()?>/assets/img/bg-blog-banner.jpg);">
+	<span class="overlay"></span>
+	<div class="container">
+		<div class="text-container" style="max-width: 9999px;">
+			<h1>The Shovel - Blog</h1>
 		</div>
 	</div>
 </section>
 
-<section class="BLOG-PREVIEW template-section">
-	<?php foreach(array_slice($latest_posts,3,12) as $post) { setup_postdata($post);?>	
-	<div class="frame">
-        <div class="columns">
-            <div class="column">
-                <div class="post">
-                    <div class="image" style="background-image: url(<?=get_the_post_thumbnail_url(null, 'full')?>)"></div>
-                    <div class="content">
-                        <h5 class="title"><?=get_the_title()?></h5>
-                        <p><?= get_the_excerpt() ?></p>
-					</div>
-					<p class="read-more">
-						Read More
-					</p>
-                    <a class="link" href="<?=get_the_permalink()?>"></a>
+<section class="template-section archive-section">
+    <div class="container">
+        <div class="posts">
+            <?php
+                $post_count = wp_count_posts('post')->publish;
+                if (have_posts()) {
+                    while (have_posts()) {
+                        the_post();
+
+                        $ID = get_the_ID();
+                        $title = get_the_title();
+                        $date = get_the_date();
+                        $image = get_the_post_thumbnail_url();
+                        $link = get_permalink();
+                        $excerpt = wp_trim_words(get_the_content(), 40, '...');
+                                $excerpt = preg_replace( '/\[[^\]]+\]/', '', $excerpt );
+
+                        echo '<div class="post">
+                                <a href="'.$link.'">
+                                    <figure>
+                                        <img src="'.$image.'" alt="'.$title.'"></img>
+                                    </figure>
+                                    <h3>'.$title.'</h3>
+                                    <h4>'.$date.'</h4>
+                                    <p>'.$excerpt.'</p>
+                                </a>
+                            </div>';
+                    }
+
+                } else {
+                    echo '<p>No posts found.</p>';
+                }
+            ?>
+            <?php if ($post_count > 6): ?>
+                <div class="pageination">
+					<?php
+						// Pagination
+						echo paginate_links([
+							'total'   => $wp_query->max_num_pages,
+							'current' => max(1, get_query_var('paged')),
+						]);
+					?>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
-	</div>
-	<?php } ?>
+		<div class="sidebar">
+			<?php
+				$categories = get_terms(array(
+					'taxonomy'   => 'category',
+					'hide_empty' => false,
+				));
+				if (!empty($categories) && !is_wp_error($categories)) {
+					echo '<h4>Categories</h4><ul>';
+					foreach ($categories as $category) {
+						$category_link = get_term_link($category);
+						echo '<li><a href="' . esc_url($category_link) . '">' . esc_html($category->name) . '</a></li>';
+					}
+					echo '</ul>';
+				}
+				$query = new WP_Query(array(
+					'post_type'      => 'post',
+					'orderby'        => 'date',
+					'order'          => 'DESC',
+					'posts_per_page' => 5,
+				));
+				if ($query->have_posts()) {
+					echo '<h4>Recent Posts</h4><ul>';
+					while ($query->have_posts()) {
+						$query->the_post();
+						echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+					}
+					echo '</ul>';
+					wp_reset_postdata(); // Reset post data
+				} else {
+					echo '<p>No case studies found.</p>';
+				}
+			?>
+		</div>
+    </div>
 </section>
 
 <?php get_footer(); ?>

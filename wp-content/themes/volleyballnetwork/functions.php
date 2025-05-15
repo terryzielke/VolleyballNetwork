@@ -19,7 +19,6 @@ add_action('after_setup_theme', function(){
 });
 
 
-
 /*
     ENQUEUE STYLES & SCRIPTS
 */
@@ -30,8 +29,11 @@ add_action('wp_enqueue_scripts', function(){
     $version = file_exists($css_file) ? filemtime($css_file) : '1.0.0'; // fallback version
     wp_enqueue_style('theme.min', get_stylesheet_directory_uri() . '/css/theme.min.css', array(), $version);
 	// JS 
-	wp_enqueue_script('navigation', get_template_directory_uri().'/jquery/navigation.js', ['jquery'], '', true);
+	wp_enqueue_script('navigation', get_template_directory_uri().'/js/navigation.js', ['jquery'], '', true);
+	wp_enqueue_script('jquery-scripts', get_template_directory_uri().'/js/scripts.js', ['jquery'], '', true);
     wp_enqueue_script( 'theme-ts-script', get_template_directory_uri() . '/js/main.js', array(), filemtime(get_template_directory() . '/js/main.js'), true );
+    // INCLUDES
+	wp_enqueue_script('visible', get_template_directory_uri().'/inc/visible/jquery.visible.min.js', ['jquery'], '', true);
 });
 // ADMIN STYLES & SCRIPTS
 add_action('admin_enqueue_scripts', function(){
@@ -58,7 +60,6 @@ add_action( 'login_enqueue_scripts', function(){
 	wp_enqueue_style( 'login_page_styles', get_template_directory_uri() . '/css/login.css' );
 });
 
-
 /*
 	INCLUDE ADMIN PAGES, PLUGINS, AND TAXONOMIES
 */
@@ -69,6 +70,13 @@ require get_template_directory() . '/admin/post-types/program/index.php';
 require get_template_directory() . '/admin/post-types/division/index.php';
 require get_template_directory() . '/admin/taxonomies/taxonomies.php';
 require get_template_directory() . '/admin/users/user-division.php';
+
+
+/*
+    INCLUDES
+*/
+require get_template_directory() . '/php/includes/find_program_near_you.php';
+require get_template_directory() . '/php/includes/become_an_affiliate_section.php';
 
 
 /*
@@ -113,8 +121,8 @@ add_filter( 'single_template', 'volleyball_post_type_templates' );
     PAGE TEMPLATES
 */
 add_filter('theme_page_templates', function($templates) {
-    $templates['php/templates/city-template.php'] = 'City';
-    $templates['php/templates/contact-template.php'] = 'Contact';
+    $templates['php/templates/pages/blank-template.php'] = 'Blank';
+    $templates['php/templates/pages/contact-template.php'] = 'Contact';
     return $templates;
 });
 
@@ -131,7 +139,7 @@ add_filter('template_include', function($template) {
 */
 require get_template_directory() . '/php/shortcodes/city-contact-info-list.php';
 require get_template_directory() . '/php/shortcodes/showcase-registration-form.php';
-
+require get_template_directory() . '/php/shortcodes/become_a_sponsor_impact.php';
 
 
 /*
@@ -302,7 +310,7 @@ add_action('pre_get_posts', 'modify_search_query');
   OVERRIDE THE EMAIL FROM VALUE
 */
 function mail_name( $email ){
-	return 'Volleyball Network';
+	return 'Volleyball Nations';
 }
 add_filter( 'wp_mail_from_name', 'mail_name' );
 

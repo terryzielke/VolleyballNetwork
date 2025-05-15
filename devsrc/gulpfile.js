@@ -6,7 +6,7 @@
 // 1. open this folder in terminal
 // 2. run command 'gulp'
 // 3. make changes to files in scss folder
-// 4. gulp will compile code on save (saves to: themes/zielkedesign/assets/css/)
+// 4. gulp will compile code on save (saves to: themes/ [theme folder] /assets/css/)
 // 5. refresh web page to see changes
 
 

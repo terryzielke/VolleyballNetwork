@@ -1,0 +1,48 @@
+#become_a_sponsor_impact{
+    &.row{
+        .col{
+            position: relative;
+            .content{
+                position: relative;
+                z-index: 2;
+                text-align: center;
+                color: $white;
+                padding: 40px 40px;
+                h2{
+                    font-family: $rajdhani !important;
+                    font-weight: 900 !important;
+                }
+                h3{
+                    font-weight: 400 !important;
+                    font-size: calc($font-size * 1.5) !important;
+                }
+            }
+            .fill{
+                position: absolute;
+                z-index: 0;
+                bottom: 0;
+                left: 20px;
+                width: calc(100% - 40px);
+                height: 0%;
+                background-color: $orange;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                opacity: .3;
+                transition: height 1s ease-out;
+                @media(max-width:$md){
+                    width: calc(30% - 40px);
+                }
+            }
+            &:nth-child(2),
+            &:nth-child(3){
+                .content{
+                    h2{
+                        @media(min-width:$md){
+                            padding-top: 1em !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

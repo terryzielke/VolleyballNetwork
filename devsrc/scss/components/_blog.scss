@@ -1,0 +1,145 @@
+/*
+* Blog Archive Page Styles
+* This file contains the styles for the blog archive page.
+* It includes styles for the posts, sidebar, and other elements.
+*/
+.archive-section {
+    margin: 50px 0;
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+        .posts{
+            flex: 1 1 70%;
+            #et-boc #et_builder_outer_content{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2rem;
+                .post {
+                    background-color: transparent;
+                    overflow: hidden;
+                    a {
+                        display: block;
+                        color: inherit;
+                        text-decoration: none;
+                        figure {
+                            width: 100%;
+                            height: 200px;
+                            margin: 0;
+                            overflow: hidden;
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                transition: transform 0.3s ease;
+                            }
+                        }
+                        h3 {
+                            margin: 1rem;
+                            color: $primary;
+                        }
+                        h4 {
+                            font-size: calc($font-size - 4px);
+                            margin: 0 1rem;
+                            color: lighten($dark, 20%);
+                        }
+                        p {
+                            font-size: 1rem;
+                            margin: 1rem;
+                            color: $dark;
+                        }
+                    }
+                    &:hover {
+                        a{
+                            figure{
+                                img{
+                                    transform: scale(1.05);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .pageination{
+                padding-top: 1rem;
+                text-align: center;
+                .page-numbers{
+                    position: relative;
+                    display: inline-block;
+                    margin: 0 2px;
+                    padding: 0;
+                    width: 26px;
+                    height: 26px;
+                    line-height: 26px;
+                    text-align: center;
+                    font-weight: 600;
+                    background: $light;
+                    color: $dark !important;
+                    border-radius: 5px;
+                    transition: all 0.2s linear;
+                    &.next,
+                    &.prev{
+                        font-size: 0;
+                        color: transparent;
+                        &:before{
+                            font-family: $icon;
+                            text-align: center;
+                            display: inline-block;
+                            font-size: 16px;
+                            color: $dark;
+                        }
+                    }
+                    &.prev{
+                        &:before{
+                            content: '\f104';
+                        }
+                    }
+                    &.next{
+                        &:before{
+                            content: '\f105';
+                        }
+                    }
+                    &.current{
+                        opacity: .5;
+                    }
+                    &:hover:not(.current){
+                        background: $orange;
+                    }
+                }
+            }
+        }
+
+        .sidebar {
+            flex: 1 1 25%;
+            padding: 20px 0;
+            h4 {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+                padding: 0 20px !important;
+                color: $dark;
+            }
+            ul {
+                list-style: none !important;
+                padding: 0 !important;
+                margin: 0 0 2rem !important;
+                li {
+                    margin-bottom: 0;
+                    a {
+                        display: block;
+                        text-decoration: none;
+                        margin-bottom: 10px;
+                        padding: 0 20px;
+                        transition: .2s all linear;
+                        color: $blue !important;
+                        &:hover {
+                            color: $orange !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

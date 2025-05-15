@@ -33,8 +33,12 @@ $black: #000000;
 $white: #ffffff;
 $light: #E9EBF4;
 $blue: #264898;
+$darkblue: #122960;
 $orange: #FFA736;
 $grey: #404040;
+$dark: $grey;
+$primary: $blue;
+$secondary: $orange;
 .black{color: $black;}
 .white{color: $white;}
 .blue{color: $blue;}
@@ -55,6 +59,7 @@ $xxl: 1400px;
 $page-width: 1640px;
 $container: 1600px;
 $text-container: 1100px;
+$max-width: $text-container;
 
 /* STANDARD FONTS */
 $fontawesome:	'Font Awesome 5 Free' !important;	// DO NOT EDIT

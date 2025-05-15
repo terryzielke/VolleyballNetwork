@@ -22,26 +22,6 @@ function clickOutsideElement(element, callback, exceptionElement = null) {
         document.removeEventListener('click', outsideClickListener);
     };
 }
-/**
- * If page is not at top, add scrolling class to body
- * If page is scrolling up, add scrolling-up class to body
- *
-let lastScrollTop = 0;
-window.addEventListener('scroll', () => {
-  const body = document.body;
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if (scrollTop > 0) {
-    body.classList.add('scrolling');
-  } else {
-    body.classList.remove('scrolling');
-  }
-  if (scrollTop > lastScrollTop) {
-    body.classList.remove('scrolling-up');
-  } else {
-    body.classList.add('scrolling-up');
-  }
-  lastScrollTop = scrollTop;
-});
 
 
 /*
@@ -58,101 +38,7 @@ if (searchForm && searchField) {
         searchForm.style.removeProperty("width");
     });
 }
-/*
-  MENU SETUP
-*
-const menuButton = document.querySelector("#menu-button") as HTMLElement | null;
-const primaryMenu = document.querySelector("#primary-menu") as HTMLElement | null;
-const bars = document.querySelectorAll("#menu-button .bar");
-const subMenus = document.querySelectorAll("#primary-menu .sub-menu");
-const menuToggles = document.querySelectorAll('#primary-menu .menu-toggle');
 
-function closeMenu(){
-  menuToggles.forEach(menuToggle => menuToggle.classList.remove("on"));
-  subMenus.forEach(subMenu => subMenu.classList.remove("active"));
-  if (primaryMenu) {
-    primaryMenu.classList.remove("open");
-  }
-  if (menuButton) {
-    menuButton.classList.remove("active");
-  }
-  // Enable scrolling
-  document.body.style.overflowY = 'auto';
-  // Reset menuButton styles
-  setTimeout(() => {
-    bars.forEach(bar => bar.removeAttribute("style"));
-  }, 200);
-}
-
-/*
-  ANIMATIONS FOR MENU BUTTON
-*
-menuToggles.forEach(menuToggle => menuToggle.classList.remove("on"));
-if (menuButton && primaryMenu) {
-  menuButton.addEventListener("click", () => {
-    if (primaryMenu.classList.contains("open")) {
-      // Closing animation
-      closeMenu();
-    } else {
-      // Opening animation
-      primaryMenu.classList.add("open");
-      menuButton.classList.add("active");
-      // Disable scrolling
-      document.body.style.overflowY = 'hidden';
-    }
-  });
-}
-if (primaryMenu) {
-  const removeClickListener = clickOutsideElement(primaryMenu, () => {
-    console.log('Clicked outside the primary menu!');
-    closeMenu();
-  }, menuButton); // Pass the menuButton as the third argument
-} else {
-  console.error("Primary menu element not found.");
-}
-
-/*
-  MENU EXPANTION ON MOBILE
-*
-const menuItems = document.querySelectorAll('.menu-item-has-children');
-
-menuItems.forEach(item => {
-  const button = document.createElement('span');
-  button.classList.add('menu-toggle');
-
-  const firstLink = item.querySelector('a');
-  if (firstLink) {
-    item.insertBefore(button, firstLink);
-  } else {
-    item.appendChild(button);
-  }
-
-  button.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    const firstSubMenu = item.querySelector('.sub-menu');
-
-    if (firstSubMenu) {
-      firstSubMenu.classList.toggle('active');
-      button.classList.toggle('on'); // Toggle the 'on' class on the button
-
-      // Close other open sub-menus and update button states
-      const parentSubMenu = item.parentElement;
-      if (parentSubMenu) {
-        const siblingMenuItems = Array.from(parentSubMenu.children).filter(child => child !== item && child.classList.contains('menu-item-has-children'));
-
-        siblingMenuItems.forEach(sibling => {
-          const siblingSubMenu = sibling.querySelector('.sub-menu');
-          const siblingButton = sibling.querySelector('.menu-toggle');
-          if (siblingSubMenu && siblingButton) {
-            siblingSubMenu.classList.remove('active');
-            siblingButton.classList.remove('on'); // Remove 'on' class from sibling buttons
-          }
-        });
-      }
-    }
-  });
-});
 
 /*
   EQUAL HEIGHTS CELLS
